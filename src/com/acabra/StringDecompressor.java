@@ -16,12 +16,12 @@ public class StringDecompressor {
          final String parent;
          final int repetitionDigits;
 
-         ReplaceExpression(int openBracketIndex, int closeBracketIndex, int repetitions, int repetitionDigits, String parent) {
+         ReplaceExpression(int openBracketIndex, int closeBracketIndex, String repetitionsStr, String parent) {
              this.openBracketIndex = openBracketIndex;
              this.closeBracketIndex = closeBracketIndex;
-             this.repetitions = repetitions;
+             this.repetitions = Integer.parseInt(repetitionsStr);
              this.parent = parent;
-             this.repetitionDigits = repetitionDigits;
+             this.repetitionDigits = repetitionsStr.length();
          }
 
          private String replace() {
@@ -56,8 +56,7 @@ public class StringDecompressor {
                  lastOpen = i;
              } else if (currentChar == CLOSE_BRACKET) {
                  String amountRepetitionsStr = getAmountRepetitionsAsStr(input, lastOpen - 1);
-                 return new ReplaceExpression(lastOpen, i, Integer.parseInt(amountRepetitionsStr),
-                         amountRepetitionsStr.length(), input);
+                 return new ReplaceExpression(lastOpen, i, amountRepetitionsStr, input);
              }
          }
          return null;
