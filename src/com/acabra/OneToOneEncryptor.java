@@ -46,5 +46,32 @@ public class OneToOneEncryptor {
         }
         return true;
     }
+
+    public boolean isOneToOneEncryptionPossibleForGivenPairLinearSearch(String plainText, String encryptedText) {
+        if(null == plainText || null == encryptedText || plainText.length() != encryptedText.length()) {
+            return false;
+        }
+        Map<Character, Character> encryptionMap = new HashMap<>();
+
+        for (int i=0; i<plainText.length();i++) {
+            Character charAtPlain = plainText.charAt(i);
+            Character charAtEncrypt = encryptedText.charAt(i);
+            Character encryptValue = encryptionMap.get(charAtPlain);
+
+            if (null == encryptValue) {
+                for(Character encryptedVal: encryptionMap.values()) {
+                    if (encryptedVal.equals(charAtEncrypt)) {
+                        return false;
+                    }
+                }
+                encryptionMap.put(charAtPlain, charAtEncrypt);
+            } else {
+                if (!encryptValue.equals(charAtEncrypt)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
