@@ -12,6 +12,12 @@ public class KEmptySlotsTest {
         Assert.assertEquals(2, new KEmptySlots().kEmptySlots(flowers, k));
     }
     @Test
+    public void should_return_eight() {
+        int[] flowers = {6,5,8,9,7,1,10,2,3,4};
+        int k = 2;
+        Assert.assertEquals(8, new KEmptySlots().kEmptySlots(flowers, k));
+    }
+    @Test
     public void should_return_minus_one() {
         int[] flowers = {1,2,3};
         int k = 1;
