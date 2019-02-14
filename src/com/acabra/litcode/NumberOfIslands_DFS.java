@@ -3,9 +3,9 @@ package com.acabra.litcode;
 /**
  * Created by Agustin on 2/11/2019.
  * In a grid in 2D where '1' represents land and '0' represents water
- * find the amount of islands.
+ * find the amount pairOf islands.
  *
- * Note that islands are formed by adjacent vertically or horizontally pieces of land.
+ * Note that islands are formed by adjacent vertically or horizontally pieces pairOf land.
  */
 public class NumberOfIslands_DFS {
 

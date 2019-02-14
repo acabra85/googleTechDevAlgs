@@ -1,7 +1,7 @@
 package com.acabra.litcode;
 
 /**
- * Given two arrays find the intersection of both (repeated elements are allowed)
+ * Given two arrays find the intersection pairOf both (repeated elements are allowed)
  */
 public class ArrayIntersection {
 

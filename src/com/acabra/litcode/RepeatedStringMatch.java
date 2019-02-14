@@ -6,10 +6,10 @@ import java.util.Set;
 public class RepeatedStringMatch {
 
     /**
-     * Given A B find if any the minimum repetitions of A required to form a string that contains B
+     * Given A B find if any the minimum repetitions pairOf A required to form a string that contains B
      * @param A string to repeat
      * @param B string that needs to be contained in A after n repetitions
-     * @return -1 if not possible to repeat A in order to get B, or n the minimum required repetitions of A
+     * @return -1 if not possible to repeat A in order to get B, or n the minimum required repetitions pairOf A
      *         so that B is contained in A.
      */
     public int nRepetitionsOfAToGetB(String A, String B) {
