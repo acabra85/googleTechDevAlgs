@@ -1,9 +1,20 @@
 package com.acabra.litcode;
 
+import com.acabra.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class KEmptySlotsTest {
+
+    public static class KEmptySlotsTestUnit {
+        final int[] flowers;
+        final int k;
+
+        public KEmptySlotsTestUnit(int[] flowers, int k) {
+            this.flowers = flowers;
+            this.k = k;
+        }
+    }
 
     @Test
     public void should_return_two() {
@@ -16,6 +27,12 @@ public class KEmptySlotsTest {
         int[] flowers = {6,5,8,9,7,1,10,2,3,4};
         int k = 2;
         Assert.assertEquals(8, new KEmptySlots().kEmptySlots(flowers, k));
+    }
+
+    @Test
+    public void should_return_minus_one_01() {
+        KEmptySlotsTestUnit unit = TestUtils.readKEmptySlotsTestInput("kemptyslotstest_test_01.txt");
+        Assert.assertEquals(-1, new KEmptySlots().kEmptySlots(unit.flowers, unit.k));
     }
     @Test
     public void should_return_minus_one() {
