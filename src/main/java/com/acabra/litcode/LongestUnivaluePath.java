@@ -4,7 +4,6 @@ public class LongestUnivaluePath {
 
     public int longestUnivaluePath(TreeNode root) {
         int[] maxLength = new int[1];
-        maxLength[0] = 0;
         pLength(root, maxLength);
         return maxLength[0];
     }
