@@ -11,7 +11,7 @@ public class KEmptySlotsTest {
         final int k;
 
         public KEmptySlotsTestUnit(int[] flowers, int k) {
-            this.flowers = flowers;
+            this.flowers = flowers.clone();
             this.k = k;
         }
     }

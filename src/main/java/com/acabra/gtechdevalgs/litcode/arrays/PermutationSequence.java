@@ -27,6 +27,13 @@ public class PermutationSequence {
         return "";
     }
 
+    /**
+     * Brute force method for creating all permutations of an array
+     * @param a
+     * @param size
+     * @param n
+     * @param pq
+     */
     private void permutations(int a[], int size, int n, PriorityQueue<Integer> pq) {
         if (size == 1) {
             StringBuilder val = new StringBuilder();
@@ -38,7 +45,7 @@ public class PermutationSequence {
 
         for (int i=0; i<size; i++) {
             permutations(a, size-1, n, pq);
-            if (size % 2 == 1) {
+            if (size % 2 != 0) {
                 int temp = a[0];
                 a[0] = a[size-1];
                 a[size-1] = temp;
@@ -69,12 +76,10 @@ public class PermutationSequence {
         List<Integer> kInFactorialBase = convertToFactorialBase(k - 1, n);
         LinkedList<Character> stringToPermute = buildPermutationString(n);
         StringBuilder res = new StringBuilder();
-        int i = 0;
-        while (!stringToPermute.isEmpty()) {
+        for(int i = 0; !stringToPermute.isEmpty(); i++) {
             int index1 = kInFactorialBase.get(i);
             res.append(stringToPermute.get(index1));
             stringToPermute.remove(index1);
-            i++;
         }
         return res.toString();
     }

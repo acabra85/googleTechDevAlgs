@@ -87,7 +87,7 @@ public class ArrayIntersection {
         return freqMap;
     }
 
-    private class Nums {
+    private static class Nums {
         int[] smaller;
         int[] larger;
 

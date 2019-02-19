@@ -97,7 +97,7 @@ public class NumberOfIslands_IntuitiveDFS {
         }
 
         public boolean equals(Object other) {
-            if (null == other || other.getClass() != LandCell.class) {
+            if (null == other || other.getClass() != this.getClass()) {
                 return false;
             }
             LandCell otherLandCell = (LandCell) other;

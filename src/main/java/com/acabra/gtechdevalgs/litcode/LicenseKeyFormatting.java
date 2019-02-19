@@ -21,12 +21,8 @@ public class LicenseKeyFormatting {
                 sb.append(Character.toUpperCase(S.charAt(i)));
             }
         }
-        int mod = sb.length() / K;
-        int div = sb.length() / K;
-
         String controlGroup = sb.toString();
 
-        int iGroupCount = mod == 0 ? div : div + 1;
         StringBuilder res = new StringBuilder();
         for (int i = controlGroup.length() - 1, count = 0; i >= 0 ; i--) {
             res.append(controlGroup.charAt(i));

@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -18,13 +20,17 @@ public class TestUtils {
         InputStream resourceAsStream = TestUtils.class.getClassLoader()
                 .getResourceAsStream(fileName);
         if (resourceAsStream != null) {
-            try (BufferedReader bf = new BufferedReader(new InputStreamReader(resourceAsStream))) {
-                StringTokenizer st = new StringTokenizer(bf.readLine(), ",");
+            try (BufferedReader bf = new BufferedReader(new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8.name()))) {
+                String line = bf.readLine();
+                if (line == null) return null;
+                StringTokenizer st = new StringTokenizer(line, ",");
                 int[] flowers = new int[st.countTokens()];
                 for(int i=0 ;st.hasMoreTokens();i++) {
                     flowers[i] = Integer.parseInt(st.nextToken());
                 }
-                return new KEmptySlotsTest.KEmptySlotsTestUnit(flowers, Integer.parseInt(bf.readLine()));
+                line = bf.readLine();
+                if (line == null) return null;
+                return new KEmptySlotsTest.KEmptySlotsTestUnit(flowers, Integer.parseInt(line));
             } catch (IOException e) {
                 e.printStackTrace();
             }
