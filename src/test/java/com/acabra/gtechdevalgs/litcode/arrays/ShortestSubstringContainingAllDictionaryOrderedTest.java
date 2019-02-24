@@ -56,7 +56,7 @@ public class ShortestSubstringContainingAllDictionaryOrderedTest {
     }
 
     @Test
-    public void should_return_abcbd_test_1_bf() {
+    public void should_return_abcbd_bf_test_1() {
         String str = "adddbdabcbdb";
         char[] dict = {'a', 'b', 'c', 'd'};
         String expected = "abcbd";
@@ -64,10 +64,90 @@ public class ShortestSubstringContainingAllDictionaryOrderedTest {
     }
 
     @Test
-    public void should_return_abcbd_test_2_bf() {
+    public void should_return_abcbd_bf_test_2() {
+        String str = "aabbacdabcda";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_bf_test_3() {
+        String str = "ababcd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_bf_test_4() {
+        String str = "aabcdaaabbcdd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_bf_test_5() {
+        String str = "aaaaaaaaaabbccddbbbbccccddddabbcdddddd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abbcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_bf_test_6() {
+        String str = "abababcabcabbcdabcdd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_1() {
         String str = "adddbdabcbdb";
         char[] dict = {'a', 'b', 'c', 'd'};
         String expected = "abcbd";
-        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary_bf(str, dict));
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_2() {
+        String str = "aabbacdabcda";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_3() {
+        String str = "ababcd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_4() {
+        String str = "aabcdaaabbcdd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_5() {
+        String str = "aaaaaaaaaabbccddbbbbccccddddabbcdddddd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abbcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
+    }
+
+    @Test
+    public void should_return_abcbd_optimal_test_6() {
+        String str = "abababcabcabbcdabcdd";
+        char[] dict = {'a', 'b', 'c', 'd'};
+        String expected = "abcd";
+        Assert.assertEquals(expected, new ShortestSubstringContainingAllDictionaryOrdered().minimalLengthStringContainingAllCharactersInDictionary(str, dict));
     }
 }
