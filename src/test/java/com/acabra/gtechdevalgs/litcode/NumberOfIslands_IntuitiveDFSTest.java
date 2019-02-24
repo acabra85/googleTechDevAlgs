@@ -41,4 +41,9 @@ public class NumberOfIslands_IntuitiveDFSTest {
         };
         Assert.assertEquals(3, new NumberOfIslands_IntuitiveDFS().numIslands(grid3));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void should_fail() {
+        new NumberOfIslands_IntuitiveDFS().numIslands(null);
+    }
 }

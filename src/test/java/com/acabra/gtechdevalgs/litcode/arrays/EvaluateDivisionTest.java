@@ -14,7 +14,7 @@ public class EvaluateDivisionTest {
                 {"b", "a"},
                 {"a", "e"},
                 {"a", "a"},
-                {"x", "x"}
+                {"col", "col"}
         };
         double[] expected = {
                 6.0,
@@ -32,7 +32,7 @@ public class EvaluateDivisionTest {
         String[][] queries = {
                 {"a", "b"},
                 {"e", "e"},
-                {"x", "x"}
+                {"col", "col"}
         };
         double[] expected = {
                 1.33333,

@@ -11,15 +11,15 @@ public class NumberOfIslands_IntuitiveDFS {
     static final char LAND = '1';
 
     public int numIslands(char[][] grid) {
-
+        if (null == grid) throw new NullPointerException("Given grid must not be null");
         final int MAX_ROWS = grid.length;
         final int MAX_COLS = MAX_ROWS > 0 ? grid[0].length : 0;
 
         AtomicInteger islandCount = new AtomicInteger(0);
         Map<String, LandCell> landMap = new HashMap<>();
         Stack<LandCell> landStack = new Stack<>();
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLS; j++) {
                 if (grid[i][j] == LAND) {
                     LandCell iLand = new LandCell(i, j);
                     landMap.put(makeCellId(i,j), iLand);

@@ -6,7 +6,7 @@ public class EvaluateDivision {
 
     /**
      *
-     * @param equations Array of pairs <x, y> representing the x/y in the equation
+     * @param equations Array of pairs <col, row> representing the col/row in the equation
      * @param values Array of corresponding results to the equations
      * @param queries Array of pairs representing the questions to be solved
      * @return an array representing the solutions to the queries if not posible for a given query answer -1.0.
