@@ -38,19 +38,18 @@ public class TextProperEnclosing {
             Character curr = text.charAt(i);
             boolean isOpen = OPENERS.contains(curr);
             if (isOpen || CLOSERS.contains(curr)) {
-                Character peek = OPENER_TO_CLOSER.get(openersStack.peek());
                 if(OPENER_TO_CLOSER.get(curr) == null){ //not a self closer
                     if (isOpen) {
                         openersStack.push(curr);
                     } else {
-                        if (openersStack.isEmpty() || !peek.equals(curr)) {
+                        if (openersStack.isEmpty() || !OPENER_TO_CLOSER.get(openersStack.peek()).equals(curr)) {
                             return false; //trying to close an unopened item
                         } else {
                             openersStack.pop();
                         }
                     }
                 } else { //character is selfclosing
-                    if (openersStack.isEmpty() || !peek.equals(curr)) {
+                    if (openersStack.isEmpty() || !OPENER_TO_CLOSER.get(openersStack.peek()).equals(curr)) {
                         openersStack.push(curr);
                     } else {
                         openersStack.pop();
