@@ -92,6 +92,12 @@ public class PermutationSequence {
         return linked;
     }
 
+    /**
+     * Converts a k decimal into its factorial-base representation
+     * @param k the number to convert
+     * @param n the size (required to complete padding)
+     * @return a list containing the factorial digits
+     */
     private List<Integer> convertToFactorialBase(int k, int n) {
         LinkedList<Integer> sb = new LinkedList<>();
         int i = 1;
@@ -101,7 +107,7 @@ public class PermutationSequence {
             q = q/i++;
         }
         sb.addFirst(q%i);
-        while(sb.size() < n) {
+        while(sb.size() < n) { //pad zeroes to the beginning of the number to complete n characters
             sb.addFirst(0);
         }
         return sb;
