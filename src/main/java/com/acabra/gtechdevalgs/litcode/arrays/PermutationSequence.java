@@ -78,8 +78,7 @@ public class PermutationSequence {
         StringBuilder res = new StringBuilder();
         for(int i = 0; !stringToPermute.isEmpty(); i++) {
             int index1 = kInFactorialBase.get(i);
-            res.append(stringToPermute.get(index1));
-            stringToPermute.remove(index1);
+            res.append(stringToPermute.remove(index1));
         }
         return res.toString();
     }
