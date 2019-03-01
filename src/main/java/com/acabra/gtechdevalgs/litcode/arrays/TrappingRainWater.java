@@ -1,9 +1,5 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class TrappingRainWater {
     /**
      * Given an array of columns with elevation [i] indicate the amount of water that can be trapped
@@ -26,64 +22,36 @@ public class TrappingRainWater {
     public int trappedWater(int[] elevation) {
         if (null == elevation) throw new NullPointerException("Given elevation must not be null");
         if (elevation.length <= 2) return 0;
-        List<Elevations> elevations = processElevations(elevation);
-        AtomicInteger water = new AtomicInteger(0);
+        int[] left = getLeft(elevation);
+        int[] right = getRight(elevation);
+        int water = 0;
         for (int i = 1; i < elevation.length - 1; i++) {
-            Elevations iElevations = elevations.get(i-1);
-            water.addAndGet(getWater(elevation[i], elevation[iElevations.leftIndex], elevation[iElevations.rightIndex]));
+            water += getWater(left[i-1], right[i-1], elevation[i]);
         }
-        return water.get();
+        return water;
     }
 
-    private int getWater(int elevation, int maxLeft, int maxRight) {
-        if (elevation < maxLeft && elevation < maxRight) {
-            if (maxLeft == maxRight) return maxRight - elevation;
-            return Math.min(maxRight, maxLeft) - elevation;
-        }
-        return 0;
+    private int getWater(int maxLeft, int maxRight, int elevation) {
+        return Math.max(0, Math.min(maxRight, maxLeft) - elevation);
     }
 
-    private List<Elevations> processElevations(int[] elevation) {
-        List<Elevations> elevationList = new ArrayList<>(elevation.length-2);
-
-        int idx = 0;
-        int val = elevation[idx];
-        for (int i = 1; i < elevation.length - 1; i++) {
-            elevationList.add(new Elevations(idx, -1));
-            if (elevation[i] >= val) {
-                val = elevation[i];
-                idx = i;
-            }
-        }
-
-        idx = elevation.length - 1;
-        val = elevation[idx];
+    private int[] getRight(int[] elevation) {
+        int[] right = new int[elevation.length - 2];
+        int val = elevation[elevation.length - 1];
         for (int i = elevation.length - 2; i > 0; i--) {
-            elevationList.set(i - 1, elevationList.get(i-1).completeRight(idx));
-            if (elevation[i] >= val) {
-                val = elevation[i];
-                idx = i;
-            }
+            right[i-1] = val;
+            val = Math.max(val, elevation[i]);
         }
-        return elevationList;
+        return right;
     }
 
-    public class Elevations {
-        final int leftIndex;
-        final int rightIndex;
-
-        public Elevations(int leftIndex, int rightIndex) {
-            this.leftIndex = leftIndex;
-            this.rightIndex = rightIndex;
+    private int[] getLeft(int[] elevation) {
+        int[] left = new int[elevation.length - 2];
+        int val = elevation[0];
+        for (int i = 1; i < elevation.length - 1; i++) {
+            left[i-1] = val;
+            val = Math.max(val, elevation[i]);
         }
-
-        @Override
-        public String toString() {
-            return "{" + leftIndex+ "," + rightIndex + "}";
-        }
-
-        public Elevations completeRight(int idx) {
-            return new Elevations(this.leftIndex, idx);
-        }
+        return left;
     }
 }
