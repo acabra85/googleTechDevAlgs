@@ -13,17 +13,13 @@ class LRUCache {
     public LRUCache(int capacity) {
         this.blocked = capacity <= 0;
         this.capacity = capacity;
-        this.cache = new HashMap<>();
+        this.cache = new HashMap<>(capacity);
 
         this.head = new CacheValue(-1, -1);
         this.tail = new CacheValue(-1, -1);
 
-        this.head.prev = null;
         this.head.next = this.tail;
-
         this.tail.prev = this.head;
-        this.tail.next = null;
-
     }
 
     public void put(int key, int value) {
