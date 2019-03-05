@@ -1,38 +1,50 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class LongestSubstringAtMostKDistinct {
 
+    /**
+     * Use a moving window across the given string to find the best candidate
+     * @param s string to look into for the longest substring
+     * @param k in representing the maximum amount of distinct characters in the substring
+     * @return length of the longest substring with at most k characters within s
+     */
+    @SuppressWarnings("Duplicates")
     public int sizeLongestSubstringAtMostKDistinct(String s, int k) {
-        if(null == s) throw new NullPointerException("invalid input: s is null");
+        if (null == s) throw new NullPointerException("invalid input: s is null");
         if (s.length() == 0 || k <= 0) return 0;
         if (distinctChars(s) <= k) return s.length();
-        HashMap<Character, Integer> freqMap = new HashMap<>();
+
         int max = Integer.MIN_VALUE;
-        Integer iCount;
-        int start = 0;
-        for (int i = 0; i < s.length() && (max < s.length() - i || freqMap.size() <= k); i++) {
-            char key = s.charAt(i);
-            iCount = freqMap.get(key);
-            if (iCount == null) {
-                freqMap.put(key, 1);
-            } else {
-                freqMap.put(key, freqMap.get(key) + 1);
-            }
-            if (freqMap.size() > k || (freqMap.size() == k && i == s.length()-1)) {
-                int delta = freqMap.size() > k ? i : i + 1;
-                max = Math.max(max, delta - start);
-                freqMap = new HashMap<>();
-                i = start;
-                start++;
+        int windStart = 0;
+        Map<Character, Integer> freqMap = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            freqMap.merge(s.charAt(i), 1, Integer::sum);
+            if (freqMap.size() > k) { //we surpassed the amount of distinct keys
+                max = Math.max(max, i-windStart);
+                windStart = reduceTheMap(freqMap, s, windStart, k);
             }
         }
-        return max >= 0 ? max : 0;
+        max = Math.max(max, s.length()-windStart);
+        return max;
     }
 
+    @SuppressWarnings("Duplicates")
+    private int reduceTheMap(Map<Character, Integer> freqMap, String s, int windStart, int targetK) {
+        int newIndex = windStart;
+        while (freqMap.size() > targetK) {
+            Character charAt = s.charAt(newIndex++);
+            if (freqMap.get(charAt) > 1) {
+                freqMap.put(charAt, freqMap.get(charAt) - 1);
+            } else {
+                freqMap.remove(charAt);
+            }
+        }
+        return newIndex;
+    }
+
+    @SuppressWarnings("Duplicates")
     private int distinctChars(String s) {
         Set<Character> set = new HashSet<>();
         for (int i = 0; i < s.length(); i++) {
