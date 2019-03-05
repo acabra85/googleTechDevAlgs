@@ -41,9 +41,9 @@ public class TrappingRainWaterTest {
     }
 
     @Test
-    public void should_return_16_test_6() {
-        int[] input = {3,0,2,0,1,0,2,0,3};
-        int expected = 16;
+    public void should_return_1_test_6() {
+        int[] input = {1,0,1};
+        int expected = 1;
         Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
     }
 
@@ -91,6 +91,90 @@ public class TrappingRainWaterTest {
     public void should_return_3_test_13() {
         int[] input = {3,0,2,0,1,0};
         int expected = 3;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_0_test_14() {
+        int[] input = {0,0,2,4,1,0};
+        int expected = 0;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_5_test_15() {
+        int[] input = {2,1,0,0,3};
+        int expected = 5;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_6_test_16() {
+        int[] input = {1,0,2,0,3,0,2,0,1};
+        int expected = 6;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_5_test_17() {
+        int[] input = {2,0,1,0,2};
+        int expected = 5;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_0_test_18() {
+        int[] input = {0,2,0};
+        int expected = 0;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_1_test_19() {
+        int[] input = {5,4,1,2};
+        int expected = 1;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_6_test_20() {
+        int[] input = {3,2,0,1,3,6};
+        int expected = 6;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_1_test_21() {
+        int[] input = {2,3,4,5,4,5,3,2};
+        int expected = 1;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_1_test_22() {
+        int[] input = {4,2,3};
+        int expected = 1;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_1_test_23() {
+        int[] input = {4,3,3,9,3,0,9,2,8,3};
+        int expected = 23;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_7_test_24() {
+        int[] input = {0,7,1,4,6};
+        int expected = 7;
+        Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
+    }
+
+    @Test
+    public void should_return_35_test_25() {
+        int[] input = {9,2,9,3,2,2,1,4,8};
+        int expected = 35;
         Assert.assertEquals(expected, new TrappingRainWater().trappedWater(input));
     }
 }

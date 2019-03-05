@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +91,17 @@ public class TestUtils {
             listNodes[i] = lists.get(i);
         }
         return listNodes;
+    }
+
+    public static <T extends Comparable> void AssertListEquals(List<T> l1, List<T> l2) {
+        if(null == l1 || null == l2) {
+            if (l1 != l2) throw new AssertionError("lists are different");
+            else return;
+        }
+        if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths");
+        for (int i = 0; i < l1.size(); i++) {
+            if (l1.get(i).compareTo(l2.get(i)) != 0)
+                throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
+        }
     }
 }
