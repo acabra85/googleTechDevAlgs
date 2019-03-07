@@ -2,6 +2,7 @@ package com.acabra.gtechdevalgs;
 
 import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.LongestUnivaluePath;
+import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.MergeKList;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -93,7 +95,7 @@ public class TestUtils {
         return listNodes;
     }
 
-    public static <T extends Comparable> void AssertListEquals(List<T> l1, List<T> l2) {
+    public static <T extends Comparable> void assertListEquals(List<T> l1, List<T> l2) {
         if(null == l1 || null == l2) {
             if (l1 != l2) throw new AssertionError("lists are different");
             else return;
@@ -103,5 +105,25 @@ public class TestUtils {
             if (l1.get(i).compareTo(l2.get(i)) != 0)
                 throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
         }
+    }
+
+    public static <T> void assertListEquals(List<T> l1, List<T> l2, Comparator<T> comp) {
+        if(null == l1 || null == l2) {
+            if (l1 != l2) throw new AssertionError("lists are different");
+            else return;
+        }
+        if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths");
+        for (int i = 0; i < l1.size(); i++) {
+            if (comp.compare(l1.get(i), l2.get(i)) != 0)
+                throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
+        }
+    }
+
+    public static List<MergeIntervals.Interval> buildIntervalList(int[][] inputArray) {
+        List<MergeIntervals.Interval> list = new ArrayList<>();
+        for (int i = 0; i < inputArray.length; i++) {
+            list.add(new MergeIntervals.Interval(inputArray[i][0], inputArray[i][1]));
+        }
+        return list;
     }
 }

@@ -15,14 +15,14 @@ public class CodecTest {
             add("World");
         }};
         Codec codec = new Codec();
-        TestUtils.AssertListEquals(input, codec.decode(codec.encode(input)));
+        TestUtils.assertListEquals(input, codec.decode(codec.encode(input)));
     }
 
     @Test
     public void test_2() {
         List<String> input = new ArrayList<>();
         Codec codec = new Codec();
-        TestUtils.AssertListEquals(input, codec.decode(codec.encode(input)));
+        TestUtils.assertListEquals(input, codec.decode(codec.encode(input)));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class CodecTest {
             add("");
         }};
         Codec codec = new Codec();
-        TestUtils.AssertListEquals(input, codec.decode(codec.encode(input)));
+        TestUtils.assertListEquals(input, codec.decode(codec.encode(input)));
     }
 
     @Test
@@ -46,6 +46,6 @@ public class CodecTest {
             add("");
         }};
         Codec codec = new Codec();
-        TestUtils.AssertListEquals(input, codec.decode(codec.encode(input)));
+        TestUtils.assertListEquals(input, codec.decode(codec.encode(input)));
     }
 }

@@ -13,6 +13,6 @@ public class SelfDividingNumberTest {
         int left = 1;
         int right = 22;
         List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22);
-        TestUtils.AssertListEquals(expected, new SelfDividingNumber().selfDividingNumbers(left, right));
+        TestUtils.assertListEquals(expected, new SelfDividingNumber().selfDividingNumbers(left, right));
     }
 }
