@@ -16,7 +16,7 @@ public class PermutationSequence {
         int a[] = new int[n];
         for(int i = 0; i<n; i++) a[i] = i+1;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        permutations(a, a.length, n, pq);
+        permutations(a, n, pq);
         Integer elm;
         for(int i = 0; i < k && !pq.isEmpty(); i++){
             elm = pq.remove();
@@ -29,12 +29,11 @@ public class PermutationSequence {
 
     /**
      * Brute force method for creating all permutations of an array
-     * @param a
-     * @param size
-     * @param n
-     * @param pq
+     * @param a the array containing the data to create the permutation
+     * @param size the array size
+     * @param pq the priority queue that holds all results in ascending order
      */
-    private void permutations(int a[], int size, int n, PriorityQueue<Integer> pq) {
+    private void permutations(int a[], int size, PriorityQueue<Integer> pq) {
         if (size == 1) {
             StringBuilder val = new StringBuilder();
             for(int i=0;i<a.length;i++) {
@@ -44,7 +43,7 @@ public class PermutationSequence {
         }
 
         for (int i=0; i<size; i++) {
-            permutations(a, size-1, n, pq);
+            permutations(a, size-1, pq);
             if (size % 2 != 0) {
                 int temp = a[0];
                 a[0] = a[size-1];
