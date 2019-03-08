@@ -1,14 +1,21 @@
 package com.acabra.gtechdevalgs.litcode.linkedlist;
 
 import java.util.Comparator;
-import java.util.Objects;
 import java.util.PriorityQueue;
+import java.util.Objects;
 
 public class MergeKList {
 
 
+    static final Comparator<ListNode> COMP = new Comparator<ListNode>() {
+        @Override
+        public int compare(ListNode a, ListNode b) {
+            return a.val - b.val;
+        }
+    };
+
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(COMP);
         ListNode point = new ListNode(0);
         ListNode head = point;
         for (ListNode listNode : lists) {

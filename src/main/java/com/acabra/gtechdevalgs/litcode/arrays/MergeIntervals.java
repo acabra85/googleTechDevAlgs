@@ -4,11 +4,17 @@ import java.util.*;
 
 public class MergeIntervals {
 
+    private static final Comparator<Interval> COMPARATOR = new Comparator<Interval>() {
+        @Override
+        public int compare(Interval o1, Interval o2) {
+            return o1.start - o2.start;
+        }
+    };
 
     public List<Interval> merge(List<Interval> intervals) {
         if (intervals == null) throw new NullPointerException("intervals is null");
         if (intervals.isEmpty()) return Collections.EMPTY_LIST;
-        PriorityQueue<Interval> pq = new PriorityQueue<>(Comparator.comparingInt(a->a.start));
+        PriorityQueue<Interval> pq = new PriorityQueue<>(COMPARATOR);
         for (Interval interval: intervals) {
             pq.offer(interval);
         }
