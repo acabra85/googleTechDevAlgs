@@ -10,26 +10,26 @@ public class MergeKList {
     static final Comparator<ListNode> COMP = new Comparator<ListNode>() {
         @Override
         public int compare(ListNode a, ListNode b) {
-            return a.val - b.val;
+            return a.val < b.val ? -1 : (a.val == b.val ? 0 : 1);
         }
     };
 
     public ListNode mergeKLists(ListNode[] lists) {
         PriorityQueue<ListNode> pq = new PriorityQueue<>(COMP);
-        ListNode point = new ListNode(0);
-        ListNode head = point;
+        ListNode head = new ListNode(0);
         for (ListNode listNode : lists) {
             if (null != listNode) {
                 pq.offer(listNode);
             }
         }
+        ListNode remove;
+        ListNode point = head;
         while (!pq.isEmpty()) {
-            ListNode remove = pq.remove();
-            point.next = new ListNode(remove.val);
+            remove = pq.remove();
+            point.next = remove;
             point = point.next;
-            remove = remove.next;
-            if (null != remove) {
-                pq.offer(remove);
+            if (null != remove.next) {
+                pq.offer(remove.next);
             }
         }
         return head.next;
