@@ -126,4 +126,15 @@ public class TestUtils {
         }
         return list;
     }
+
+    public static ListNode buildNumberAsNodeReverseOrder(String numAsStr) {
+        String reversed = new StringBuilder(numAsStr).reverse().toString();
+        ListNode head = new ListNode(0);
+        ListNode current = head;
+        for (int i = 0; i < reversed.length(); i++) {
+            current.next = new ListNode(Integer.parseInt(reversed.charAt(i)+""));
+            current = current.next;
+        }
+        return head.next;
+    }
 }
