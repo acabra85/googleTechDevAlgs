@@ -3,7 +3,7 @@ package com.acabra.gtechdevalgs;
 import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.LongestUnivaluePath;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
-import com.acabra.gtechdevalgs.litcode.linkedlist.MergeKList;
+import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,14 +72,14 @@ public class TestUtils {
         return "null".equals(token) ? null : Integer.parseInt(token);
     }
 
-    public static MergeKList.ListNode[] buildMergeKList(String s) {
+    public static ListNode[] buildMergeKList(String s) {
         StringTokenizer st = new StringTokenizer(s, "[");
-        List<MergeKList.ListNode> lists = new ArrayList<>();
+        List<ListNode> lists = new ArrayList<>();
         while (st.hasMoreTokens()) {
             String[] split = st.nextToken().split(",");
-            MergeKList.ListNode node = null, prev = null;
+            ListNode node = null, prev = null;
             for (int i = 0; i < split.length; i++) {
-                node = new MergeKList.ListNode(asInt(split[i]));
+                node = new ListNode(asInt(split[i]));
                 if (i==0) {
                     lists.add(node);
                 } else {
@@ -88,7 +88,7 @@ public class TestUtils {
                 prev = node;
             }
         }
-        MergeKList.ListNode[] listNodes = new MergeKList.ListNode[lists.size()];
+        ListNode[] listNodes = new ListNode[lists.size()];
         for (int i = 0; i < lists.size(); i++) {
             listNodes[i] = lists.get(i);
         }

@@ -1,7 +1,5 @@
 package com.acabra.gtechdevalgs.litcode.linkedlist;
 
-import com.acabra.gtechdevalgs.litcode.linkedlist.MergeKList.ListNode;
-
 public class MergeTwoLists {
 
     public ListNode merge(ListNode l1, ListNode l2) {
