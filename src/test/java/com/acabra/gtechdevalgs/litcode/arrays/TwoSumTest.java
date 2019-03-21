@@ -28,4 +28,35 @@ public class TwoSumTest {
         int[] expected = {-1, -1};
         Assert.assertArrayEquals(expected, new TwoSum().twoSum(input, target));
     }
+
+
+    //Api Test
+
+    @Test
+    public void api_test01() {
+        TwoSum twoSum = new TwoSum();
+        twoSum.add(0);
+        Assert.assertFalse(twoSum.find(0));
+    }
+
+    @Test
+    public void api_test02() {
+        TwoSum twoSum = new TwoSum();
+        twoSum.add(3);
+        twoSum.add(2);
+        twoSum.add(1);
+        Assert.assertFalse(twoSum.find(2));
+        Assert.assertTrue(twoSum.find(3));
+        Assert.assertTrue(twoSum.find(4));
+        Assert.assertTrue(twoSum.find(5));
+        Assert.assertFalse(twoSum.find(6));
+    }
+
+    @Test
+    public void api_test03() {
+        TwoSum twoSum = new TwoSum();
+        twoSum.add(0);
+        twoSum.add(0);
+        Assert.assertTrue(twoSum.find(0));
+    }
 }
