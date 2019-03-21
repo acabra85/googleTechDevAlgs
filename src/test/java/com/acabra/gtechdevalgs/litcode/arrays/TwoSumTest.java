@@ -69,7 +69,7 @@ public class TwoSumTest {
     public void should_return_2_3_ordered_test_01() {
         int[] nums = {1,2,3,4,8,9};
         int target = 7;
-        int[] expected = {2,3};
+        int[] expected = {3,4};
         Assert.assertArrayEquals(expected, new TwoSum().twoSumInputAscendingOrder(nums, target));
     }
 
