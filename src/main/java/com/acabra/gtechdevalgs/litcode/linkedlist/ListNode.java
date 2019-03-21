@@ -2,7 +2,7 @@ package com.acabra.gtechdevalgs.litcode.linkedlist;
 
 import java.util.Objects;
 
-public class ListNode implements Comparable<ListNode> {
+public class ListNode {
     public int val;
     public ListNode next;
     public ListNode(int x) { val = x; }
@@ -21,8 +21,4 @@ public class ListNode implements Comparable<ListNode> {
         return Objects.hash(val, next);
     }
 
-    @Override
-    public int compareTo(ListNode other) {
-        return this.val < other.val ? -1 : (this.val == other.val ? 0 : 1);
-    }
 }
