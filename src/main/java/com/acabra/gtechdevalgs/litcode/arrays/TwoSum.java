@@ -75,4 +75,31 @@ public class TwoSum {
         }
         return false;
     }
+
+    /**
+     * Find the indexes of two numbers that add up to target
+     * @param nums a sorted array of integers
+     * @param target the target sum of two values within the nums array
+     * @return the indexes of the two numbers
+     */
+    public int[] twoSumInputAscendingOrder(int[] nums, int target) {
+        int[] ans = {-1, -1};
+        if (nums == null || nums.length < 2) return ans;
+        int lo = 0;
+        int hi = nums.length - 1;
+        int sum = 0;
+        while(lo <= hi) {
+            sum = nums[lo] + nums[hi];
+            if (sum == target) {
+                ans[0] = lo + 1;
+                ans[1] = hi + 1;
+                return ans;
+            } else if (sum > target) {
+                hi--;
+            } else {
+                lo++;
+            }
+        }
+        return ans;
+    }
 }

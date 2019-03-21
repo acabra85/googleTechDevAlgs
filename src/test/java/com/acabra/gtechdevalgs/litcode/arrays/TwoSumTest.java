@@ -5,6 +5,7 @@ import org.junit.Test;
 
 public class TwoSumTest {
 
+    // Test input array nor particularly ordered
     @Test
     public void should_return_0_4_test_01() {
         int target = 5;
@@ -58,5 +59,25 @@ public class TwoSumTest {
         twoSum.add(0);
         twoSum.add(0);
         Assert.assertTrue(twoSum.find(0));
+    }
+
+
+
+    //Test sumTwo input in ascending order
+
+    @Test
+    public void should_return_2_3_ordered_test_01() {
+        int[] nums = {1,2,3,4,8,9};
+        int target = 7;
+        int[] expected = {2,3};
+        Assert.assertArrayEquals(expected, new TwoSum().twoSumInputAscendingOrder(nums, target));
+    }
+
+    @Test
+    public void should_return_1_2_ordered_test_02() {
+        int[] nums = {2,7,11,15};
+        int target = 9;
+        int[] expected = {1, 2};
+        Assert.assertArrayEquals(expected, new TwoSum().twoSumInputAscendingOrder(nums, target));
     }
 }
