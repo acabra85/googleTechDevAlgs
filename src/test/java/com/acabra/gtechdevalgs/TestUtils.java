@@ -1,10 +1,10 @@
 package com.acabra.gtechdevalgs;
 
 import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
-import com.acabra.gtechdevalgs.litcode.LongestUnivaluePath;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
-
+import com.acabra.gtechdevalgs.litcode.trees.LongestUnivaluePath;
+import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,29 +39,30 @@ public class TestUtils {
         throw new NullPointerException();
     }
 
-    public static LongestUnivaluePath.TreeNode buildTreeForLongestUnivaluePath(String s) {
+    public static TreeNode buildBSTFromString(String s) {
         if (s==null || s.length() == 0) return null;
-        List<LongestUnivaluePath.TreeNode> nodes = new ArrayList<>();
+        List<TreeNode> nodes = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, ",");
         int index = 0;
         while (st.hasMoreTokens()) {
             Integer integer = asInt(st.nextToken());
             if (index == 0) {
-                nodes.add(new LongestUnivaluePath.TreeNode(integer));
+                nodes.add(new TreeNode(integer));
             }
             else {
-                LongestUnivaluePath.TreeNode node = null == integer ? null : new LongestUnivaluePath.TreeNode(integer);
+                TreeNode node = null == integer ? null : new TreeNode(integer);
                 nodes.add(node);
             }
             index++;
         }
         for (int i = nodes.size()-1; i > 0; i--) {
-            LongestUnivaluePath.TreeNode cNode = nodes.get(i);
+            TreeNode cNode = nodes.get(i);
             if(cNode != null) {
+                TreeNode treeNode = nodes.get((i - 1) / 2);
                 if (i%2==0) {
-                    nodes.get((i-1)/2).right = nodes.get(i);
+                    treeNode.right = nodes.get(i);
                 } else {
-                    nodes.get((i-1)/2).left = nodes.get(i);
+                    treeNode.left = nodes.get(i);
                 }
             }
         }

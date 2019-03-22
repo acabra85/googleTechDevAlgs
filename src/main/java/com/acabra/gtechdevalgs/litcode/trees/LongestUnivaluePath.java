@@ -1,4 +1,4 @@
-package com.acabra.gtechdevalgs.litcode;
+package com.acabra.gtechdevalgs.litcode.trees;
 
 public class LongestUnivaluePath {
 
@@ -22,12 +22,5 @@ public class LongestUnivaluePath {
         }
         maxLength[0] = Math.max(maxLength[0], rLenght + lLenght);
         return Math.max(lLenght, rLenght);
-    }
-
-    public static class TreeNode {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int x) { val = x; }
     }
 }
