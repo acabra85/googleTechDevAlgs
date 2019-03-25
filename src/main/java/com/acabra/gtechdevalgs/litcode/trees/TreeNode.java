@@ -12,4 +12,9 @@ public class TreeNode {
     public TreeNode(int val) {
         this.val = val;
     }
+
+    @Override
+    public String toString() {
+        return (left!=null ? left.val : ".")  + "@"+ val+"@"+(right!=null?right.val:".") ;
+    }
 }
