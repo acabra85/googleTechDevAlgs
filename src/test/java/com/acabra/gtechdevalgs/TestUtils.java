@@ -101,7 +101,7 @@ public class TestUtils {
             if (l1 != l2) throw new AssertionError("lists are different");
             else return;
         }
-        if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths");
+        if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths l1: "+ l1.size() + " l2:" + l2.size());
         for (int i = 0; i < l1.size(); i++) {
             if (l1.get(i).compareTo(l2.get(i)) != 0)
                 throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
