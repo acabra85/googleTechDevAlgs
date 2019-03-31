@@ -1,0 +1,22 @@
+package test.test.test;
+
+import java.util.*;
+
+//
+public class Test {
+
+    final int num;
+
+    public Test() {
+        this.num = 0;
+    }
+//
+    /**
+    *
+    * Nothing here either "testing"
+    */
+    public void test01() {
+        // nothing here
+        String string = "nothing here";
+    }
+}
