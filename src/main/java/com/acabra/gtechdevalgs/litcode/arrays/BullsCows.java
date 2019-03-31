@@ -24,29 +24,30 @@ public class BullsCows {
         Set<Integer> visited = new HashSet<>();
         for (int i = 0; i < guess.length(); i++) {
             charAt = guess.charAt(i);
-            if (mapToIndex.containsKey(charAt)) {
-                if (mapCount.get(charAt) > 0) {
-                    if (mapToIndex.get(charAt).contains(i)) {
-                        mapCount.put(charAt, mapCount.get(charAt) - 1);
-                        visited.add(i);
-                        bulls++;
-                    }
-                }
+            if (isBull(mapToIndex, mapCount, charAt, i)) {
+                mapCount.put(charAt, mapCount.get(charAt) - 1);
+                visited.add(i);
+                bulls++;
             }
         }
         //check for cows
         for (int i = 0; i < guess.length(); i++) {
             if (!visited.contains(i)) {
                 charAt = guess.charAt(i);
-                if (mapToIndex.containsKey(charAt)) {
-                    if (mapCount.get(charAt) > 0) {
-                        mapCount.put(charAt, mapCount.get(charAt) - 1);
-                        cows++;
-                    }
+                if (isCow(mapToIndex, mapCount, charAt)) {
+                    mapCount.put(charAt, mapCount.get(charAt) - 1);
+                    cows++;
                 }
-
             }
         }
         return String.format("%dA%dB", bulls, cows);
+    }
+
+    private boolean isCow(Map<Character, Set<Integer>> mapToIndex, Map<Character, Integer> mapCount, Character charAt) {
+        return mapToIndex.containsKey(charAt) && mapCount.get(charAt) > 0;
+    }
+
+    private boolean isBull(Map<Character, Set<Integer>> mapToIndex, Map<Character, Integer> mapCount, Character charAt, int i) {
+        return mapToIndex.containsKey(charAt) && mapCount.get(charAt) > 0 && mapToIndex.get(charAt).contains(i);
     }
 }
