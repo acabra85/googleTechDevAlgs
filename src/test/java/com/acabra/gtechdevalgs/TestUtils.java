@@ -1,11 +1,15 @@
 package com.acabra.gtechdevalgs;
 
+import com.acabra.gtechdevalgs.gset.MyFile;
+import com.acabra.gtechdevalgs.gset.MyFileImpl;
 import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 import com.acabra.gtechdevalgs.litcode.trees.LongestUnivaluePath;
 import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class TestUtils {
@@ -137,5 +142,10 @@ public class TestUtils {
             current = current.next;
         }
         return head.next;
+    }
+
+    public static MyFile buildMyFile(String fileName) {
+        InputStream resourceAsStream = TestUtils.class.getClassLoader().getResourceAsStream(fileName);
+        return new MyFileImpl(resourceAsStream);
     }
 }
