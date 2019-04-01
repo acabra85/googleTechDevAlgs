@@ -14,8 +14,8 @@ public class MyFileImpl implements MyFile {
 
     private boolean endOfFile;
     private final BufferedReader bf;
-    private char[] currentLine = null;
     private String currentLineStr = null;
+    private StringBuilder seenContent = new StringBuilder();
     int indexCurrentLine = 0;
 
     public MyFileImpl(InputStream resourceAsStream) {
@@ -29,7 +29,6 @@ public class MyFileImpl implements MyFile {
         if (s == null) {
             this.endOfFile = true;
         }
-        this.currentLine = s!= null ? s.toCharArray() : null;
         this.indexCurrentLine = s!= null ? 0 : -1;
         this.currentLineStr = s;
     }
@@ -38,8 +37,8 @@ public class MyFileImpl implements MyFile {
     @Override
     public char getNextChar() {
         validateRead();
-        if (currentLine.length > 0 && indexCurrentLine < currentLine.length) {
-            return currentLine[indexCurrentLine++];
+        if (currentLineStr.length() > 0 && indexCurrentLine < currentLineStr.length()) {
+            return currentLineStr.charAt(indexCurrentLine++);
         } else {
             readNextLine();
             if (endOfFile) return '\0';
@@ -47,21 +46,21 @@ public class MyFileImpl implements MyFile {
                 indexCurrentLine++;
                 return '\n';
             }
-            return currentLine[indexCurrentLine++];
+            return currentLineStr.charAt(indexCurrentLine++);
         }
     }
 
     @Override
     public String getNextLine() {
         validateRead();
-        if (currentLine.length > 0 && indexCurrentLine < currentLine.length) {
+        if (currentLineStr.length() > 0 && indexCurrentLine < currentLineStr.length()) {
             String substring = currentLineStr.substring(indexCurrentLine);
-            indexCurrentLine = currentLine.length;
+            indexCurrentLine = currentLineStr.length();
             return substring;
         } else {
             readNextLine();
             if (endOfFile) return "";
-            indexCurrentLine = currentLine.length;
+            indexCurrentLine = currentLineStr.length();
             return currentLineStr;
         }
     }
@@ -71,12 +70,28 @@ public class MyFileImpl implements MyFile {
         return this.endOfFile;
     }
 
+    @Override
+    public void goBackNCharactersOrNone(int n) {
+        if (this.seenContent.length() + indexCurrentLine >= n) {
+            if (n <= indexCurrentLine) {
+                this.indexCurrentLine -= n;
+            } else {
+                int remainder = n - this.indexCurrentLine;
+                String pending = this.seenContent.substring(this.seenContent.length() - remainder);
+                this.seenContent.setLength(this.seenContent.length() - remainder);
+                this.currentLineStr = pending + this.currentLineStr;
+                this.indexCurrentLine = 0;
+            }
+        }
+    }
+
     private void validateRead() {
         if (endOfFile) {
             throw new NoSuchElementException("reached end of file");
         }
     }
     private void readNextLine() {
+        this.seenContent.append(this.currentLineStr);
         String s = null;
         try {
             s = bf.readLine();
@@ -84,14 +99,17 @@ public class MyFileImpl implements MyFile {
             System.out.println("unable to read line: " + e.getMessage());
         }
         if (s == null) {
-            this.endOfFile = true;
-            this.currentLine = null;
-            this.indexCurrentLine = -1;
-            this.currentLineStr = null;
+            reachedEndOfFile();
         } else {
-            this.currentLine = s.toCharArray();
+            s = s + "\n";
             this.indexCurrentLine = 0;
             this.currentLineStr = s;
         }
+    }
+
+    private void reachedEndOfFile() {
+        this.endOfFile = true;
+        this.indexCurrentLine = -1;
+        this.currentLineStr = null;
     }
 }

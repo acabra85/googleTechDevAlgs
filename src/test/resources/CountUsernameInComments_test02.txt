@@ -26,3 +26,7 @@ public class Test {
 // @sarmiea
 /* cos @sarmieas */
 // @sarmie/@sarmiea
+//@sarmiea
+//@@sarmiea
+//@sarmiea@
+//@sarmi

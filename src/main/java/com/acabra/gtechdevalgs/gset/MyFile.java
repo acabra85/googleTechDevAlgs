@@ -7,5 +7,6 @@ public interface MyFile {
     char getNextChar();
     String getNextLine();
     boolean isEOF();
+    void goBackNCharactersOrNone(int n);
 }
 

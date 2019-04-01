@@ -1,9 +1,18 @@
 package com.acabra.gtechdevalgs.gset;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Describe your class
  */
 public class CountUserNameInComments {
+
+    private final static Set<Character> VALID_CHARS = new HashSet<Character>() {{
+        add('_');
+        add('-');
+        add('@');
+    }};
 
     public int countOccurrences(MyFile myFile, String userName) {
         if (myFile == null || userName == null || userName.length() == 0) return 0;
@@ -11,7 +20,7 @@ public class CountUserNameInComments {
         while(!myFile.isEOF()) {
             char iChar = myFile.getNextChar();
             if (iChar == '"') {
-                moveFileToNextChar(myFile, '"');
+                moveFileToEndOfStringDeclaration(myFile);
             } else if (iChar == '/') {
                 if (!myFile.isEOF()) {
                     char nextChar = myFile.getNextChar();
@@ -31,29 +40,18 @@ public class CountUserNameInComments {
         if (line.length() >= userName.length()) {
             int count = 0;
             int idxUserName = 0;
+            char prevChar = '\0';
             for (int i = 0; i < line.length() && (line.length() - i) >= userName.length() - idxUserName ; i++) {
-                if (userName.charAt(idxUserName) == line.charAt(i)) {
-                    if (equalWords(userName, line, i)) {
-                        count++;
-                        i += userName.length();
-                    }
+                if (userName.charAt(idxUserName) == line.charAt(i)
+                        && validSurroundingCharacter(prevChar) && equalWordsInSingleLineComments(userName, line, i)) {
+                    count++;
+                    i += userName.length();
                 }
+                prevChar = line.charAt(i);
             }
             return count;
         }
         return 0;
-    }
-
-    private boolean equalWords(String userName, String line, int idx) {
-        if (line.length() - idx >= userName.length()) {
-            for (int i = idx, j = 0; j < userName.length(); j++, i++) {
-                if (line.charAt(i) != userName.charAt(j)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
     private int countUserNameWithinMultiBlockComments(MyFile myFile, String userName) {
@@ -64,17 +62,29 @@ public class CountUserNameInComments {
             if ((curr = myFile.getNextChar()) == '/' && prevChar == '*'){
                 break;
             }
-            if (userName.charAt(0) == curr) {
-                if (equalWords(userName, myFile)) {
-                    count++;
-                }
+            if (userName.charAt(0) == curr
+                    && validSurroundingCharacter(prevChar) && equalWordsInMultiComments(userName, myFile)) {
+                count++;
             }
             prevChar = curr;
         }
         return count;
     }
 
-    private boolean equalWords(String userName, MyFile myFile) {
+    private boolean equalWordsInSingleLineComments(String userName, String line, int idx) {
+        if (line.length() - idx >= userName.length()) {
+            int i = idx, j=0;
+            for (; j < userName.length(); j++, i++) {
+                if (line.charAt(i) != userName.charAt(j)) {
+                    return false;
+                }
+            }
+            return j == userName.length() && validSurroundingCharacter(line.charAt(i));
+        }
+        return false;
+    }
+
+    private boolean equalWordsInMultiComments(String userName, MyFile myFile) {
         char curr;
         int i;
         for (i = 1; i < userName.length(); i++) {
@@ -82,12 +92,25 @@ public class CountUserNameInComments {
                 return false;
             }
         }
-        return i == userName.length();
+        if(myFile.isEOF()) return i == userName.length();
+        return i == userName.length() && nextCharNotPartOfUserName(myFile);
     }
 
-    private void moveFileToNextChar(MyFile myFile, char iChar) {
+    private boolean nextCharNotPartOfUserName(MyFile myFile) {
+        char nextChar = myFile.getNextChar();
+        boolean notPartOfUsername = validSurroundingCharacter(nextChar);
+        myFile.goBackNCharactersOrNone(1);
+        return notPartOfUsername;
+    }
+
+    private boolean validSurroundingCharacter(char prevChar) {
+        return !Character.isAlphabetic(prevChar) && !Character.isDigit(prevChar)
+                && !VALID_CHARS.contains(prevChar);
+    }
+
+    private void moveFileToEndOfStringDeclaration(MyFile myFile) {
         while (!myFile.isEOF()) {
-            if (myFile.getNextChar() == iChar) {
+            if (myFile.getNextChar() == '"') {
                 return;
             }
         }

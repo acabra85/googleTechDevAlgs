@@ -16,11 +16,12 @@ public class CountUserNameInCommentsTest {
         MyFile myFile = TestUtils.buildMyFile("CountUsernameInComments_test01.txt");
         Assert.assertEquals(expected, new CountUserNameInComments().countOccurrences(myFile, userName));
     }
+
     @Test
     public void test_should_return_8_test_01(){
         MyFile myFile = TestUtils.buildMyFile("CountUsernameInComments_test02.txt");
         String userName = "@sarmiea";
-        int expected = 8;
+        int expected = 10;
         Assert.assertEquals(expected, new CountUserNameInComments().countOccurrences(myFile, userName));
     }
 }
