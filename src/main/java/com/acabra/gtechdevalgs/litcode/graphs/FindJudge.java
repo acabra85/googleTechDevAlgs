@@ -38,7 +38,7 @@ public class FindJudge {
 
         //everyone trusts the judge
         for (int i = 1; i <= peopleCount; i++) {
-            if (judge!=i && (!trusts(i, judge) || trusts(judge, i)) {
+            if (judge!=i && (!trusts(i, judge) || trusts(judge, i))) {
                 return -1;
             }
         }
