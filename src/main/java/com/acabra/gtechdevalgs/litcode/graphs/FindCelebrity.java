@@ -22,16 +22,9 @@ public class FindCelebrity extends Relation {
             }
         }
 
-        //validate that celeb indeed knows no-one
-        for (int i = 0; i < peopleCount; i++) {
-            if (i!=celeb && knows(celeb, i)) {
-                return -1;
-            }
-        }
-
         //everyone knows the celebrity
         for (int i = 0; i < peopleCount; i++) {
-            if (celeb!=i && !knows(i, celeb)) {
+            if (celeb!=i && (!knows(i, celeb) || knows(celeb, i))) {
                 return -1;
             }
         }
