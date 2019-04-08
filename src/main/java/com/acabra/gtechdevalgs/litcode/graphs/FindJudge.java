@@ -36,16 +36,9 @@ public class FindJudge {
             }
         }
 
-        //validate that judge indeed trusts no-one
-        for (int i = 1; i <= peopleCount; i++) {
-            if (i!=judge && trusts(judge, i)) {
-                return -1;
-            }
-        }
-
         //everyone trusts the judge
         for (int i = 1; i <= peopleCount; i++) {
-            if (judge!=i && !trusts(i, judge)) {
+            if (judge!=i && (!trusts(i, judge) || trusts(judge, i)) {
                 return -1;
             }
         }
