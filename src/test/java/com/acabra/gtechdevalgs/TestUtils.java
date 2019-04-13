@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -144,5 +145,13 @@ public class TestUtils {
     public static MyFile buildMyFile(String fileName) {
         InputStream resourceAsStream = TestUtils.class.getClassLoader().getResourceAsStream(fileName);
         return new MyFileImpl(resourceAsStream);
+    }
+
+    public static List<BigInteger> buildBigIntegerList(String cypherList) {
+        List<BigInteger> list = new ArrayList<>();
+        for (String num : cypherList.split("\\s+")) {
+            list.add(new BigInteger(num));
+        }
+        return list;
     }
 }

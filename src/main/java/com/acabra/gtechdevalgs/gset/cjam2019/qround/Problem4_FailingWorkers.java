@@ -1,4 +1,4 @@
-package com.acabra.gtechdevalgs.gset.cjam2019;
+package com.acabra.gtechdevalgs.gset.cjam2019.qround;
 
 import java.util.ArrayList;
 import java.util.List;
