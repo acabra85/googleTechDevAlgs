@@ -1,5 +1,6 @@
 package com.acabra.gtechdevalgs.google.wheretomove;
 
+import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -73,6 +74,80 @@ public class WhereToMoveTest {
         Assert.assertEquals(7, buildingToMove);
     }
 
+    @Test
+    public void should_return_minus_one_street_missing_one_interest() {
+        int buildingToMove = WhereToMove.findBuildingToMove(getStreetMissingOneInterests(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertEquals(-1, buildingToMove);
+    }
+
+    @Test
+    public void should_return_zero_as_building_has_all_interests() {
+        Collection<Collection<Interest>> arrayLists = new ArrayList<>();
+        arrayLists.add(new ArrayList<Interest>() {{
+            add(Interest.PHARMACY);
+            add(Interest.POLICE_STATION);
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>() {{
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>() {{
+            add(Interest.PHARMACY);
+        }});
+        arrayLists.add(new ArrayList<Interest>() {{
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>() {{
+            add(Interest.PHARMACY);
+        }});
+        Building[] street = buildBuildingsBasedOnInterests(arrayLists);
+        int buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertEquals(0, buildingToMove);
+    }
+
+    @Test
+    public void should_return_two_as_building_has_all_interests() {
+        Collection<Collection<Interest>> arrayLists = new ArrayList<>();
+        arrayLists.add(new ArrayList<Interest>(){{
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>(){{
+            add(Interest.PHARMACY);
+        }});
+        arrayLists.add(new ArrayList<Interest>(){{
+            add(Interest.PHARMACY);
+            add(Interest.POLICE_STATION);
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>(){{
+            add(Interest.LIBRARY);
+        }});
+        arrayLists.add(new ArrayList<Interest>(){{
+            add(Interest.PHARMACY);
+        }});
+        Building[] street = buildBuildingsBasedOnInterests(arrayLists);
+        int buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertEquals(2, buildingToMove);
+    }
+
+    private Building[] buildBuildingsBasedOnInterests(Collection<Collection<Interest>> interests) {
+        Building[] street = new Building[interests.size()];
+        int i = 0;
+        for (Collection<Interest> bInterests : interests) {
+            street[i++] = new Building(bInterests);
+        }
+        return street;
+    }
+
+    private Building[] getStreetMissingOneInterests() {
+         return new Building[] {
+                buildingWithInterests(Interest.LIBRARY, Interest.COFFEE_SHOP),
+                buildingWithInterests(Interest.SCHOOL, Interest.CINEMA),
+                buildingWithInterests(Interest.HOSPITAL),
+                buildingWithInterests(Interest.POLICE_STATION)
+        };
+    }
+
     private Building buildingWithInterests(Interest... interests) {
         List<Interest> buildingInterests = getInterests(interests);
         return new Building(buildingInterests);
@@ -80,9 +155,7 @@ public class WhereToMoveTest {
 
     private List<Interest> getInterests(Interest... interests) {
         List<Interest> buildingInterests = new ArrayList<>();
-        for(Interest interest: interests) {
-            buildingInterests.add(interest);
-        }
+        Collections.addAll(buildingInterests, interests);
         return buildingInterests;
     }
 
@@ -91,7 +164,7 @@ public class WhereToMoveTest {
     }
 
     private Building[] getDefaultStreet() {
-        Building[] street = {
+         return new Building[]{
                 buildingNoInterests(), //0
                 buildingWithInterests(Interest.GYM, Interest.LIBRARY), //1
                 buildingWithInterests(Interest.HOSPITAL), //2
@@ -108,11 +181,9 @@ public class WhereToMoveTest {
                 buildingWithInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR), //13
                 buildingWithInterests(Interest.PHARMACY), //14
         };
-        return street;
     }
 
     private Building[] getStreetWithNoInterests() {
-        Building[] buildings = {new Building(Collections.emptyList())};
-        return buildings;
+        return new Building[]{new Building(Collections.emptyList())};
     }
 }

@@ -31,17 +31,19 @@ public class WhereToMove {
         int maxWalkDistanceToAll = Integer.MIN_VALUE;
         for (int i = 0; i < street.length; i++) {//
             Set<Interest> interestTx = new HashSet<>(interests);
-            for (int j = i + 1; j < street.length && !interestTx.isEmpty(); j++) {
+            for (int j = i; j < street.length && !interestTx.isEmpty(); j++) {
                 if (interestTx.removeAll(street[j].availableInterests())) {
-                    maxWalkDistanceToAll = Math.max(maxWalkDistanceToAll,  Math.abs(j - i));
+                    //if(interestTx.isEmpty())
+                        maxWalkDistanceToAll = Math.max(maxWalkDistanceToAll,  Math.abs(j - i));
                 }
             }
             for (int j = i; j >=0 && !interestTx.isEmpty(); j--) {
                 if (interestTx.removeAll(street[j].availableInterests())) {
-                    maxWalkDistanceToAll = Math.max(maxWalkDistanceToAll,  Math.abs(j - i));
+                    //if(interestTx.isEmpty())
+                        maxWalkDistanceToAll = Math.max(maxWalkDistanceToAll,  Math.abs(j - i));
                 }
             }
-            if (Integer.MIN_VALUE == maxWalkDistanceToAll) {
+            if (Integer.MIN_VALUE == maxWalkDistanceToAll || !interestTx.isEmpty()) {
                 return -1;
             }
             if (candidate == null) {
@@ -70,6 +72,11 @@ public class WhereToMove {
         CandidateBuilding(int distanceToAll, int buildingIndex) {
             this.distanceToAll = distanceToAll;
             this.buildingIndex = buildingIndex;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("idx:%d, maxWalk:%d", buildingIndex, distanceToAll);
         }
     }
 
