@@ -3,7 +3,7 @@ package com.acabra.gtechdevalgs.litcode.linkedlist;
 import java.util.Objects;
 
 public class ListNode {
-    public int val;
+    public final int val;
     public ListNode next;
     public ListNode(int x) { val = x; }
 

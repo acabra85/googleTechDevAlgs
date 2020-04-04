@@ -154,4 +154,14 @@ public class TestUtils {
         }
         return list;
     }
+
+    public static ListNode buildLinkedListOfValues(int[] values) {
+        ListNode old = null;
+        for (int i = values.length - 1; i >= 0; i--) {
+            ListNode newNode = new ListNode(values[i]);
+            newNode.next = old;
+            old = newNode;
+        }
+        return old;
+    }
 }
