@@ -134,7 +134,7 @@ public class WhereToMoveTest {
         Building[] street = new Building[interests.size()];
         int i = 0;
         for (Collection<Interest> bInterests : interests) {
-            street[i++] = new Building(bInterests);
+            //street[i++] = new Building(bInterests);
         }
         return street;
     }
