@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 public class ChangeDirectory {
 
     private static final String PARENT_TOKEN = "..";
+    private static final String CURRENT_FOLDER_TOKEN = ".";
     private static final String PATH_DELIMITER = "/";
 
 
@@ -27,7 +28,7 @@ public class ChangeDirectory {
                 } else {
                     reachedRoot = true;
                 }
-            } else {
+            } else if (!next.equals(CURRENT_FOLDER_TOKEN)) {
                 deque.offerFirst(next);
             }
         }

@@ -83,4 +83,11 @@ public class ChangeDirectoryTest {
         String expected = "/c/e";
         Assert.assertEquals(expected, ChangeDirectory.changeDir(input));
     }
+
+    @Test
+    public void should_return_root_a() {
+        String input = "/a/./././.";
+        String expected = "/a";
+        Assert.assertEquals(expected, ChangeDirectory.changeDir(input));
+    }
 }
