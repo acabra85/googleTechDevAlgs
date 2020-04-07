@@ -91,9 +91,9 @@ public class Problem3_Parenting {
                 activity = activities.remove();
                 int now = activity.start;
                 if (cameron.isAvailable(now)) {
-                    cameron.assignActivity(activity);
+                    cameron.take(activity);
                 } else if (jamie.isAvailable(now)) {
-                    jamie.assignActivity(activity);
+                    jamie.take(activity);
                 } else {
                     return "IMPOSSIBLE";
                 }
@@ -120,7 +120,7 @@ public class Problem3_Parenting {
                 this.name = name;
             }
 
-            public void assignActivity(Activity activity) {
+            public void take(Activity activity) {
                 if (isBusy(activity.start)) {
                     throw new RuntimeException("can't assign activity when the person is busy");
                 }
