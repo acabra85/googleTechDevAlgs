@@ -1,13 +1,13 @@
 package com.acabra.gtechdevalgs.google.wheretomove;
 
-import java.util.Collection;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class WhereToMoveTest {
 
@@ -15,126 +15,168 @@ public class WhereToMoveTest {
     public void should_return_minus_one_interests_not_found() {
         Building[] street = getStreetWithNoInterests();
         List<Interest> interests = Arrays.asList(Interest.COFFEE_SHOP, Interest.GYM);
-        Assert.assertEquals(-1, WhereToMove.findBuildingToMove(street, interests));
+        Assert.assertNull(WhereToMove.findBuildingToMove(street, interests));
     }
 
     @Test
     public void should_return_two_as_the_building_has_the_interest() {
         Building[] street = getDefaultStreet();
-        Assert.assertEquals(2, WhereToMove.findBuildingToMove(street, getInterests(Interest.HOSPITAL)));
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.HOSPITAL));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(2, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_nine_since_it_is_in_the_middle_of_interest() {
         Building[] street = getDefaultStreet();
-        Assert.assertEquals(9, WhereToMove.findBuildingToMove(street, getInterests(Interest.COFFEE_SHOP, Interest.CINEMA)));
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.COFFEE_SHOP, Interest.CINEMA));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(1, buildingToMove.distanceToAll);
+        Assert.assertEquals(9, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_twelve_since_that_building_has_all_interests() {
         Building[] street = getDefaultStreet();
-        Assert.assertEquals(12, WhereToMove.findBuildingToMove(street, getInterests(Interest.BAKERY, Interest.STORE)));
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.BAKERY, Interest.STORE));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(12, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_minus_one_no_interests_to_look_for() {
-        Assert.assertEquals(-1, WhereToMove.findBuildingToMove(getDefaultStreet(), Collections.emptyList()));
+        Assert.assertNull(WhereToMove.findBuildingToMove(getDefaultStreet(), Collections.emptyList()));
     }
 
     @Test
-    public void should_return_ten_since_maximal_walking_distance_is_one() {
-        Assert.assertEquals(10, WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.COFFEE_SHOP, Interest.BAKERY)));
+    public void should_return_ten_since_maximal_walking_distance_is_two() {
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.COFFEE_SHOP, Interest.BAKERY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(2, buildingToMove.distanceToAll);
+        Assert.assertEquals(10, buildingToMove.buildingIndex);
     }
 
     @Test
-    public void should_return_ten_the_middle_point_between_two_buildings_containing_all_interests() {
-        Assert.assertEquals(11, WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.BAKERY)));
+    public void should_return_eleven_the_middle_point_between_two_buildings_containing_all_interests() {
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.BAKERY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(1, buildingToMove.distanceToAll);
+        Assert.assertEquals(11, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_thirteen_that_buildings_contains_all_interests() {
-        Assert.assertEquals(13, WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR)));
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(13, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_twelve_that_buildings_was_first_seen_with_distance_to_all_of_one() {
-        int buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR, Interest.BAKERY, Interest.STORE));
-        Assert.assertEquals(13, buildingToMove);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR, Interest.BAKERY, Interest.STORE));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(1, buildingToMove.distanceToAll);
+        Assert.assertEquals(12, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_seven_that_building_was_first_seen_with_distance_to_all_of_seven() {
-        int buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.GYM, Interest.PHARMACY));
-        Assert.assertEquals(7, buildingToMove);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.GYM, Interest.PHARMACY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(7, buildingToMove.distanceToAll);
+        Assert.assertEquals(7, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_seven_that_building_was_first_seen_with_distance_to_all_of_seven_2() {
-        int buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
-        Assert.assertEquals(7, buildingToMove);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(7, buildingToMove.distanceToAll);
+        Assert.assertEquals(7, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_minus_one_street_missing_one_interest() {
-        int buildingToMove = WhereToMove.findBuildingToMove(getStreetMissingOneInterests(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
-        Assert.assertEquals(-1, buildingToMove);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getStreetMissingOneInterests(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertNull(buildingToMove);
     }
 
     @Test
     public void should_return_zero_as_building_has_all_interests() {
-        Collection<Collection<Interest>> arrayLists = new ArrayList<>();
-        arrayLists.add(new ArrayList<Interest>() {{
-            add(Interest.PHARMACY);
-            add(Interest.POLICE_STATION);
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>() {{
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>() {{
-            add(Interest.PHARMACY);
-        }});
-        arrayLists.add(new ArrayList<Interest>() {{
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>() {{
-            add(Interest.PHARMACY);
-        }});
-        Building[] street = buildBuildingsBasedOnInterests(arrayLists);
-        int buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
-        Assert.assertEquals(0, buildingToMove);
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                List.of(Interest.PHARMACY, Interest.POLICE_STATION, Interest.LIBRARY),
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.PHARMACY),
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.PHARMACY)
+        ));
+
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(0, buildingToMove.buildingIndex);
     }
 
     @Test
     public void should_return_two_as_building_has_all_interests() {
-        Collection<Collection<Interest>> arrayLists = new ArrayList<>();
-        arrayLists.add(new ArrayList<Interest>(){{
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>(){{
-            add(Interest.PHARMACY);
-        }});
-        arrayLists.add(new ArrayList<Interest>(){{
-            add(Interest.PHARMACY);
-            add(Interest.POLICE_STATION);
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>(){{
-            add(Interest.LIBRARY);
-        }});
-        arrayLists.add(new ArrayList<Interest>(){{
-            add(Interest.PHARMACY);
-        }});
-        Building[] street = buildBuildingsBasedOnInterests(arrayLists);
-        int buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
-        Assert.assertEquals(2, buildingToMove);
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.PHARMACY),
+                List.of(Interest.PHARMACY, Interest.POLICE_STATION, Interest.LIBRARY),
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.PHARMACY)
+        ));
+
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(2, buildingToMove.buildingIndex);
     }
 
-    private Building[] buildBuildingsBasedOnInterests(Collection<Collection<Interest>> interests) {
+    @Test
+    public void should_return_one_as_immediate_neighbors_have_all_interests() {
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                List.of(Interest.SCHOOL, Interest.POLICE_STATION),
+                Collections.emptyList(),
+                Collections.singleton(Interest.COFFEE_SHOP),
+                Collections.singleton(Interest.SCHOOL),
+                Collections.emptyList(),
+                Collections.singleton(Interest.POLICE_STATION)));
+
+        List<Interest> moverInterests = getInterests(Interest.COFFEE_SHOP, Interest.SCHOOL, Interest.POLICE_STATION);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(1, buildingToMove.distanceToAll);
+        Assert.assertEquals(1, buildingToMove.buildingIndex);
+    }
+
+    @Test
+    public void should_return_three_as_its_the_middle_of_the_street() {
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                Collections.singleton(Interest.SCHOOL),
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.STORE),
+                Collections.singleton(Interest.BAKERY),
+                Collections.singleton(Interest.HOSPITAL),
+                Collections.singleton(Interest.POLICE_STATION),
+                Collections.singleton(Interest.PHARMACY),
+                List.of(Interest.CINEMA, Interest.COFFEE_SHOP)));
+
+        List<Interest> moverInterests = getInterests(Interest.COFFEE_SHOP, Interest.SCHOOL, Interest.POLICE_STATION);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(4, buildingToMove.distanceToAll);
+        Assert.assertTrue(new HashSet<Integer>(){{add(3);add(4);}}.contains(buildingToMove.buildingIndex));
+    }
+
+    private Building[] buildStreetBuildingsBasedOnInterests(Collection<? extends Collection<Interest>> interests) {
         Building[] street = new Building[interests.size()];
         int i = 0;
         for (Collection<Interest> bInterests : interests) {
-            //street[i++] = new Building(bInterests);
+            street[i++] = new Building(bInterests);
         }
         return street;
     }

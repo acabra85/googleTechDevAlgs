@@ -1,5 +1,6 @@
 package com.acabra.gtechdevalgs.google.wheretomove;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -10,15 +11,21 @@ public class Building {
     private final Set<Interest> availableInterests;
     final private String str;
 
-    public Building(List<Interest> availableInterests) {
+    public Building(Collection<Interest> availableInterests) {
         this.availableInterests = Collections.unmodifiableSet(new HashSet<>(availableInterests));
         this.str = Building.stringInterests(this.availableInterests);
     }
 
     private static String stringInterests(Set<Interest> availableInterests) {
         StringBuilder sb = new StringBuilder();
+        int size = availableInterests.size();
+        int seen = 0;
         for (Interest availableInterest : availableInterests) {
-            sb.append(availableInterest).append(",");
+            sb.append(availableInterest);
+            seen++;
+            if (seen < size) {
+                sb.append(",");
+            }
         }
         return sb.toString();
     }
