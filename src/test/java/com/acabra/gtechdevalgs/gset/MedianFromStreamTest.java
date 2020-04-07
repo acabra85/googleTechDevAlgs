@@ -1,15 +1,12 @@
 package com.acabra.gtechdevalgs.gset;
 
-import com.google.common.base.Stopwatch;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.LongBinaryOperator;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class MedianFromStreamTest {
 
@@ -41,12 +38,12 @@ public class MedianFromStreamTest {
             double num = sr.nextDouble();
             median.accept(num);
             nums.add(num);
-            Stopwatch bf = Stopwatch.createStarted();
+            //Stopwatch bf = Stopwatch.createStarted();
             expected = calculateMedian(nums);
-            totalBF.accumulateAndGet(bf.stop().elapsed(TimeUnit.NANOSECONDS), OP);
-            Stopwatch fast = Stopwatch.createStarted();
+            //totalBF.accumulateAndGet(bf.stop().elapsed(TimeUnit.NANOSECONDS), OP);
+            //Stopwatch fast = Stopwatch.createStarted();
             actual = median.getMedian();
-            totalFast.accumulateAndGet(fast.stop().elapsed(TimeUnit.NANOSECONDS), OP);
+            //totalFast.accumulateAndGet(fast.stop().elapsed(TimeUnit.NANOSECONDS), OP);
             Assert.assertEquals(expected, actual, 0.01);
         }
         System.out.println("  bf: " + totalBF);
