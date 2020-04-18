@@ -1,12 +1,28 @@
-package com.acabra.gtechdevalgs.codeforces;
+package com.acabra.gtechdevalgs.codeforces.below1000;
 
 import java.io.*;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-public class BearAndBigBrother791A {
+public class WrongSubtract977A {
     static class Solution implements Runnable {
+        void solve() throws IOException {
+            System.out.println(solution(help.nInt(), help.nInt()));
+        }
 
+        public static int solution(int n, int k) {
+            int ans = n;
+            for (int i = 0; i < k; ++i) {
+                if (ans % 10 == 0) {
+                    ans /= 10;
+                } else {
+                    --ans;
+                }
+            }
+            return ans;
+        }
+
+        //--START helper submission code
         private final Help help;
         private final boolean onlineJudge;
         static class Help {
@@ -22,42 +38,12 @@ public class BearAndBigBrother791A {
         private static Solution ofConsole() { return new Solution(System.in, new OutputStreamWriter(System.out), true); }
         public static Solution ofTestFile(String fileName) { return new Solution(Solution.class.getClassLoader().getResourceAsStream(fileName), new OutputStreamWriter(System.out), false);}
         private static Solution get(String file) { return System.getProperty("ONLINE_JUDGE") != null ? ofConsole() : ofTestFile(file); }
-
-        public static void main(String[] args) {
-            new Thread(null, Solution.get("codeforces/below1000/791A.txt"), "", 256 * (1L << 20)).start();
-        }
-
+        public static void main(String[] args) {new Thread(null, Solution.ofConsole(), "", 256 * (1L << 20)).start();}
         public void run() {
-            try {
-                long t1 = System.nanoTime();
-                Locale.setDefault(Locale.US);
-                solve();
-                long t2 = System.nanoTime();
-                if (!onlineJudge) System.err.println("Time = " + (t2 - t1)/1000.0 + ": ms");
-            } catch (Throwable t) {
-                System.exit(-1);
-            } finally {
-                try {
-                    help.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            try {long t1 = System.nanoTime();Locale.setDefault(Locale.US);solve();if (!onlineJudge) System.err.println("Time = " + (System.nanoTime() - t1)/1000.0 + ": ms");}
+            catch (Throwable t) {System.exit(-1);}
+            finally {try {help.close();} catch (IOException e) {e.printStackTrace();}}
         }
-
-        // solution
-        void solve() throws IOException {
-            System.out.println(solution(help.nInt(), help.nInt()));
-        }
-
-        public static int solution(int limak, int bob) {
-            int ans = 0;
-            while (limak <= bob) {
-                limak *= 3;
-                bob *= 2;
-                ++ans;
-            }
-            return ans;
-        }
+        //--END helper submission code
     }
 }

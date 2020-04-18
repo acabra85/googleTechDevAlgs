@@ -1,12 +1,33 @@
-package com.acabra.gtechdevalgs.codeforces;
+package com.acabra.gtechdevalgs.codeforces.below1000;
 
 import java.io.*;
 import java.util.Locale;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-public class Polyhedrons785 {
+public class HitTheLottery996 {
     static public class Solution implements Runnable {
+
+        void solve() throws IOException {
+            System.out.println(solution(help.nInt()));
+        }
+
+        static final int[] bills = {100, 20, 10, 5, 1};
+
+        public static int solution(int n) {
+            int total = n;
+            int idx = 0;
+            int notes = 0;
+            while (total > 0) {
+                if (total >= bills[idx]) {
+                    notes += total / bills[idx];
+                    total = total % bills[idx];
+                }
+                ++idx;
+            }
+            return notes;
+        }
+
+        //--START helper submission code
         private final Help help;
         private final boolean onlineJudge;
         static class Help {
@@ -17,7 +38,6 @@ public class Polyhedrons785 {
             public double nDouble() throws IOException {return Double.parseDouble(next());}
             String next() throws IOException {while (tokenizer == null || !tokenizer.hasMoreTokens()) {tokenizer = new StringTokenizer(bf.readLine());}return tokenizer.nextToken();}
             public void close() throws IOException {bf.close();out.flush();}
-            public static Help of(String fileName) { return of(fileAsStream(fileName), new OutputStreamWriter(System.out)); }
             public static Help of(InputStream in) { return of(in, new OutputStreamWriter(System.out)); }
             static Help of(InputStream in, OutputStreamWriter iOut) {return new Help(new BufferedReader(new InputStreamReader(in)), new PrintWriter(iOut));}
         }
@@ -26,43 +46,12 @@ public class Polyhedrons785 {
         public static Solution ofTestFile(String fileName) { return new Solution(fileAsStream(fileName), false);}
         public static InputStream fileAsStream(String fileName) { return Solution.class.getClassLoader().getResourceAsStream(fileName); }
         private static Solution get(String file) { return System.getProperty("ONLINE_JUDGE") != null ? ofConsole() : ofTestFile(file); }
-
-        public static void main(String[] args) {
-            new Thread(null, Solution.get("codeforces/below1000/705A_0.txt"), "", 256 * (1L << 20)).start();
-        }
-
+        public static void main(String[] args) { new Thread(null, Solution.ofConsole(), "", 256 * (1L << 20)).start(); }
         public void run() {
-            try {
-                long t1 = System.nanoTime();
-                Locale.setDefault(Locale.US);
-                solve();
-                long t2 = System.nanoTime();
-                if (!onlineJudge) System.err.println("Time = " + (t2 - t1)/1000.0 + ": ms");
-            } catch (Throwable t) {
-                System.exit(-1);
-            } finally {
-                try {
-                    help.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            try {long t1 = System.nanoTime();Locale.setDefault(Locale.US);solve();if (!onlineJudge) System.err.println("Time = " + (System.nanoTime() - t1)/1000.0 + ": ms");}
+            catch (Throwable t) {System.exit(-1);}
+            finally {try {help.close();} catch (IOException e) {e.printStackTrace();}}
         }
-
-        // solution
-        void solve() throws IOException {
-            System.out.println(solution(help));
-        }
-
-        private static final Map<String, Integer> NAME_TO_SIDES = Map.of("Tetrahedron", 4, "Cube", 6, "Octahedron", 8, "Dodecahedron", 12, "Icosahedron", 20);
-
-        public static int solution(Help help) throws IOException {
-            int n = help.nInt();
-            int total = 0;
-            for (int i = 0; i < n; ++i) {
-                total += NAME_TO_SIDES.get(help.next());
-            }
-            return total;
-        }
+        //--END helper submission code
     }
 }

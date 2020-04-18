@@ -1,11 +1,35 @@
-package com.acabra.gtechdevalgs.codeforces;
+package com.acabra.gtechdevalgs.codeforces.below1000;
 
 import java.io.*;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-public class HitTheLottery996 {
+public class Hulk705A {
     static public class Solution implements Runnable {
+
+        void solve() throws IOException {
+            System.out.println(solution(help.nInt()));
+        }
+
+        public static String solution(int n) {
+            String hate = "I hate ";
+            String that = "that ";
+            String love = "I love ";
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < n; ++i) {
+                if (i > 0) {
+                    sb.append(that);
+                }
+                if(i%2==0) {
+                    sb.append(hate);
+                } else {
+                    sb.append(love);
+                }
+            }
+            return sb.append("it").toString();
+        }
+
+        //--START helper submission code
         private final Help help;
         private final boolean onlineJudge;
         static class Help {
@@ -24,48 +48,12 @@ public class HitTheLottery996 {
         public static Solution ofTestFile(String fileName) { return new Solution(fileAsStream(fileName), false);}
         public static InputStream fileAsStream(String fileName) { return Solution.class.getClassLoader().getResourceAsStream(fileName); }
         private static Solution get(String file) { return System.getProperty("ONLINE_JUDGE") != null ? ofConsole() : ofTestFile(file); }
-
-        public static void main(String[] args) {
-            new Thread(null, Solution.get("codeforces/below1000/996.txt"), "", 256 * (1L << 20)).start();
-        }
-
+        public static void main(String[] args) { new Thread(null, Solution.ofConsole(), "", 256 * (1L << 20)).start(); }
         public void run() {
-            try {
-                long t1 = System.nanoTime();
-                Locale.setDefault(Locale.US);
-                solve();
-                long t2 = System.nanoTime();
-                if (!onlineJudge) System.err.println("Time = " + (t2 - t1)/1000.0 + ": ms");
-            } catch (Throwable t) {
-                System.exit(-1);
-            } finally {
-                try {
-                    help.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            try {long t1 = System.nanoTime();Locale.setDefault(Locale.US);solve();if (!onlineJudge) System.err.println("Time = " + (System.nanoTime() - t1)/1000.0 + ": ms");}
+            catch (Throwable t) {System.exit(-1);}
+            finally {try {help.close();} catch (IOException e) {e.printStackTrace();}}
         }
-
-        // solution
-        void solve() throws IOException {
-            System.out.println(solution(help.nInt()));
-        }
-
-        static final int[] bills = {100, 20, 10, 5, 1};
-
-        public static int solution(int n) throws IOException {
-            int total = n;
-            int idx = 0;
-            int notes = 0;
-            while (total > 0) {
-                if (total >= bills[idx]) {
-                    notes += total / bills[idx];
-                    total = total % bills[idx];
-                }
-                ++idx;
-            }
-            return notes;
-        }
+        //--END helper submission code
     }
 }

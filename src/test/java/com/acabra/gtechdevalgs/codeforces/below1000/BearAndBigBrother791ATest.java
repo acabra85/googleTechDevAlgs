@@ -1,4 +1,4 @@
-package com.acabra.gtechdevalgs.codeforces;
+package com.acabra.gtechdevalgs.codeforces.below1000;
 
 import org.junit.Assert;
 import org.junit.Test;
