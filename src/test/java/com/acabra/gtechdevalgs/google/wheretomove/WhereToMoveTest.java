@@ -172,6 +172,78 @@ public class WhereToMoveTest {
         Assert.assertTrue(new HashSet<Integer>(){{add(3);add(4);}}.contains(buildingToMove.buildingIndex));
     }
 
+    @Test
+    public void should_return_six_as_its_the_building_containing_all_interests_a() {
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                Collections.singleton(Interest.POLICE_STATION),
+                Collections.singleton(Interest.LIBRARY),
+                Collections.singleton(Interest.POLICE_STATION),
+                Collections.singleton(Interest.BAKERY),
+                Collections.singleton(Interest.POLICE_STATION),
+                Collections.singleton(Interest.POLICE_STATION),
+                Collections.singleton(Interest.POLICE_STATION),
+                List.of(Interest.POLICE_STATION, Interest.LIBRARY)));
+
+        List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(7, buildingToMove.buildingIndex);
+    }
+
+    @Test
+    public void should_return_six_as_its_the_building_containing_all_interests_b() {
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.POLICE_STATION, Interest.LIBRARY)));
+
+        List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(0, buildingToMove.distanceToAll);
+        Assert.assertEquals(14, buildingToMove.buildingIndex);
+    }
+
+    @Test
+    public void should_return_six_as_its_the_building_containing_all_interests_c() {
+        Building[] street = buildStreetBuildingsBasedOnInterests(List.of(
+                Collections.singleton(Interest.LIBRARY),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                List.of(Interest.COFFEE_SHOP, Interest.STORE, Interest.BAKERY, Interest.SCHOOL, Interest.HOSPITAL, Interest.CINEMA),
+                Collections.singleton(Interest.POLICE_STATION)));
+
+        List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
+        Assert.assertNotNull(buildingToMove);
+        Assert.assertEquals(8, buildingToMove.distanceToAll);
+        Assert.assertEquals(7, buildingToMove.buildingIndex);
+    }
+
     private Building[] buildStreetBuildingsBasedOnInterests(Collection<? extends Collection<Interest>> interests) {
         Building[] street = new Building[interests.size()];
         int i = 0;
