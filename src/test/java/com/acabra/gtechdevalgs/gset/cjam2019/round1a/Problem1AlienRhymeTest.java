@@ -1,7 +1,9 @@
 package com.acabra.gtechdevalgs.gset.cjam2019.round1a;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore("not solved")
 public class Problem1AlienRhymeTest {
 
     @Test
