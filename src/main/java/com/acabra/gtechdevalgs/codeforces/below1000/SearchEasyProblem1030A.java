@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class SearchEasyProblem1030A {
-    static class Solution implements Runnable {
+    static public class Solution implements Runnable {
         // solution
         void solve() throws IOException {
             System.out.println(solution(help));

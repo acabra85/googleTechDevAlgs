@@ -39,6 +39,7 @@ public class HitTheLottery996 {
             String next() throws IOException {while (tokenizer == null || !tokenizer.hasMoreTokens()) {tokenizer = new StringTokenizer(bf.readLine());}return tokenizer.nextToken();}
             public void close() throws IOException {bf.close();out.flush();}
             public static Help of(InputStream in) { return of(in, new OutputStreamWriter(System.out)); }
+            public static Help of(String fileName) { return of(fileAsStream(fileName), new OutputStreamWriter(System.out)); }
             static Help of(InputStream in, OutputStreamWriter iOut) {return new Help(new BufferedReader(new InputStreamReader(in)), new PrintWriter(iOut));}
         }
         public Solution(InputStream in, boolean isOnlineJudge) {this.help = Solution.Help.of(in); this.onlineJudge = isOnlineJudge;}

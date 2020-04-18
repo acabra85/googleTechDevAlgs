@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class WrongSubtract977A {
-    static class Solution implements Runnable {
+    static public class Solution implements Runnable {
         void solve() throws IOException {
             System.out.println(solution(help.nInt(), help.nInt()));
         }

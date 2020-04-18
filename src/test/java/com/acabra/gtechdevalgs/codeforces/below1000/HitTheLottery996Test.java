@@ -19,7 +19,7 @@ public class HitTheLottery996Test {
 
     @Test
     public void should_return_10_m() throws IOException {
-        HitTheLottery996.Solution.Help help = HitTheLottery996.Solution.Help.of(HitTheLottery996.Solution.fileAsStream("codeforces/below1000/996.txt"));
+        HitTheLottery996.Solution.Help help = HitTheLottery996.Solution.Help.of("codeforces/below1000/996.txt");
         Assert.assertEquals(10000000, HitTheLottery996.Solution.solution(help.nInt()));
     }
 }
