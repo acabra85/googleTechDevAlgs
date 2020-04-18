@@ -10,7 +10,7 @@ public class MedianFromStream implements Consumer<Double> {
     private static final Comparator<Double> DESCENDING_ORDER_COMPARATOR = new Comparator<Double>() {
         @Override
         public int compare(Double o1, Double o2) {
-            return o1 < o2 ? 1 : o1 == o2 ? 0 : -1;
+            return Double.compare(o2, o1);
         }
     };
 
