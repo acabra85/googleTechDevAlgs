@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class WhereToMove {
     private static final boolean DEBUG_MODE = false;
-    private static final boolean ARTUR = false;
+    private static final boolean ARTUR = true;
 
     static AtomicInteger at0 = new AtomicInteger(0);
 
