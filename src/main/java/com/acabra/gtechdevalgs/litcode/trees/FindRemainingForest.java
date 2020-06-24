@@ -13,6 +13,10 @@ public class FindRemainingForest {
             this.left = null;
             this.right = null;
         }
+
+        public String toString() {
+            return "v: " + val  + " [ " +(left==null?"_":left.val)+", "+(right==null?"_":right.val)+"]";
+        }
     }
 
     public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
@@ -43,10 +47,10 @@ public class FindRemainingForest {
         while(!q.isEmpty()) {
             tmp = q.pop();
             if (deleteSet.contains(tmp.val)) {
-                if(tmp.left != null) {
+                if(tmp.left != null && !deleteSet.contains(tmp.left.val)) {
                     remainingForest.add(tmp.left);
                 }
-                if(tmp.right != null) {
+                if(tmp.right != null && !deleteSet.contains(tmp.right.val)) {
                     remainingForest.add(tmp.right);
                 }
             }
