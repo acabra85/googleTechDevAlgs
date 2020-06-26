@@ -1,5 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
+import java.util.concurrent.atomic.LongAdder;
+
 public class LongestSubstringWithoutRepetitions {
     public static int lengthOfLongestSubstring(String s) {
         if (s == null) return 0;
@@ -8,6 +10,7 @@ public class LongestSubstringWithoutRepetitions {
         int lengthLongestSubstr = -1;
         int i = 0;
         int j = 0;
+        LongAdder ad = new LongAdder();
         while(i < s.length()) {
             if (!chars[s.charAt(i)]){
                 chars[s.charAt(i++)] = true;
