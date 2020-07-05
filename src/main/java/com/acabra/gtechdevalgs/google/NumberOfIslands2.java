@@ -26,13 +26,12 @@ public class NumberOfIslands2 {
 
         int[] id = {0};
         for (int[] pos : positions) {
-            addLand(nodes, pos, islandIds, exist, id);
-            totalIslandsAt.add(islandIds.size());
+            totalIslandsAt.add(addLand(nodes, pos, islandIds, exist, id));
         }
         return totalIslandsAt;
     }
 
-    private void addLand(Map<Integer, Map<Integer, Node>> nodes, int[] pos, Set<Integer> islandIds, boolean[][] exist, int[] nextId) {
+    private int addLand(Map<Integer, Map<Integer, Node>> nodes, int[] pos, Set<Integer> islandIds, boolean[][] exist, int[] nextId) {
         int i = pos[0];
         int j = pos[1];
         Node node = null;
@@ -70,6 +69,7 @@ public class NumberOfIslands2 {
                 islandIds.add(node.group);
             }
         }
+        return islandIds.size();
     }
 
     private void assignGroupId(Node root, Set<Integer> islandIds, Node neighbor) {
@@ -109,6 +109,34 @@ public class NumberOfIslands2 {
 
     private boolean validCol(int col) {
         return col >= 0 && col < this.N;
+    }
+
+
+
+    private void printGroups(Map<Integer, Map<Integer, Node>> nodes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                sb.append(buildGroupId(i, j, nodes)).append(" ");
+            }
+            sb.append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    private String buildGroupId(int i, int j, Map<Integer, Map<Integer, Node>> nodes) {
+        try {
+            int groupId = nodes.get(i).get(j).group;
+            if (groupId<10) {
+                return "__"+groupId;
+            } else if (groupId <100) {
+                return "_" + groupId;
+            }
+            return ""+groupId;
+        } catch (Exception e) {
+
+        }
+        return "___";
     }
 
     private static class Node {
@@ -160,6 +188,11 @@ public class NumberOfIslands2 {
         @Override
         public int hashCode() {
             return this.hashId;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("[%d, %d] g:%d", i, j, group);
         }
     }
 }
