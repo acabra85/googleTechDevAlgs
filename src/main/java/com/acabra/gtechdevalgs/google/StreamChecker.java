@@ -1,15 +1,42 @@
 package com.acabra.gtechdevalgs.google;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class StreamChecker {
 
+    static boolean BRUTE_FORCE = true;
+
+
     final StringBuilder sb = new StringBuilder();
-    TrieNode root = new TrieNode();
+
+    //Trie needed objects
+    TrieNode root;
+    //BF needed objects
+    Map<Integer, Set<String>> wordLenToWordSet;
+    Set<Integer> wordsLengthSet = null;
 
     public StreamChecker(String[] words) {
+        if (BRUTE_FORCE) {
+            wordLenToWordSet = new HashMap<>();
+        } else {
+            root = new TrieNode();
+        }
         for(String str: words) {
-            insert(str);
+            if (BRUTE_FORCE) {
+                Set<String> tmp = wordLenToWordSet.get(str.length());
+                if (null == tmp) {
+                    wordLenToWordSet.put(str.length(), new HashSet<String>(){{add(str);}});
+                } else {
+                    tmp.add(str);
+                }
+                this.wordsLengthSet = wordLenToWordSet.keySet();
+            } else {
+                insert(str);
+            }
         }
     }
 
@@ -28,6 +55,19 @@ public class StreamChecker {
 
     public boolean query(char letter) {
         sb.append(letter);
+        if (BRUTE_FORCE) {
+            String tmp = sb.toString();
+            for(Integer in: this.wordsLengthSet) {
+                if (tmp.length() >= in) {
+                    for(String word: wordLenToWordSet.get(in)) {
+                        if (tmp.endsWith(word)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         return check();
     }
 
@@ -55,4 +95,6 @@ public class StreamChecker {
             Arrays.fill(children, null);
         }
     }
+
+
 }

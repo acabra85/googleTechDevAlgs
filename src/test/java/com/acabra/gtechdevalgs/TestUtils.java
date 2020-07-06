@@ -1,12 +1,12 @@
 package com.acabra.gtechdevalgs;
 
+import com.acabra.gtechdevalgs.google.StreamCheckerTest;
 import com.acabra.gtechdevalgs.gset.MyFile;
 import com.acabra.gtechdevalgs.gset.MyFileImpl;
 import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class TestUtils {
@@ -163,5 +165,19 @@ public class TestUtils {
             old = newNode;
         }
         return old;
+    }
+
+    public static Map.Entry<Map.Entry<String[], String[]>, String[]> buildStreamCheckerBigTestCase() {
+        Scanner scInput = new Scanner(StreamCheckerTest.class.getClassLoader()
+                .getResourceAsStream("streamchecker_big.in"));
+        String[] input = scInput.next().split(",");
+        String[] queries = scInput.next().split(",");
+
+        Scanner scExpected = new Scanner(StreamCheckerTest.class.getClassLoader()
+                .getResourceAsStream("streamchecker_big.out"));
+        String[] results = scExpected.next().split(",");
+        scInput.close();
+        scExpected.close();
+        return Map.entry(Map.entry(input,queries), results);
     }
 }
