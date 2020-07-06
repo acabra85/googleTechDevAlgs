@@ -13,12 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class TestUtils {
 
@@ -168,16 +163,28 @@ public class TestUtils {
     }
 
     public static Map.Entry<Map.Entry<String[], String[]>, String[]> buildStreamCheckerBigTestCase() {
-        Scanner scInput = new Scanner(StreamCheckerTest.class.getClassLoader()
-                .getResourceAsStream("streamchecker_big.in"));
+        Scanner scInput = new Scanner(Objects.requireNonNull(StreamCheckerTest.class.getClassLoader()
+                .getResourceAsStream("streamchecker_big.in")));
         String[] input = scInput.next().split(",");
         String[] queries = scInput.next().split(",");
 
-        Scanner scExpected = new Scanner(StreamCheckerTest.class.getClassLoader()
-                .getResourceAsStream("streamchecker_big.out"));
+        Scanner scExpected = new Scanner(Objects.requireNonNull(StreamCheckerTest.class.getClassLoader()
+                .getResourceAsStream("streamchecker_big.out")));
         String[] results = scExpected.next().split(",");
         scInput.close();
         scExpected.close();
         return Map.entry(Map.entry(input,queries), results);
+    }
+
+    public static int[] buildTestCaseBigJumpingEvenOdd(String fileName) {
+        Scanner scInput = new Scanner(Objects.requireNonNull(StreamCheckerTest.class.getClassLoader()
+                .getResourceAsStream(fileName)));
+        String[] input = scInput.next().split(",");
+        int[] res = new int[input.length];
+        for (int i = 0; i < res.length; ++i) {
+            res[i] = Integer.parseInt(input[i]);
+        }
+        scInput.close();
+        return res;
     }
 }
