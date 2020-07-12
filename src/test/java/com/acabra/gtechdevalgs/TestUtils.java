@@ -7,15 +7,15 @@ import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class TestUtils {
+
+    protected final static String RESOURCES_FOLDER = "src/test/resources/";
 
     public static KEmptySlotsTest.KEmptySlotsTestUnit readKEmptySlotsTestInput(String fileName) {
         InputStream resourceAsStream = TestUtils.class.getClassLoader()
@@ -186,5 +186,17 @@ public class TestUtils {
         }
         scInput.close();
         return res;
+    }
+
+    public static void writeCollectionAsResource(String fileName, Collection<Integer> actual) {
+        String outPathFolder = RESOURCES_FOLDER + fileName;
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPathFolder)))) {
+            StringBuilder sb = new StringBuilder();
+            actual.forEach(element -> sb.append(element).append(","));
+            String result = sb.toString();
+            bw.write(result.substring(0, result.length()-1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

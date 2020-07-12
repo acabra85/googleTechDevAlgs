@@ -17,7 +17,7 @@ public class CountUserNameInComments {
     public int countOccurrences(MyFile myFile, String userName) {
         if (myFile == null || userName == null || userName.length() == 0) return 0;
         int count = 0;
-        while(!myFile.isEOF()) {
+        while (!myFile.isEOF()) {
             char iChar = myFile.getNextChar();
             if (iChar == '"') {
                 moveFileToEndOfStringDeclaration(myFile);
@@ -41,7 +41,7 @@ public class CountUserNameInComments {
             int count = 0;
             int idxUserName = 0;
             char prevChar = '\0';
-            for (int i = 0; i < line.length() && (line.length() - i) >= userName.length() - idxUserName ; i++) {
+            for (int i = 0; i < line.length() && (line.length() - i) >= userName.length() - idxUserName; i++) {
                 if (userName.charAt(idxUserName) == line.charAt(i)
                         && validSurroundingCharacter(prevChar) && equalWordsInSingleLineComments(userName, line, i)) {
                     count++;
@@ -58,8 +58,8 @@ public class CountUserNameInComments {
         int count = 0;
         char prevChar = '\0';
         char curr = '\0';
-        while(!myFile.isEOF()) {
-            if ((curr = myFile.getNextChar()) == '/' && prevChar == '*'){
+        while (!myFile.isEOF()) {
+            if ((curr = myFile.getNextChar()) == '/' && prevChar == '*') {
                 break;
             }
             if (userName.charAt(0) == curr
@@ -73,7 +73,7 @@ public class CountUserNameInComments {
 
     private boolean equalWordsInSingleLineComments(String userName, String line, int idx) {
         if (line.length() - idx >= userName.length()) {
-            int i = idx, j=0;
+            int i = idx, j = 0;
             for (; j < userName.length(); j++, i++) {
                 if (line.charAt(i) != userName.charAt(j)) {
                     return false;
@@ -92,7 +92,7 @@ public class CountUserNameInComments {
                 return false;
             }
         }
-        if(myFile.isEOF()) return i == userName.length();
+        if (myFile.isEOF()) return i == userName.length();
         return i == userName.length() && nextCharNotPartOfUserName(myFile);
     }
 

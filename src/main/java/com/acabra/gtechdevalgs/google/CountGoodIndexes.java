@@ -1,8 +1,6 @@
 package com.acabra.gtechdevalgs.google;
 
-import java.util.Comparator;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class CountGoodIndexes {
 
@@ -21,10 +19,10 @@ public class CountGoodIndexes {
      * @param A array to jump on
      * @return total count of good indexes in the given array A
      */
-    public int oddEvenJumps(int[] A) {
-        if (A == null || A.length == 0) return 0;
-        if (A.length == 1) return 1;
-        if (A.length == 2) return A[1] >= A[0] ? 2 : 1;
+    public Collection<Integer> oddEvenJumps(int[] A) {
+        if (A == null || A.length == 0) return Collections.emptyList();
+        if (A.length == 1) return Collections.singletonList(1);
+        if (A.length == 2) return A[1] >= A[0] ? Arrays.asList(0, 1) : Collections.singletonList(1);
 
         // end of the array is always a good start
         cache = new int[A.length][2];
@@ -36,10 +34,10 @@ public class CountGoodIndexes {
         }
 
         // good starting indexes
-        int goodIndexes = 0;
-        for (int i = A.length - 1; i >= 0; --i) {
+        ArrayDeque<Integer> goodIndexes = new ArrayDeque<>();
+        for (int i = A.length-1; i>=0;--i) {
             if (canReachEnd(i, A)) {
-                ++goodIndexes;
+                goodIndexes.addFirst(i);
             }
         }
         return goodIndexes;
