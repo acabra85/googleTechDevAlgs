@@ -1,9 +1,11 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
+import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class MovingAverageTest {
 
@@ -13,9 +15,9 @@ public class MovingAverageTest {
     public void test_moving_average() {
         MovingAverage ma = new MovingAverage(3);
         assertNotNull(ma);
-        Assert.assertEquals(1.0, ma.next(1), delta);
-        Assert.assertEquals(5.5, ma.next(10), delta);
-        Assert.assertEquals(5.33333, ma.next(5), delta);
-        Assert.assertEquals(6.0, ma.next(3), delta);
+        MatcherAssert.assertThat(1.0, Is.is(IsCloseTo.closeTo(ma.next(1), delta)));
+        MatcherAssert.assertThat(5.5, Is.is(IsCloseTo.closeTo(ma.next(10), delta)));
+        MatcherAssert.assertThat(5.33333, Is.is(IsCloseTo.closeTo(ma.next(5), delta)));
+        MatcherAssert.assertThat(6.0, Is.is(IsCloseTo.closeTo(ma.next(3), delta)));
     }
 }

@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs.google;
 
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class ShortestDistanceColorsQueryTest {
         int[] expected = {3,0,3,-1};
         List<Integer> actual = underTest.shortestDistanceColor(colors, queries);
         IntStream.range(0, expected.length)
-                .forEach(i -> Assert.assertThat(actual.get(i), Is.is(expected[i])));
+                .forEach(i -> MatcherAssert.assertThat(actual.get(i), Is.is(expected[i])));
 
     }
 }

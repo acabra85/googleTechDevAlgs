@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
@@ -11,12 +12,12 @@ public class JudgeCircleBotTest {
     @Test
     public void api_test_01() {
         String moves = "UD";
-        Assert.assertTrue(new JudgeCircleBot().judgeCircle(moves));
+        TestUtils.iAssertTrue(new JudgeCircleBot().judgeCircle(moves));
     }
 
     @Test
     public void api_test_02() {
         String moves = "LL";
-        Assert.assertFalse(new JudgeCircleBot().judgeCircle(moves));
+        TestUtils.iAssertFalse(new JudgeCircleBot().judgeCircle(moves));
     }
 }

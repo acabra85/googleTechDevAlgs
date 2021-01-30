@@ -1,8 +1,10 @@
 package com.acabra.gtechdevalgs.litcode.trees;
 
+import com.acabra.gtechdevalgs.TestUtils;
 import edu.umd.cs.findbugs.ClassAnnotation;
+import org.hamcrest.core.Is;
 import org.junit.After;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,14 +33,14 @@ public class FindRemainingForestTest {
     public void delNodes() {
         int[] to_delete = {3, 5};
         List<FindRemainingForest.TreeNode> treeNodes = new FindRemainingForest().delNodes(root, to_delete);
-        Assert.assertEquals(3, treeNodes.size());
+        MatcherAssert.assertThat(3, Is.is(treeNodes.size()));
         Set<Integer> validAnswer = new HashSet<Integer>(){{
             add(1);
             add(7);
             add(6);
         }};
         for (FindRemainingForest.TreeNode treeNode : treeNodes) {
-            Assert.assertTrue(validAnswer.contains(treeNode.val));
+            TestUtils.iAssertTrue(validAnswer.contains(treeNode.val));
         }
     }
 
@@ -46,14 +48,14 @@ public class FindRemainingForestTest {
     public void delNodes_iterative() {
         int[] to_delete = {3, 5};
         List<FindRemainingForest.TreeNode> treeNodes = new FindRemainingForest().delNodesIterative(root, to_delete);
-        Assert.assertEquals(3, treeNodes.size());
+        MatcherAssert.assertThat(3, Is.is(treeNodes.size()));
         Set<Integer> validAnswer = new HashSet<Integer>(){{
             add(1);
             add(7);
             add(6);
         }};
         for (FindRemainingForest.TreeNode treeNode : treeNodes) {
-            Assert.assertTrue(validAnswer.contains(treeNode.val));
+            TestUtils.iAssertTrue(validAnswer.contains(treeNode.val));
         }
     }
 
@@ -61,13 +63,13 @@ public class FindRemainingForestTest {
     public void delNodes__2() {
         int[] to_delete = {2, 3};
         List<FindRemainingForest.TreeNode> treeNodes = new FindRemainingForest().delNodes(buildBinaryTree2(), to_delete);
-        Assert.assertEquals(2, treeNodes.size());
+        MatcherAssert.assertThat(2, Is.is(treeNodes.size()));
         Set<Integer> validAnswer = new HashSet<Integer>(){{
             add(1);
             add(4);
         }};
         for (FindRemainingForest.TreeNode treeNode : treeNodes) {
-            Assert.assertTrue(validAnswer.contains(treeNode.val));
+            TestUtils.iAssertTrue(validAnswer.contains(treeNode.val));
         }
     }
 
@@ -75,13 +77,13 @@ public class FindRemainingForestTest {
     public void delNodes_iterative_2() {
         int[] to_delete = {2, 3};
         List<FindRemainingForest.TreeNode> treeNodes = new FindRemainingForest().delNodesIterative(buildBinaryTree2(), to_delete);
-        Assert.assertEquals(2, treeNodes.size());
+        MatcherAssert.assertThat(2, Is.is(treeNodes.size()));
         Set<Integer> validAnswer = new HashSet<Integer>(){{
             add(1);
             add(4);
         }};
         for (FindRemainingForest.TreeNode treeNode : treeNodes) {
-            Assert.assertTrue(validAnswer.contains(treeNode.val));
+            TestUtils.iAssertTrue(validAnswer.contains(treeNode.val));
         }
     }
 

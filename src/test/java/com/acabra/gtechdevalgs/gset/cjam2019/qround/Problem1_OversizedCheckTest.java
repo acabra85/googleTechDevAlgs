@@ -1,9 +1,11 @@
 package com.acabra.gtechdevalgs.gset.cjam2019.qround;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.math.BigInteger;
 import java.util.LongSummaryStatistics;
 
@@ -13,9 +15,9 @@ public class Problem1_OversizedCheckTest {
     public void test_1() {
         String originalCheck = "44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444442";
         Problem1_OversizedCheck.Solution.CheckResult result = Problem1_OversizedCheck.Solution.ofConsole().solve_str(originalCheck);
-        Assert.assertEquals("33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333332", result.a);
-        Assert.assertEquals("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110", result.b);
-        Assert.assertEquals(originalCheck, new BigInteger(result.a).add(new BigInteger(result.b)).toString());
+        MatcherAssert.assertThat("33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333332", Is.is(result.a));
+        MatcherAssert.assertThat("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110", Is.is(result.b));
+        MatcherAssert.assertThat(originalCheck, Is.is(new BigInteger(result.a).add(new BigInteger(result.b)).toString()));
     }
 
     @Test

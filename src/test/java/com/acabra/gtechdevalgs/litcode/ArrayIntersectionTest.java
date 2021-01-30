@@ -1,6 +1,8 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,7 +16,7 @@ public class ArrayIntersectionTest {
 
         int[] expected = {2,2};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersectOld(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersectOld(nums1, nums2)));
     }
 
     @Test
@@ -25,7 +27,7 @@ public class ArrayIntersectionTest {
         int[] expected1 = {4,9};
         int[] expected2 = {9,4};
 
-        Assert.assertTrue(
+        TestUtils.iAssertTrue(
             Arrays.equals(expected1, new ArrayIntersection().intersectOld(nums1, nums2))
             || Arrays.equals(expected2, new ArrayIntersection().intersectOld(nums1, nums2))
         );
@@ -38,7 +40,7 @@ public class ArrayIntersectionTest {
 
         int[] expected = {};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersectOld(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersectOld(nums1, nums2)));
     }
 
     @Test
@@ -48,7 +50,7 @@ public class ArrayIntersectionTest {
 
         int[] expected = {3};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersectOld(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersectOld(nums1, nums2)));
     }
 
 
@@ -59,7 +61,7 @@ public class ArrayIntersectionTest {
 
         int[] expected = {2,2};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersect(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersect(nums1, nums2)));
     }
 
     @Test
@@ -70,7 +72,7 @@ public class ArrayIntersectionTest {
         int[] expected1 = {4,9};
         int[] expected2 = {9,4};
 
-        Assert.assertTrue(
+        TestUtils.iAssertTrue(
                 Arrays.equals(expected1, new ArrayIntersection().intersect(nums1, nums2))
                         || Arrays.equals(expected2, new ArrayIntersection().intersect(nums1, nums2))
         );
@@ -83,7 +85,7 @@ public class ArrayIntersectionTest {
 
         int[] expected = {};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersect(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersect(nums1, nums2)));
     }
 
     @Test
@@ -93,6 +95,6 @@ public class ArrayIntersectionTest {
 
         int[] expected = {3};
 
-        Assert.assertArrayEquals(expected, new ArrayIntersection().intersect(nums1, nums2));
+        MatcherAssert.assertThat(expected, Is.is(new ArrayIntersection().intersect(nums1, nums2)));
     }
 }

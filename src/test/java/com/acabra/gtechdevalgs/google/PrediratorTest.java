@@ -1,15 +1,13 @@
 package com.acabra.gtechdevalgs.google;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-
-import static org.junit.Assert.*;
 
 public class PrediratorTest {
 
@@ -23,11 +21,11 @@ public class PrediratorTest {
             }
         });
 
-        Assert.assertTrue(predirator.hasNext());
-        Assert.assertEquals(2, predirator.next().intValue());
-        Assert.assertEquals(3, predirator.next().intValue());
-        Assert.assertEquals(4, predirator.next().intValue());
-        Assert.assertFalse(predirator.hasNext());
+        MatcherAssert.assertThat(predirator.hasNext(), Is.is(true));
+        MatcherAssert.assertThat(2, Is.is(predirator.next()));
+        MatcherAssert.assertThat(3, Is.is(predirator.next()));
+        MatcherAssert.assertThat(4, Is.is(predirator.next()));
+        MatcherAssert.assertThat(predirator.hasNext(), Is.is(false));
 
     }
 
@@ -40,7 +38,7 @@ public class PrediratorTest {
                 return 1 == integer;
             }
         });
-        Assert.assertFalse(predirator.hasNext());
+        MatcherAssert.assertThat(predirator.hasNext(), Is.is(false));
         predirator.next();
     }
 }

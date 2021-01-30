@@ -4,7 +4,8 @@ import com.acabra.gtechdevalgs.TestUtils;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 /**
@@ -18,7 +19,7 @@ public class RunLengthEncodingTest {
         String expectedKey = "abc";
         List<Integer> expectedEncoding = Arrays.asList(3, 3, 3);
         RunLengthEncoding rle = new RunLengthEncoding(toEncode);
-        Assert.assertEquals(expectedKey, rle.key);
+        MatcherAssert.assertThat(expectedKey, Is.is(rle.key));
         TestUtils.assertListEquals(expectedEncoding, rle.encodings);
     }
 
@@ -28,7 +29,7 @@ public class RunLengthEncodingTest {
         String expectedKey = "acder";
         List<Integer> expectedEncoding = Arrays.asList(1,1,1,1,1);
         RunLengthEncoding rle = new RunLengthEncoding(toEncode);
-        Assert.assertEquals(expectedKey, rle.key);
+        MatcherAssert.assertThat(expectedKey, Is.is(rle.key));
         TestUtils.assertListEquals(expectedEncoding, rle.encodings);
     }
 
@@ -38,7 +39,7 @@ public class RunLengthEncodingTest {
         String expectedKey = "a";
         List<Integer> expectedEncoding = Arrays.asList(5);
         RunLengthEncoding rle = new RunLengthEncoding(toEncode);
-        Assert.assertEquals(expectedKey, rle.key);
+        MatcherAssert.assertThat(expectedKey, Is.is(rle.key));
         TestUtils.assertListEquals(expectedEncoding, rle.encodings);
     }
 
@@ -48,7 +49,7 @@ public class RunLengthEncodingTest {
         String expectedKey = "fkl";
         List<Integer> expectedEncoding = Arrays.asList(3,1,1);
         RunLengthEncoding rle = new RunLengthEncoding(toEncode);
-        Assert.assertEquals(expectedKey, rle.key);
+        MatcherAssert.assertThat(expectedKey, Is.is(rle.key));
         TestUtils.assertListEquals(expectedEncoding, rle.encodings);
     }
 
@@ -58,7 +59,7 @@ public class RunLengthEncodingTest {
         String expectedKey = "";
         List<Integer> expectedEncoding = Collections.emptyList();
         RunLengthEncoding rle = new RunLengthEncoding(toEncode);
-        Assert.assertEquals(expectedKey, rle.key);
+        MatcherAssert.assertThat(expectedKey, Is.is(rle.key));
         TestUtils.assertListEquals(expectedEncoding, rle.encodings);
     }
 }

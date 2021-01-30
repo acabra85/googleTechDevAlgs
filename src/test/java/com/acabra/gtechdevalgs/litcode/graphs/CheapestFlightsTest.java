@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.graphs;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 /**
@@ -16,7 +17,7 @@ public class CheapestFlightsTest {
         int dst = 2;
         int maxStops = 1;
         int cheapestExpectedPrice = 200;
-        Assert.assertEquals(cheapestExpectedPrice, new CheapestFlights().findCheapestPrice(n, flights, src, dst, maxStops));
+        MatcherAssert.assertThat(cheapestExpectedPrice, Is.is(new CheapestFlights().findCheapestPrice(n, flights, src, dst, maxStops)));
     }
 
     @Test
@@ -27,6 +28,6 @@ public class CheapestFlightsTest {
         int dst = 4;
         int maxStops = 1;
         int cheapestExpectedPrice = 16;
-        Assert.assertEquals(cheapestExpectedPrice, new CheapestFlights().findCheapestPrice(n, flights, src, dst, maxStops));
+        MatcherAssert.assertThat(cheapestExpectedPrice, Is.is(new CheapestFlights().findCheapestPrice(n, flights, src, dst, maxStops)));
     }
 }

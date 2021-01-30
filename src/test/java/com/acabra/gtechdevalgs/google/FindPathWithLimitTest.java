@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs.google;
 
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class FindPathWithLimitTest {
                 {1,3,1,3,1},
                 {1,1,1,3,1}
         };
-        Assert.assertThat(underTest.hasAValidPathToTarget(in, 0), Is.is(true));
+        MatcherAssert.assertThat(underTest.hasAValidPathToTarget(in, 0), Is.is(true));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class FindPathWithLimitTest {
                 {1,5,5,5,5,5},
                 {1,1,1,1,6,4}
         };
-        Assert.assertThat(underTest.hasAValidPathToTarget(in, 1), Is.is(true));
+        MatcherAssert.assertThat(underTest.hasAValidPathToTarget(in, 1), Is.is(true));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class FindPathWithLimitTest {
                 {1,4,4,4,3,5},
                 {1,1,1,1,6,4}
         };
-        Assert.assertThat(underTest.hasAValidPathToTarget(in, 1), Is.is(false));
+        MatcherAssert.assertThat(underTest.hasAValidPathToTarget(in, 1), Is.is(false));
     }
 }

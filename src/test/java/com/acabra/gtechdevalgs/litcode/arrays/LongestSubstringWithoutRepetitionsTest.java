@@ -1,16 +1,17 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class LongestSubstringWithoutRepetitionsTest {
 
     @Test
     public void test() {
-        Assert.assertEquals(3, LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("pwwkew"));
-        Assert.assertEquals(4, LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("abbcbadd"));
-        Assert.assertEquals(4, LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("abcad"));
-        Assert.assertEquals(4, LongestSubstringWithoutRepetitions.lengthOfLongestSubstring(" 5% h"));
+        MatcherAssert.assertThat(3, Is.is(LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("pwwkew")));
+        MatcherAssert.assertThat(4, Is.is(LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("abbcbadd")));
+        MatcherAssert.assertThat(4, Is.is(LongestSubstringWithoutRepetitions.lengthOfLongestSubstring("abcad")));
+        MatcherAssert.assertThat(4, Is.is(LongestSubstringWithoutRepetitions.lengthOfLongestSubstring(" 5% h")));
     }
 
 }

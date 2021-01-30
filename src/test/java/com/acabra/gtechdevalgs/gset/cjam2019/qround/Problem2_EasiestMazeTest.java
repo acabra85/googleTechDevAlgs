@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.gset.cjam2019.qround;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class Problem2_EasiestMazeTest {
         String lydiasSteps = "SE";
         int squareSize = 2;
         String mySteps = solution.solve(squareSize, lydiasSteps);
-        Assert.assertTrue(Problem2_EasiestMaze.Solution.validateAnswer(squareSize, mySteps, lydiasSteps));
+        TestUtils.iAssertTrue(Problem2_EasiestMaze.Solution.validateAnswer(squareSize, mySteps, lydiasSteps));
     }
 
     @Test
@@ -22,7 +23,7 @@ public class Problem2_EasiestMazeTest {
         String lydiasSteps = "EESSSESE";
         int squareSize = 5;
         String mySteps = solution.solve(squareSize, lydiasSteps);
-        Assert.assertTrue(Problem2_EasiestMaze.Solution.validateAnswer(squareSize, mySteps, lydiasSteps));
+        TestUtils.iAssertTrue(Problem2_EasiestMaze.Solution.validateAnswer(squareSize, mySteps, lydiasSteps));
     }
 
     @Test

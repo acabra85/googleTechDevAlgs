@@ -1,7 +1,9 @@
 package com.acabra.gtechdevalgs;
 
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class ReverseLinkedListTest {
@@ -12,8 +14,8 @@ public class ReverseLinkedListTest {
         ListNode head = TestUtils.buildLinkedListOfValues(values);
         ListNode rHead = ReverseLinkedList.reverseLinkedList(head);
         for (int i = values.length - 1; i >= 0; i--) {
-            Assert.assertNotNull(rHead);
-            Assert.assertEquals(rHead.val, values[i]);
+            MatcherAssert.assertThat(rHead, Matchers.notNullValue());
+            MatcherAssert.assertThat(rHead.val, Is.is(values[i]));
             rHead = rHead.next;
         }
     }
@@ -24,8 +26,8 @@ public class ReverseLinkedListTest {
         ListNode head = TestUtils.buildLinkedListOfValues(values);
         ListNode rHead = ReverseLinkedList.reverseLinkedList(head);
         for (int i = values.length - 1; i >= 0; i--) {
-            Assert.assertNotNull(rHead);
-            Assert.assertEquals(rHead.val, values[i]);
+            MatcherAssert.assertThat(rHead, Matchers.notNullValue());
+            MatcherAssert.assertThat(rHead.val, Is.is(values[i]));
             rHead = rHead.next;
         }
     }
@@ -36,8 +38,8 @@ public class ReverseLinkedListTest {
         ListNode head = TestUtils.buildLinkedListOfValues(values);
         ListNode rHead = ReverseLinkedList.reverseLinkedList(ReverseLinkedList.reverseLinkedList(head));
         for (int i = 0; i < values.length; i++) {
-            Assert.assertNotNull(rHead);
-            Assert.assertEquals(rHead.val, values[i]);
+            MatcherAssert.assertThat(rHead, Matchers.notNullValue());
+            MatcherAssert.assertThat(rHead.val, Is.is(values[i]));
             rHead = rHead.next;
         }
     }

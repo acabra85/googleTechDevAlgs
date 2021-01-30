@@ -1,6 +1,8 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class StringWithout3a3bTest {
@@ -10,22 +12,22 @@ public class StringWithout3a3bTest {
         int A = 4;
         int B = 1;
 
-        Assert.assertEquals("aabaa", new StringWithout3a3b().strWithout3a3b(A, B));
+        MatcherAssert.assertThat("aabaa", Is.is(new StringWithout3a3b().strWithout3a3b(A, B)));
     }
 
 
     @Test
     public void should_be_true_contains_aaa() {
-        Assert.assertTrue(new StringWithout3a3b().invalid("aaaaa"));
+        TestUtils.iAssertTrue(new StringWithout3a3b().invalid("aaaaa"));
     }
 
     @Test
     public void should_be_true_contains_bbb() {
-        Assert.assertTrue(new StringWithout3a3b().invalid("abbb"));
+        TestUtils.iAssertTrue(new StringWithout3a3b().invalid("abbb"));
     }
 
     @Test
     public void should_be_true_contains_both() {
-        Assert.assertTrue(new StringWithout3a3b().invalid("bbbaaa"));
+        TestUtils.iAssertTrue(new StringWithout3a3b().invalid("bbbaaa"));
     }
 }

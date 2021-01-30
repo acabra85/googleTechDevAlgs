@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class SubstringAtMostKDistinctTest {
@@ -10,7 +11,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "ebeabc";
         int k = 2;
         String expected = "ebe";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -18,7 +19,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "aaaaaa";
         int k = 1;
         String expected = "aaaaaa";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -26,7 +27,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "aaaaaa";
         int k = 0;
         String expected = "";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -34,7 +35,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "ebeabcbcbc";
         int k = 2;
         String expected = "bcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -42,7 +43,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 2;
         String expected = "bcbcbcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 3;
         String expected = "bcbcbcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -58,7 +59,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 4;
         String expected = "bcbcbcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -66,7 +67,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbc";
         int k = 4;
         String expected = "bcbcsebcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbc";
         int k = 3;
         String expected = "ebcbcbc";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -82,6 +83,6 @@ public class SubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbcxbbccbb";
         int k = 3;
         String expected = "bcbcbcxbbccbb";
-        Assert.assertEquals(expected, new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new SubstringAtMostKDistinct().substringAtMostKDistinct(s, k)));
     }
 }

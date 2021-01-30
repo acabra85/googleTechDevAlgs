@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 /**
@@ -12,13 +13,13 @@ public class MyHashTableTest {
     public void test_api_01() {
         MyHashTable h = new MyHashTable();
 
-        Assert.assertTrue(h.put("key","value"));
-        Assert.assertEquals("value", h.get("key"));
+        TestUtils.iAssertTrue(h.put("key","value"));
+        MatcherAssert.assertThat("value", Is.is(h.get("key")));
 
-        Assert.assertFalse(h.put("key","value1"));
-        Assert.assertEquals("value1", h.get("key"));
+        TestUtils.iAssertFalse(h.put("key","value1"));
+        MatcherAssert.assertThat("value1", Is.is(h.get("key")));
 
-        Assert.assertTrue(h.put("key2","value2"));
-        Assert.assertEquals("value2", h.get("key2"));
+        TestUtils.iAssertTrue(h.put("key2","value2"));
+        MatcherAssert.assertThat("value2", Is.is(h.get("key2")));
     }
 }

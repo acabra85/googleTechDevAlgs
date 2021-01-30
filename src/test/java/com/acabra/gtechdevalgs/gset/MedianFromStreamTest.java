@@ -8,7 +8,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.LongBinaryOperator;
 
 import com.google.common.base.Stopwatch;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
+import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 
 public class MedianFromStreamTest {
@@ -27,7 +29,7 @@ public class MedianFromStreamTest {
     public void test_api() {
         MedianFromStream median = new MedianFromStream();
         SecureRandom sr = new SecureRandom();
-        int CAP = 100000;
+        int CAP = 10;
         List<Double> nums = new ArrayList<>(CAP);
         double expected;
         LongBinaryOperator OP = new LongBinaryOperator() {
@@ -47,7 +49,7 @@ public class MedianFromStreamTest {
             Stopwatch fast = Stopwatch.createStarted();
             actual = median.getMedian();
             totalFast.accumulateAndGet(fast.stop().elapsed(TimeUnit.NANOSECONDS), OP);
-            Assert.assertEquals(expected, actual, 0.01);
+            MatcherAssert.assertThat(expected, Is.is(IsCloseTo.closeTo(actual, 0.01)));
         }
         System.out.println("  bf: " + totalBF);
         System.out.println("fast: " + totalFast);

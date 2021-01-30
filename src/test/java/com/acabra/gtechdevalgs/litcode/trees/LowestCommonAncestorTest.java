@@ -2,7 +2,7 @@ package com.acabra.gtechdevalgs.litcode.trees;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,35 +21,35 @@ public class LowestCommonAncestorTest {
     public void shouldReturnItSelf() {
         LowestCommonAncestor.TreeNode root = buildTree_singleNode();
         LowestCommonAncestor.TreeNode actual = underTest.lowestCommonAncestor(root, TreeNode.of(10), TreeNode.of(10));
-        Assert.assertThat(actual.val, Is.is(root.val));
+        MatcherAssert.assertThat(actual.val, Is.is(root.val));
     }
 
     @Test
     public void shouldReturnNullOneNodeInExistent() {
         LowestCommonAncestor.TreeNode root = buildTree_singleNode();
         LowestCommonAncestor.TreeNode actual = underTest.lowestCommonAncestor(root, TreeNode.of(10), TreeNode.of(11));
-        Assert.assertThat(actual, CoreMatchers.nullValue());
+        MatcherAssert.assertThat(actual, CoreMatchers.nullValue());
     }
 
     @Test
     public void shouldReturnNullBothNodesInExistent() {
         LowestCommonAncestor.TreeNode root = buildTree_singleNode();
         LowestCommonAncestor.TreeNode actual = underTest.lowestCommonAncestor(root, TreeNode.of(12), TreeNode.of(11));
-        Assert.assertThat(actual, CoreMatchers.nullValue());
+        MatcherAssert.assertThat(actual, CoreMatchers.nullValue());
     }
 
     @Test
     public void shouldReturnRootAsParent() {
         LowestCommonAncestor.TreeNode root = buildTree_twoChildren();
         LowestCommonAncestor.TreeNode actual = underTest.lowestCommonAncestor(root, TreeNode.of(12), TreeNode.of(11));
-        Assert.assertThat(actual.val, Is.is(root.val));
+        MatcherAssert.assertThat(actual.val, Is.is(root.val));
     }
 
     @Test
     public void shouldReturnRightChildOfRootAsParent() {
         LowestCommonAncestor.TreeNode root = buildTree_manyNodes();
         LowestCommonAncestor.TreeNode actual = underTest.lowestCommonAncestor(root, TreeNode.of(2), TreeNode.of(3));
-        Assert.assertThat(actual.val, Is.is(root.right.val));
+        MatcherAssert.assertThat(actual.val, Is.is(root.right.val));
     }
 
     private LowestCommonAncestor.TreeNode buildTree_manyNodes() {

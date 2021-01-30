@@ -3,7 +3,7 @@ package com.acabra.gtechdevalgs.google;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsCollectionContaining;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,8 +24,8 @@ public class RandomTestGeneratorTest {
         int expectedSize = 4;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
 
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("GGGG", "BBBBB", "DDDDD", "FFFFF")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("GGGG", "BBBBB", "DDDDD", "FFFFF")));
     }
 
     private List<List<String>> getInputCategories1() {
@@ -44,8 +44,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 4;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("FFFFF", "LLLLL", "CCCC", "KKKKKK")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("FFFFF", "LLLLL", "CCCC", "KKKKKK")));
     }
 
     @Test
@@ -53,8 +53,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 3;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("FFFFF", "CCCC", "KKKKKK")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("FFFFF", "CCCC", "KKKKKK")));
     }
 
     @Test
@@ -62,8 +62,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 1;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("FFFFF")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("FFFFF")));
     }
 
     @Test
@@ -71,8 +71,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 2;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("FFFFF", "CCCC")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("FFFFF", "CCCC")));
     }
 
     @Test
@@ -80,8 +80,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 6;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("AAAAA", "IIIIIII", "JJJJJJ", "MMMMM", "FFFFF", "CCCC")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("AAAAA", "IIIIIII", "JJJJJJ", "MMMMM", "FFFFF", "CCCC")));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -89,8 +89,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 14;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual, Is.is(List.of("AAAAA", "IIIIIII", "JJJJJJ", "MMMMM", "FFFFF", "CCCC")));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual, Is.is(List.of("AAAAA", "IIIIIII", "JJJJJJ", "MMMMM", "FFFFF", "CCCC")));
     }
 
     @Test
@@ -98,8 +98,8 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 13;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
-        Assert.assertThat(actual,
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual,
                 Is.is(List.of("GGGG", "HHHH", "BBBBB", "EEEEE", "MMMMM", "AAAAA", "IIIIIII", "DDDDD", "JJJJJJ", "FFFFF", "LLLLL", "KKKKKK", "CCCC")));
     }
 
@@ -108,7 +108,7 @@ public class RandomTestGeneratorTest {
         List<List<String>> wordCategories = getInputCategories2();
         int expectedSize = 0;
         List<String> actual = underTest.generateFairRandomWordList(wordCategories, expectedSize);
-        Assert.assertThat(actual.size(), Is.is(expectedSize));
+        MatcherAssert.assertThat(actual.size(), Is.is(expectedSize));
     }
 
     private List<List<String>> getInputCategories2() {

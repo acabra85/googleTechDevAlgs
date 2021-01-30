@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs.google;
 
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +18,6 @@ public class LetterBoardTest {
 
     @Test
     public void alphabetBoardPath() {
-        Assert.assertThat(underTest.alphabetBoardPath("agustin"), Is.is("!RD!LDDD!RRRU!R!LUU!D!"));
+        MatcherAssert.assertThat(underTest.alphabetBoardPath("agustin"), Is.is("!RD!LDDD!RRRU!R!LUU!D!"));
     }
 }

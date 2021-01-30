@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class NumberOfDistinctIslandsTest {
@@ -18,7 +19,7 @@ public class NumberOfDistinctIslandsTest {
                 {'0', '4'},
                 {'1', '4'}
         };
-        Assert.assertArrayEquals(expected, new NumberOfDistinctIslands().numIslands(grid));
+        MatcherAssert.assertThat(expected, Is.is(new NumberOfDistinctIslands().numIslands(grid)));
     }
     @Test
     public void should_find_4_types_test_3() {
@@ -35,6 +36,6 @@ public class NumberOfDistinctIslandsTest {
                 {'2', '1'},
                 {'3', '1'},
         };
-        Assert.assertArrayEquals(expected, new NumberOfDistinctIslands().numIslands(grid));
+        MatcherAssert.assertThat(expected, Is.is(new NumberOfDistinctIslands().numIslands(grid)));
     }
 }

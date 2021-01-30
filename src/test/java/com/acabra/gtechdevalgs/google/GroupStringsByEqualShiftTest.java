@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs.google;
 
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,11 +42,11 @@ public class GroupStringsByEqualShiftTest {
         }};
         HashSet<String>[] expected = new HashSet[]{groupLength1,  groupLength2, groupLength3, groupLength4};
         List<List<String>> actual = underTest.groupStrings(strings);
-        Assert.assertThat(actual.size(), Is.is(4));
+        MatcherAssert.assertThat(actual.size(), Is.is(4));
         for (List<String> stringList : actual) {
             int i = stringList.get(0).length() - 1;
             for (String s : stringList) {
-                Assert.assertThat(expected[i].contains(s), Is.is(true));
+                MatcherAssert.assertThat(expected[i].contains(s), Is.is(true));
             }
         }
     }
@@ -55,10 +55,10 @@ public class GroupStringsByEqualShiftTest {
     public void shouldReturn1GroupOfSize2() {
         String[] strings = {"abc","abc"};
         List<List<String>> actual = underTest.groupStrings(strings);
-        Assert.assertThat(actual.size(), Is.is(1));
-        Assert.assertThat(actual.get(0).size(), Is.is(2));
+        MatcherAssert.assertThat(actual.size(), Is.is(1));
+        MatcherAssert.assertThat(actual.get(0).size(), Is.is(2));
         for (String act : actual.get(0)) {
-            Assert.assertThat("abc".equals(act), Is.is(true));
+            MatcherAssert.assertThat("abc".equals(act), Is.is(true));
         }
     }
 }

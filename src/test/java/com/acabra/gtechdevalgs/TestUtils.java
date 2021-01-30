@@ -7,6 +7,12 @@ import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
+import org.hamcrest.CustomTypeSafeMatcher;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.collection.IsArray;
+import org.hamcrest.core.Is;
+import org.hamcrest.number.IsCloseTo;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -198,5 +204,28 @@ public class TestUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void iAssertTrue(boolean actual) {
+        MatcherAssert.assertThat(actual, Is.is(true));
+    }
+
+    public static void iAssertFalse(boolean actual) {
+        MatcherAssert.assertThat(actual, Is.is(false));
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public static Matcher<double[]> isArrayCloseTo(double[] expected, double error) {
+        List<Matcher<Double>> matchers = new ArrayList<>();
+        for (double d : expected)
+            matchers.add(new IsCloseTo(d, error));
+
+        return new CustomTypeSafeMatcher<>("array that is close to" + Arrays.toString(expected)) {
+            @Override
+            protected boolean matchesSafely(double[] actual) {
+                return new IsArray<Double>(matchers.toArray(new Matcher[matchers.size()]))
+                        .matchesSafely(Arrays.stream(actual).boxed().toArray(Double[]::new));
+            }
+        };
     }
 }

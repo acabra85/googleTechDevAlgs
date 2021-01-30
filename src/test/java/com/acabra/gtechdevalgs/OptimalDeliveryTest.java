@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs;
 
-import com.acabra.gtechdevalgs.OptimalDelivery;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(1,-1));
             add(Arrays.asList(1, 2));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations)));
     }
     @Test
     public void calculateOptimalRouteTruckCapacitySinglePackage_test_2() {
@@ -59,7 +59,7 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(4, 4));
             add(Arrays.asList(5, 3));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations)));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(0, -1));
             add(Arrays.asList(-1, 0));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacitySinglePackage(allDestinations, numDestinations)));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(1,-1));
             add(Arrays.asList(1, 2));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations)));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(1, 3));
             add(Arrays.asList(1, 2));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations)));
     }
 
     @Test
@@ -149,6 +149,6 @@ public class OptimalDeliveryTest {
             add(Arrays.asList(-1, 0));
             add(Arrays.asList(0, 1));
         }};
-        Assert.assertEquals(expectedAnswer, OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations));
+        MatcherAssert.assertThat(expectedAnswer, Is.is(OptimalDelivery.calculateOptimalRouteTruckCapacityAllPackages(allDestinations, numDestinations)));
     }
 }

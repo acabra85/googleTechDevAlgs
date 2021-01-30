@@ -1,7 +1,7 @@
 package com.acabra.gtechdevalgs.google;
 
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class WordsInTypingTest {
         int rows = 14;
         int cols = 6;
         int expected = 9;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class WordsInTypingTest {
         int rows = 2;
         int cols = 3;
         int expected = 4;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class WordsInTypingTest {
         int rows = 15;
         int cols = 6;
         int expected = 10;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class WordsInTypingTest {
         int rows = 20000;
         int cols = 20000;
         int expected = 851000;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class WordsInTypingTest {
         int rows = 20000;
         int cols = 20000;
         int expected = 2000000;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class WordsInTypingTest {
         int rows = 20000;
         int cols = 20000;
         int expected = 1990000;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class WordsInTypingTest {
         int rows = 19948;
         int cols = 19994;
         int expected = 848587;
-        Assert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
+        MatcherAssert.assertThat(underTest.wordsTyping(strings, rows, cols), Is.is(expected));
     }
 
 }

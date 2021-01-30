@@ -2,7 +2,7 @@ package com.acabra.gtechdevalgs.google;
 
 import com.acabra.gtechdevalgs.TestUtils;
 import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,8 +25,8 @@ public class CountGoodIndexesTest {
         int[] input = {10, 13, 12, 14, 15};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -34,8 +34,8 @@ public class CountGoodIndexesTest {
         int[] input = {81, 54, 96, 60, 58};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -43,8 +43,8 @@ public class CountGoodIndexesTest {
         int[] input = {40, 78};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -52,8 +52,8 @@ public class CountGoodIndexesTest {
         int[] input = {2, 3, 1, 1, 4};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -61,8 +61,8 @@ public class CountGoodIndexesTest {
         int[] input = {5, 1, 3, 4, 2};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -70,8 +70,8 @@ public class CountGoodIndexesTest {
         int[] input = {1, 2, 3, 2, 1, 4, 4, 5};
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -79,8 +79,8 @@ public class CountGoodIndexesTest {
         int[] input = TestUtils.buildTestCaseBigJumpingEvenOdd("google/countgoodindexes/16023.in");
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -88,8 +88,8 @@ public class CountGoodIndexesTest {
         int[] input = TestUtils.buildTestCaseBigJumpingEvenOdd("google/countgoodindexes/2819.in");
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -97,8 +97,8 @@ public class CountGoodIndexesTest {
         int[] input = TestUtils.buildTestCaseBigJumpingEvenOdd("google/countgoodindexes/1420.in");
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -106,8 +106,8 @@ public class CountGoodIndexesTest {
         int[] input = TestUtils.buildTestCaseBigJumpingEvenOdd("google/countgoodindexes/3318.in");
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class CountGoodIndexesTest {
         int[] input = TestUtils.buildTestCaseBigJumpingEvenOdd("google/countgoodindexes/15366.in");
         Object[] expected = helper.oddEvenJumps(input).toArray();
         Object[] actual = underTest.oddEvenJumps(input).toArray();
-        Assert.assertThat(actual.length, Is.is(expected.length));
-        IntStream.range(0, expected.length).forEach(idx -> Assert.assertThat(actual[idx], Is.is(expected[idx])));
+        MatcherAssert.assertThat(actual.length, Is.is(expected.length));
+        IntStream.range(0, expected.length).forEach(idx -> MatcherAssert.assertThat(actual[idx], Is.is(expected[idx])));
     }
 }

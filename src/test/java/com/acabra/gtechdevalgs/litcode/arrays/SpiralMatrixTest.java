@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 public class SpiralMatrixTest {
@@ -13,7 +14,7 @@ public class SpiralMatrixTest {
                 {7,8,9}
         };
         Integer[] expected = {1,2,3,6,9,8,7,4,5};
-        Assert.assertArrayEquals(expected, new SpiralMatrix().spiralMatrix(input).toArray());
+        MatcherAssert.assertThat(expected, Matchers.arrayContaining(new SpiralMatrix().spiralMatrix(input).toArray()));
     }
 
     @Test
@@ -24,13 +25,12 @@ public class SpiralMatrixTest {
                 {9,10,11,12}
         };
         Integer[] expected = {1,2,3,4,8,12,11,10,9,5,6,7};
-        Assert.assertArrayEquals(expected, new SpiralMatrix().spiralMatrix(input).toArray());
+        MatcherAssert.assertThat(expected, Matchers.arrayContaining(new SpiralMatrix().spiralMatrix(input).toArray()));
     }
 
     @Test
     public void test_3() {
         int[][] input = {};
-        Integer[] expected = {};
-        Assert.assertArrayEquals(expected, new SpiralMatrix().spiralMatrix(input).toArray());
+        MatcherAssert.assertThat(new SpiralMatrix().spiralMatrix(input), Matchers.empty());
     }
 }

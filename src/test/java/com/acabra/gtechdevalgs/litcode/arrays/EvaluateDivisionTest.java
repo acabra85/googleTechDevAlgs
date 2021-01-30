@@ -1,9 +1,11 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 public class EvaluateDivisionTest {
+    private final double PRECISION = 0.0001d;
 
     @Test
     public void test_1() {
@@ -22,7 +24,8 @@ public class EvaluateDivisionTest {
                 -1.0,
                 1.0,
                 -1.0};
-        Assert.assertArrayEquals(expected, new EvaluateDivision().evaluateDivision(equations, values, queries), 0.0001d);
+        double[] actual = new EvaluateDivision().evaluateDivision(equations, values, queries);
+        MatcherAssert.assertThat(expected, TestUtils.isArrayCloseTo(actual, PRECISION));
     }
 
     @Test
@@ -38,7 +41,8 @@ public class EvaluateDivisionTest {
                 1.33333,
                 1.0,
                 -1.0};
-        Assert.assertArrayEquals(expected, new EvaluateDivision().evaluateDivision(equations, values, queries), 0.0001d);
+        double[] actual = new EvaluateDivision().evaluateDivision(equations, values, queries);
+        MatcherAssert.assertThat(expected, TestUtils.isArrayCloseTo(actual, PRECISION));
     }
     @Test
     public void test_3() {
@@ -65,7 +69,8 @@ public class EvaluateDivisionTest {
                 -1.0,
                 -1.0
         };
-        Assert.assertArrayEquals(expected, new EvaluateDivision().evaluateDivision(equations, values, queries), 0.0001d);
+        double[] actual = new EvaluateDivision().evaluateDivision(equations, values, queries);
+        MatcherAssert.assertThat(expected, TestUtils.isArrayCloseTo(actual, PRECISION));
     }
     @Test
     public void test_4() {
@@ -97,6 +102,7 @@ public class EvaluateDivisionTest {
                 -1.0,
                 0.71429
         };
-        Assert.assertArrayEquals(expected, new EvaluateDivision().evaluateDivision(equations, values, queries), 0.0001d);
+        double[] actual = new EvaluateDivision().evaluateDivision(equations, values, queries);
+        MatcherAssert.assertThat(expected, TestUtils.isArrayCloseTo(actual, PRECISION));
     }
 }

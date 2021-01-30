@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.google.wheretomove;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,6 +18,6 @@ public class BuildingTest {
             add(COFFEE_SHOP);
             add(GYM);
         }};
-        Assert.assertTrue(new Building(availableInterests).hasInterest(COFFEE_SHOP));
+        TestUtils.iAssertTrue(new Building(availableInterests).hasInterest(COFFEE_SHOP));
     }
 }

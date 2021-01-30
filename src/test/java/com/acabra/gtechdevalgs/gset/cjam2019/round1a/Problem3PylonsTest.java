@@ -1,9 +1,7 @@
 package com.acabra.gtechdevalgs.gset.cjam2019.round1a;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
 import org.junit.Test;
-
-import java.io.*;
 
 public class Problem3PylonsTest {
 
@@ -13,6 +11,6 @@ public class Problem3PylonsTest {
         String testFile = "cjam2019/round1a/p3.txt";
         //Problem3_Pylons.Solution.ofTestFile(testFile).read();
         long current = (System.nanoTime() - l) / 1000000;
-        Assert.assertTrue(current < 20000);
+        TestUtils.iAssertTrue(current < 20000);
     }
 }

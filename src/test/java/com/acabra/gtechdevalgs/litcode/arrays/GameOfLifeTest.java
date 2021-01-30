@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 public class GameOfLifeTest {
@@ -20,6 +21,6 @@ public class GameOfLifeTest {
             {0,1,0}
         };
         new GameOfLife().gameOfLife(input);
-        Assert.assertArrayEquals(expected, input);
+        MatcherAssert.assertThat(expected, Matchers.arrayContaining(input));
     }
 }

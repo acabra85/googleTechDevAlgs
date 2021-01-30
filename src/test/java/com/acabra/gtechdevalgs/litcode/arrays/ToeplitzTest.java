@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 public class ToeplitzTest {
@@ -12,7 +13,7 @@ public class ToeplitzTest {
                 {5,1,2,3},
                 {9,5,1,2}
         };
-        Assert.assertTrue(new Toeplitz().isToeplitz(matrix));
+        TestUtils.iAssertTrue(new Toeplitz().isToeplitz(matrix));
     }
 
     @Test
@@ -22,6 +23,6 @@ public class ToeplitzTest {
                 {5,1,2,3},
                 {9,2,1,2}
         };
-        Assert.assertFalse(new Toeplitz().isToeplitz(matrix));
+        TestUtils.iAssertFalse(new Toeplitz().isToeplitz(matrix));
     }
 }

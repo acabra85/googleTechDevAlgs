@@ -1,6 +1,8 @@
 package com.acabra.gtechdevalgs.litcode.dynamicprog;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
+import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 
 public class HireWorkersTest {
@@ -11,7 +13,7 @@ public class HireWorkersTest {
         int[] wage = {70,50,30};
         int K = 2;
         double expected = 105.0d;
-        Assert.assertEquals(expected, new HireWorkers().mincostToHireWorkers(quality, wage, K), 0.00001);
+        MatcherAssert.assertThat(expected, Is.is(IsCloseTo.closeTo(new HireWorkers().mincostToHireWorkers(quality, wage, K), 0.00001)));
     }
     @Test
     public void should_return_25_2d_test() {
@@ -19,6 +21,6 @@ public class HireWorkersTest {
         int[] wage = {8,14};
         int K = 2;
         double expected = 25.2d;
-        Assert.assertEquals(expected, new HireWorkers().mincostToHireWorkers(quality, wage, K), 0.00001);
+        MatcherAssert.assertThat(expected, Is.is(IsCloseTo.closeTo(new HireWorkers().mincostToHireWorkers(quality, wage, K), 0.00001)));
     }
 }

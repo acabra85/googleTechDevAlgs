@@ -1,14 +1,13 @@
 package com.acabra.gtechdevalgs.google;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.function.Predicate;
-
-import static org.junit.Assert.*;
 
 public class SkiperatorTest {
 
@@ -17,15 +16,15 @@ public class SkiperatorTest {
         List<Integer> objects = Arrays.asList(1, 2, 1, 3, 4, 1);
         Skiperator<Integer> skiperator = new Skiperator<>(objects.iterator());
 
-        Assert.assertTrue(skiperator.hasNext());
+        TestUtils.iAssertTrue(skiperator.hasNext());
         skiperator.skip(1);
         skiperator.skip(1);
-        Assert.assertEquals(2, skiperator.next().intValue());
-        Assert.assertEquals(3, skiperator.next().intValue());
-        Assert.assertEquals(4, skiperator.next().intValue());
-        Assert.assertTrue(skiperator.hasNext());
+        MatcherAssert.assertThat(2, Is.is(skiperator.next().intValue()));
+        MatcherAssert.assertThat(3, Is.is(skiperator.next().intValue()));
+        MatcherAssert.assertThat(4, Is.is(skiperator.next().intValue()));
+        TestUtils.iAssertTrue(skiperator.hasNext());
         skiperator.skip(1);
-        Assert.assertFalse(skiperator.hasNext());
+        TestUtils.iAssertFalse(skiperator.hasNext());
 
     }
 
@@ -34,11 +33,11 @@ public class SkiperatorTest {
         List<Integer> objects = Arrays.asList(1, 1, 1, 1, 1);
         Skiperator<Integer> skiperator = new Skiperator<>(objects.iterator());
 
-        Assert.assertTrue(skiperator.hasNext());
+        TestUtils.iAssertTrue(skiperator.hasNext());
         for (Integer object : objects) {
             skiperator.skip(object);
         }
-        Assert.assertFalse(skiperator.hasNext());
+        TestUtils.iAssertFalse(skiperator.hasNext());
         skiperator.next();
     }
 

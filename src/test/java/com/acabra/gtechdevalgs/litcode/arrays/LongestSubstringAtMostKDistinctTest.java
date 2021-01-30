@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class LongestSubstringAtMostKDistinctTest {
@@ -10,7 +11,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "ebeabc";
         int k = 2;
         int expected = 3;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -18,7 +19,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "aaaaaa";
         int k = 1;
         int expected = s.length();
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -26,7 +27,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "aaaaaa";
         int k = 0;
         int expected = 0;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -34,7 +35,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "ebeabcbcbc";
         int k = 2;
         int expected = 6;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -42,7 +43,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 2;
         int expected = 10;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 3;
         int expected = 10;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -58,7 +59,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcbcbcbc";
         int k = 4;
         int expected = 10;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -66,7 +67,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbc";
         int k = 4;
         int expected = 12;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbc";
         int k = 3;
         int expected = 7;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 
     @Test
@@ -82,6 +83,6 @@ public class LongestSubstringAtMostKDistinctTest {
         String s = "bcbcsebcbcbcxbbccbb";
         int k = 3;
         int expected = 13;
-        Assert.assertEquals(expected, new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k));
+        MatcherAssert.assertThat(expected, Is.is(new LongestSubstringAtMostKDistinct().sizeLongestSubstringAtMostKDistinct(s, k)));
     }
 }

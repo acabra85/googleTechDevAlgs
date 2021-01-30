@@ -1,9 +1,8 @@
 package com.acabra.gtechdevalgs.google;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class CreateAirlineRoutesToSupportAllDestinationsFromSourceTest {
 
@@ -19,7 +18,7 @@ public class CreateAirlineRoutesToSupportAllDestinationsFromSourceTest {
         };
         String source = "JFK";
 
-        Assert.assertEquals(0, new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source));
+        MatcherAssert.assertThat(0, Is.is(new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source)));
     }
 
     @Test
@@ -33,7 +32,7 @@ public class CreateAirlineRoutesToSupportAllDestinationsFromSourceTest {
         };
         String source = "LUX";
 
-        Assert.assertEquals(1, new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source));
+        MatcherAssert.assertThat(1, Is.is(new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source)));
     }
 
     @Test
@@ -47,7 +46,7 @@ public class CreateAirlineRoutesToSupportAllDestinationsFromSourceTest {
         };
         String source = "JFK";
 
-        Assert.assertEquals(0, new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source));
+        MatcherAssert.assertThat(0, Is.is(new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source)));
     }
     @Test
     public void should_return_3() {
@@ -77,7 +76,7 @@ public class CreateAirlineRoutesToSupportAllDestinationsFromSourceTest {
         };
         String source = "LGA";
 
-        Assert.assertEquals(3, new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source));
+        MatcherAssert.assertThat(3, Is.is(new CreateAirlineRoutesToSupportAllDestinationsFromSource().countMinimalMissingRoutes(aiports, routes, source)));
     }
 
 }

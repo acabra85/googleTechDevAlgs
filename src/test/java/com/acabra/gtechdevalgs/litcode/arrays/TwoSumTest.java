@@ -1,6 +1,8 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
-import org.junit.Assert;
+import com.acabra.gtechdevalgs.TestUtils;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class TwoSumTest {
@@ -11,14 +13,14 @@ public class TwoSumTest {
         int target = 5;
         int[] input = {2, 1, 6, 5, 3};
         int[] expected = {0, 4};
-        Assert.assertArrayEquals(expected, new TwoSum().twoSum(input, target));
+        MatcherAssert.assertThat(expected, Is.is(new TwoSum().twoSum(input, target)));
     }
     @Test
     public void should_return_true_test_01() {
         int target = 6;
         int[] input = {3, 2, 4};
         int[] expected = {1, 2};
-        Assert.assertArrayEquals(expected, new TwoSum().twoSum(input, target));
+        MatcherAssert.assertThat(expected, Is.is(new TwoSum().twoSum(input, target)));
     }
 
 
@@ -27,7 +29,7 @@ public class TwoSumTest {
         int target = 10;
         int[] input = {2, 1, 6, 5, 3};
         int[] expected = {-1, -1};
-        Assert.assertArrayEquals(expected, new TwoSum().twoSum(input, target));
+        MatcherAssert.assertThat(expected, Is.is(new TwoSum().twoSum(input, target)));
     }
 
 
@@ -37,7 +39,7 @@ public class TwoSumTest {
     public void api_test01() {
         TwoSum twoSum = new TwoSum();
         twoSum.add(0);
-        Assert.assertFalse(twoSum.find(0));
+        TestUtils.iAssertFalse(twoSum.find(0));
     }
 
     @Test
@@ -46,11 +48,11 @@ public class TwoSumTest {
         twoSum.add(3);
         twoSum.add(2);
         twoSum.add(1);
-        Assert.assertFalse(twoSum.find(2));
-        Assert.assertTrue(twoSum.find(3));
-        Assert.assertTrue(twoSum.find(4));
-        Assert.assertTrue(twoSum.find(5));
-        Assert.assertFalse(twoSum.find(6));
+        TestUtils.iAssertFalse(twoSum.find(2));
+        TestUtils.iAssertTrue(twoSum.find(3));
+        TestUtils.iAssertTrue(twoSum.find(4));
+        TestUtils.iAssertTrue(twoSum.find(5));
+        TestUtils.iAssertFalse(twoSum.find(6));
     }
 
     @Test
@@ -58,7 +60,7 @@ public class TwoSumTest {
         TwoSum twoSum = new TwoSum();
         twoSum.add(0);
         twoSum.add(0);
-        Assert.assertTrue(twoSum.find(0));
+        TestUtils.iAssertTrue(twoSum.find(0));
     }
 
 
@@ -70,7 +72,7 @@ public class TwoSumTest {
         int[] nums = {1,2,3,4,8,9};
         int target = 7;
         int[] expected = {3,4};
-        Assert.assertArrayEquals(expected, new TwoSum().twoSumInputAscendingOrder(nums, target));
+        MatcherAssert.assertThat(expected, Is.is(new TwoSum().twoSumInputAscendingOrder(nums, target)));
     }
 
     @Test
@@ -78,6 +80,6 @@ public class TwoSumTest {
         int[] nums = {2,7,11,15};
         int target = 9;
         int[] expected = {1, 2};
-        Assert.assertArrayEquals(expected, new TwoSum().twoSumInputAscendingOrder(nums, target));
+        MatcherAssert.assertThat(expected, Is.is(new TwoSum().twoSumInputAscendingOrder(nums, target)));
     }
 }

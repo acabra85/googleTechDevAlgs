@@ -1,7 +1,8 @@
 package com.acabra.gtechdevalgs.litcode.linkedlist;
 
 import com.acabra.gtechdevalgs.TestUtils;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class AddTwoNumbersTest {
@@ -11,7 +12,7 @@ public class AddTwoNumbersTest {
         ListNode num1 = TestUtils.buildNumberAsNodeReverseOrder("342");
         ListNode num2 = TestUtils.buildNumberAsNodeReverseOrder("465");
         ListNode expected = TestUtils.buildNumberAsNodeReverseOrder("807");
-        Assert.assertEquals(expected, new AddTwoNumbers().add(num1, num2));
+        MatcherAssert.assertThat(expected, Is.is(new AddTwoNumbers().add(num1, num2)));
     }
 
     @Test
@@ -19,7 +20,7 @@ public class AddTwoNumbersTest {
         ListNode num1 = TestUtils.buildNumberAsNodeReverseOrder("25");
         ListNode num2 = TestUtils.buildNumberAsNodeReverseOrder("1");
         ListNode expected = TestUtils.buildNumberAsNodeReverseOrder("26");
-        Assert.assertEquals(expected, new AddTwoNumbers().add(num1, num2));
+        MatcherAssert.assertThat(expected, Is.is(new AddTwoNumbers().add(num1, num2)));
     }
 
     @Test
@@ -27,7 +28,7 @@ public class AddTwoNumbersTest {
         ListNode num1 = TestUtils.buildNumberAsNodeReverseOrder("999");
         ListNode num2 = TestUtils.buildNumberAsNodeReverseOrder("1");
         ListNode expected = TestUtils.buildNumberAsNodeReverseOrder("1000");
-        Assert.assertEquals(expected, new AddTwoNumbers().add(num1, num2));
+        MatcherAssert.assertThat(expected, Is.is(new AddTwoNumbers().add(num1, num2)));
     }
 
     @Test
@@ -35,6 +36,6 @@ public class AddTwoNumbersTest {
         ListNode num1 = TestUtils.buildNumberAsNodeReverseOrder("1");
         ListNode num2 = TestUtils.buildNumberAsNodeReverseOrder("999");
         ListNode expected = TestUtils.buildNumberAsNodeReverseOrder("1000");
-        Assert.assertEquals(expected, new AddTwoNumbers().add(num1, num2));
+        MatcherAssert.assertThat(expected, Is.is(new AddTwoNumbers().add(num1, num2)));
     }
 }

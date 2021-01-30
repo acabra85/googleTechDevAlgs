@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode.graphs;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class FindCelebrityTest {
@@ -10,7 +11,7 @@ public class FindCelebrityTest {
         int peopleCount = 3;
         int expected = 1;
         boolean[][] graph = {{true,true,false}, {false,true,false}, {true,true,true}};
-        Assert.assertEquals(expected, new FindCelebrity(graph).findCelebrity(peopleCount));
+        MatcherAssert.assertThat(expected, Is.is(new FindCelebrity(graph).findCelebrity(peopleCount)));
     }
 
     @Test
@@ -18,7 +19,7 @@ public class FindCelebrityTest {
         int peopleCount = 2;
         int expected = -1;
         boolean[][] graph = {{true,false}, {false,true}};
-        Assert.assertEquals(expected, new FindCelebrity(graph).findCelebrity(peopleCount));
+        MatcherAssert.assertThat(expected, Is.is(new FindCelebrity(graph).findCelebrity(peopleCount)));
     }
 
     @Test
@@ -26,6 +27,6 @@ public class FindCelebrityTest {
         int peopleCount = 2;
         int expected = -1;
         boolean[][] graph = {{true,true}, {true,true}};
-        Assert.assertEquals(expected, new FindCelebrity(graph).findCelebrity(peopleCount));
+        MatcherAssert.assertThat(expected, Is.is(new FindCelebrity(graph).findCelebrity(peopleCount)));
     }
 }

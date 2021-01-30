@@ -1,6 +1,7 @@
 package com.acabra.gtechdevalgs.litcode;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class NumberOfIslands_DFSTest  {
@@ -14,7 +15,7 @@ public class NumberOfIslands_DFSTest  {
                 {'0', '1', '1', '0'}
         };
 
-        Assert.assertEquals(4, new NumberOfIslands_DFS().numIslands(grid));
+        MatcherAssert.assertThat(4, Is.is(new NumberOfIslands_DFS().numIslands(grid)));
     }
 
     @Test
@@ -25,7 +26,7 @@ public class NumberOfIslands_DFSTest  {
                 {'1', '1', '0', '0', '0'},
                 {'0', '0', '0', '0', '0'},
         };
-        Assert.assertEquals(1, new NumberOfIslands_DFS().numIslands(grid2));
+        MatcherAssert.assertThat(1, Is.is(new NumberOfIslands_DFS().numIslands(grid2)));
     }
 
     @Test
@@ -36,6 +37,6 @@ public class NumberOfIslands_DFSTest  {
                 {'0', '0', '1', '0', '0'},
                 {'0', '0', '0', '1', '1'}
         };
-        Assert.assertEquals(3, new NumberOfIslands_DFS().numIslands(grid3));
+        MatcherAssert.assertThat(3, Is.is(new NumberOfIslands_DFS().numIslands(grid3)));
     }
 }
