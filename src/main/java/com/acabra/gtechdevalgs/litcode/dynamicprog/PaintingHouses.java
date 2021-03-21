@@ -7,6 +7,7 @@ public class PaintingHouses {
     private int[][] costs;
     private HashMap<String, Integer> memo;
     private int totalHouses;
+    private int colors;
 
     /**
      * Given the costs of painting a house with a particular color int[house][color]
@@ -15,30 +16,37 @@ public class PaintingHouses {
      * @param costs
      * @return int minimum total cost of painting all houses
      */
-    public int minCost(int[][] costs) {
+    public int minCost(int[][] costs) {if(null == costs || costs.length == 0) return -1;
         this.costs = costs;
         this.totalHouses = costs.length;
+        this.colors = costs[0].length;
         this.memo = new HashMap<>();
-        return Math.min(paint(0, 0), Math.min(paint(0, 1), paint(0, 2)));
+        int cost = Integer.MAX_VALUE;
+        for(int color=0; color<colors; ++color) {
+            cost = Math.min(cost, paint(0, color));
+        }
+        return cost;
     }
 
     private int paint(int house, int color) {
-        String key = house +"-"+color;
+        String key = house + "-" + color;
         Integer memVal = memo.get(key);
-        if (memVal != null) {
-            return memVal;
-        }
+        if (null != memVal) return memVal;
         int val = costs[house][color];
         if (house < totalHouses - 1) {
-            if(color == 0) {
-                val += Math.min(paint(house+1, 1), paint(house+1, 2));
-            } else if(color == 1) {
-                val += Math.min(paint(house+1, 0), paint(house+1, 2));
-            } else {
-                val += Math.min(paint(house+1, 0), paint(house+1, 1));
-            }
+            val += calculateNextVal(house + 1, color);
         }
         memo.put(key, val);
+        return val;
+    }
+
+    private int calculateNextVal(int house, int color) {
+        int val = Integer.MAX_VALUE;
+        for(int diffColor=0;diffColor<colors;++diffColor) {
+            if(diffColor!=color) {
+                val = Math.min(val, paint(house, diffColor));
+            }
+        }
         return val;
     }
 }
