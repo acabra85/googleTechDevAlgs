@@ -1,0 +1,5 @@
+*vox_en_us_nina22i-TH25*
+*vox_en_us_nina22i-TH25-25*
+*vox_en_us_nina22i-TH25-70*
+*vox_en_us_nina22i-TH25-150*
+*vox_en_us_nina22i-TH25-300*
