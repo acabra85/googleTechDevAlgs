@@ -1,5 +1,6 @@
 package com.acabra.gtechdevalgs;
 
+import com.acabra.gtechdevalgs.google.MeetingManager;
 import com.acabra.gtechdevalgs.google.StreamCheckerTest;
 import com.acabra.gtechdevalgs.gset.MyFile;
 import com.acabra.gtechdevalgs.gset.MyFileImpl;
@@ -7,17 +8,33 @@ import com.acabra.gtechdevalgs.litcode.KEmptySlotsTest;
 import com.acabra.gtechdevalgs.litcode.arrays.MergeIntervals;
 import com.acabra.gtechdevalgs.litcode.linkedlist.ListNode;
 import com.acabra.gtechdevalgs.litcode.trees.TreeNode;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsArray;
 import org.hamcrest.core.Is;
 import org.hamcrest.number.IsCloseTo;
-
-import java.io.*;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import static java.time.ZoneOffset.UTC;
 
 public class TestUtils {
 
@@ -32,7 +49,7 @@ public class TestUtils {
                 if (line == null) return null;
                 StringTokenizer st = new StringTokenizer(line, ",");
                 int[] flowers = new int[st.countTokens()];
-                for(int i=0 ;st.hasMoreTokens();i++) {
+                for (int i = 0; st.hasMoreTokens(); i++) {
                     flowers[i] = Integer.parseInt(st.nextToken());
                 }
                 line = bf.readLine();
@@ -46,7 +63,7 @@ public class TestUtils {
     }
 
     public static TreeNode buildBSTFromString(String s) {
-        if (s==null || s.length() == 0) return null;
+        if (s == null || s.length() == 0) return null;
         List<TreeNode> nodes = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, ",");
         int index = 0;
@@ -54,18 +71,17 @@ public class TestUtils {
             Integer integer = asInt(st.nextToken());
             if (index == 0) {
                 nodes.add(new TreeNode(integer));
-            }
-            else {
+            } else {
                 TreeNode node = null == integer ? null : new TreeNode(integer);
                 nodes.add(node);
             }
             index++;
         }
-        for (int i = nodes.size()-1; i > 0; i--) {
+        for (int i = nodes.size() - 1; i > 0; i--) {
             TreeNode cNode = nodes.get(i);
-            if(cNode != null) {
+            if (cNode != null) {
                 TreeNode treeNode = nodes.get((i - 1) / 2);
-                if (i%2==0) {
+                if (i % 2 == 0) {
                     treeNode.right = nodes.get(i);
                 } else {
                     treeNode.left = nodes.get(i);
@@ -87,7 +103,7 @@ public class TestUtils {
             ListNode node = null, prev = null;
             for (int i = 0; i < split.length; i++) {
                 node = new ListNode(asInt(split[i]));
-                if (i==0) {
+                if (i == 0) {
                     lists.add(node);
                 } else {
                     prev.next = node;
@@ -103,26 +119,27 @@ public class TestUtils {
     }
 
     public static <T extends Comparable> void assertListEquals(List<T> l1, List<T> l2) {
-        if(null == l1 || null == l2) {
+        if (null == l1 || null == l2) {
             if (l1 != l2) throw new AssertionError("lists are different");
             else return;
         }
-        if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths l1: "+ l1.size() + " l2:" + l2.size());
+        if (l1.size() != l2.size())
+            throw new AssertionError("lists have different lengths l1: " + l1.size() + " l2:" + l2.size());
         for (int i = 0; i < l1.size(); i++) {
             if (l1.get(i).compareTo(l2.get(i)) != 0)
-                throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
+                throw new AssertionError("lists are different at element i:" + i + " l1: " + l1.get(i) + " l2:" + l2.get(i));
         }
     }
 
     public static <T> void assertListEquals(List<T> l1, List<T> l2, Comparator<T> comp) {
-        if(null == l1 || null == l2) {
+        if (null == l1 || null == l2) {
             if (l1 != l2) throw new AssertionError("lists are different");
             else return;
         }
         if (l1.size() != l2.size()) throw new AssertionError("lists have different lengths");
         for (int i = 0; i < l1.size(); i++) {
             if (comp.compare(l1.get(i), l2.get(i)) != 0)
-                throw new AssertionError("lists are different at element i:" + i  + " l1: "+ l1.get(i) + " l2:" + l2.get(i));
+                throw new AssertionError("lists are different at element i:" + i + " l1: " + l1.get(i) + " l2:" + l2.get(i));
         }
     }
 
@@ -139,7 +156,7 @@ public class TestUtils {
         ListNode head = new ListNode(0);
         ListNode current = head;
         for (int i = 0; i < reversed.length(); i++) {
-            current.next = new ListNode(Integer.parseInt(reversed.charAt(i)+""));
+            current.next = new ListNode(Integer.parseInt(reversed.charAt(i) + ""));
             current = current.next;
         }
         return head.next;
@@ -179,7 +196,7 @@ public class TestUtils {
         String[] results = scExpected.next().split(",");
         scInput.close();
         scExpected.close();
-        return Map.entry(Map.entry(input,queries), results);
+        return Map.entry(Map.entry(input, queries), results);
     }
 
     public static int[] buildTestCaseBigJumpingEvenOdd(String fileName) {
@@ -196,14 +213,24 @@ public class TestUtils {
 
     public static void writeCollectionAsResource(String fileName, Collection<Integer> actual) {
         String outPathFolder = RESOURCES_FOLDER + fileName;
-        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPathFolder)))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPathFolder)))) {
             StringBuilder sb = new StringBuilder();
             actual.forEach(element -> sb.append(element).append(","));
             String result = sb.toString();
-            bw.write(result.substring(0, result.length()-1));
+            bw.write(result.substring(0, result.length() - 1));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Map<String, List<MeetingManager.Interval>> buildUserMeetings() {
+        Map<String, List<MeetingManager.Interval>> userMeetings = new HashMap<>();
+        List.of("user1", "user2", "user3", "user4").forEach(
+                user -> userMeetings.put(user, new ArrayList<>())
+        );
+        long l = LocalDateTime.now().toEpochSecond(UTC);
+        //LocalDateTime.from(LocalDateTime.ofEpochSecond(l, UTC));
+        return userMeetings;
     }
 
     public static void iAssertTrue(boolean actual) {
@@ -227,5 +254,24 @@ public class TestUtils {
                         .matchesSafely(Arrays.stream(actual).boxed().toArray(Double[]::new));
             }
         };
+    }
+
+    public static TreeNode buildTree(Integer[] nodes) {
+        if (nodes == null || nodes.length == 0) return null;
+        TreeNode root = new TreeNode(nodes[0]);
+        root.left = getChild(1, nodes);
+        root.right = getChild(2, nodes);
+        return root;
+    }
+
+    private static TreeNode getChild(int childId, Integer[] nodes) {
+        if (childId < nodes.length && nodes[childId] != null) {
+            TreeNode child = new TreeNode(nodes[childId]);
+            int next = childId << 1;
+            child.left = getChild(next + 1, nodes);
+            child.right = getChild(next + 2, nodes);
+            return child;
+        }
+        return null;
     }
 }
