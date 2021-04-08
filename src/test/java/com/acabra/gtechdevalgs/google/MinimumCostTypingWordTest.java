@@ -40,4 +40,11 @@ class MinimumCostTypingWordTest {
         int expected = 0;
         Assertions.assertEquals(expected, underTest.minimalCostToType(word));
     }
+
+    @Test
+    void mustReturn1_a() {
+        String word = "AZAZAZYYYYYYYYYYYYYYYYYYYYYYYY";
+        int expected = 1;
+        Assertions.assertEquals(expected, underTest.minimalCostToType(word));
+    }
 }
