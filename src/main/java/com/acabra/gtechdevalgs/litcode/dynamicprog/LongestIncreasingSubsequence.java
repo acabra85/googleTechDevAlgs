@@ -21,4 +21,8 @@ public class LongestIncreasingSubsequence {
         }
         return max;
     }
+
+    public int longestIncreasingSubsequenceOptimal(int[] nums) {
+        return 0;
+    }
 }
