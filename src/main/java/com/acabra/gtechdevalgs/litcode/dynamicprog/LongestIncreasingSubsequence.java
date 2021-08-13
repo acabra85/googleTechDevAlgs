@@ -1,13 +1,21 @@
 package com.acabra.gtechdevalgs.litcode.dynamicprog;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LongestIncreasingSubsequence {
-    public int longestIncreasingSubsequence(int[] nums) {
+    public int longestIncreasingSubsequence(int[] nums, boolean dp) {
         if(null == nums || nums.length == 0) return 0;
         int N = nums.length;
         if(nums.length == 1) return 1;
         if(nums.length == 2) return nums[0] < nums[1] ? 2 : 1;
+        return dp ? solveDP(nums, N) : solveOptimal(nums, N);
+    }
+
+    /**
+     * Uses dynamic programming additional O(N) memory to calculate incrementally the length of LIS
+     */
+    private int solveDP(int[] nums, int N) {
         int[] memo =  new int[N];
         Arrays.fill(memo, 1);
         int max = 1;
@@ -22,7 +30,41 @@ public class LongestIncreasingSubsequence {
         return max;
     }
 
-    public int longestIncreasingSubsequenceOptimal(int[] nums) {
-        return 0;
+    /**
+     * Builds a subsequence (not necessarily ordered) of equal size to the longest increasing subsequence.
+     * Leverages the use of binary search to achieve runtime complexity of O(N*Log(N))
+     */
+    private int solveOptimal(int[] nums, int N) {
+        ArrayList<Integer> set = new ArrayList<>() {{
+            add(nums[0]);
+        }};
+        for (int i = 1; i < N; i++) {
+            if(nums[i] > set.get(set.size() - 1)) {
+                set.add(nums[i]);
+            } else {
+                int idx = indexOfSmallestElementGreaterOrEqual(set, nums[i]);
+                if(idx >= 0) {
+                    set.set(idx, nums[i]);
+                }
+            }
+        }
+        return set.size();
+    }
+
+    private int indexOfSmallestElementGreaterOrEqual(ArrayList<Integer> set, int num) {
+        int start = 0, end = set.size()-1;
+        int mid;
+        while (end > start) {
+            mid = (end + start) / 2;
+            if(set.get(mid) == num) {
+                return mid;
+            }
+            if (set.get(mid) > num) {
+                end = mid;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
     }
 }

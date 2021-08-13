@@ -16,9 +16,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn5() {
         int[] nums = {1, 2, 3, 4, 5};
         int expected = 5;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -26,9 +26,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn4_() {
         int[] nums = {0, 1, 0, 3, 2, 3};
         int expected = 4;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -36,9 +36,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn4_2() {
         int[] nums = {10,9,2,5,3,7,101,18};
         int expected = 4;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -46,9 +46,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn0() {
         int[] nums = null;
         int expected = 0;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -56,9 +56,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn0_1() {
         int[] nums = {};
         int expected = 0;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -66,9 +66,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn1() {
         int[] nums = {0,0,0,0,0,0,0};
         int expected = 1;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -76,9 +76,9 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn1_2() {
         int[] nums = {5,0};
         int expected = 1;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 
@@ -86,9 +86,19 @@ public class LongestIncreasingSubsequenceTest {
     public void shouldReturn2() {
         int[] nums = {0,1};
         int expected = 2;
-        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
                 .isEqualTo(expected);
-        Assertions.assertThat(underTest.longestIncreasingSubsequenceOptimal(nums))
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
+                .isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldReturn3() {
+        int[] nums = {3, 4, 5, 1};
+        int expected = 3;
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, false))
+                .isEqualTo(expected);
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums, true))
                 .isEqualTo(expected);
     }
 }
