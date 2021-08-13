@@ -59,4 +59,20 @@ public class LongestIncreasingSubsequenceTest {
         Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
                 .isEqualTo(expected);
     }
+
+    @Test
+    public void shouldReturn1_2() {
+        int[] nums = {5,0};
+        int expected = 1;
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+                .isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldReturn2() {
+        int[] nums = {0,1};
+        int expected = 2;
+        Assertions.assertThat(underTest.longestIncreasingSubsequence(nums))
+                .isEqualTo(expected);
+    }
 }
