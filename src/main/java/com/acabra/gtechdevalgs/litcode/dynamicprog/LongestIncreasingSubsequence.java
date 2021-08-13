@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LongestIncreasingSubsequence {
-    public int longestIncreasingSubsequence(int[] nums, boolean dp) {
+
+    public int optimalLIS(int[] nums) {
+        return longestIncreasingSubsequence(nums, false);
+    }
+
+    public int dpLIS(int[] nums) {
+        return longestIncreasingSubsequence(nums, true);
+    }
+
+    private int longestIncreasingSubsequence(int[] nums, boolean dp) {
         if(null == nums || nums.length == 0) return 0;
         int N = nums.length;
         if(nums.length == 1) return 1;
@@ -42,22 +51,19 @@ public class LongestIncreasingSubsequence {
             if(nums[i] > set.get(set.size() - 1)) {
                 set.add(nums[i]);
             } else {
-                int idx = indexOfSmallestElementGreaterOrEqual(set, nums[i]);
-                if(idx >= 0) {
-                    set.set(idx, nums[i]);
-                }
+                indexOfSmallestElementGreaterOrEqual(set, nums[i]);
             }
         }
         return set.size();
     }
 
-    private int indexOfSmallestElementGreaterOrEqual(ArrayList<Integer> set, int num) {
+    private void indexOfSmallestElementGreaterOrEqual(ArrayList<Integer> set, int num) {
         int start = 0, end = set.size()-1;
         int mid;
         while (end > start) {
             mid = (end + start) / 2;
             if(set.get(mid) == num) {
-                return mid;
+                return;
             }
             if (set.get(mid) > num) {
                 end = mid;
@@ -65,6 +71,6 @@ public class LongestIncreasingSubsequence {
                 start = mid + 1;
             }
         }
-        return start;
+        set.set(start, num);
     }
 }
