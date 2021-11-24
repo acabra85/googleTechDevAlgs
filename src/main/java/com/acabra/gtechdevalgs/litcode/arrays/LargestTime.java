@@ -8,9 +8,13 @@ public class LargestTime {
     public String findMaxTime(int[] arr) {
         return bruteForce(arr);
     }
+    private static final MyClock INSTANCE = new MyClock();
 
     private String bruteForce(int[] arr) {
-        MyClock clock = MyClock.midnight();
+        if(arr == null || arr.length == 0) return "";
+        Arrays.sort(arr);
+        if(arr[0] > 2) return "";
+        MyClock clock = INSTANCE.toMidnight();
         while (!clock.isMadeExactlyWith(arr)) {
             if(!clock.canGoBack()) {
                 return "";
@@ -23,21 +27,45 @@ public class LargestTime {
     public static class MyClock {
         private int m;
         private int h;
+        private final int[] asDigits;
 
         private MyClock() {
-            this.h  = 23;
+            this.h = 23;
             this.m = 59;
+            this.asDigits = new int[]{2,3,5,9};
         }
 
         private void aMinuteEarlier() {
-            if (this.h + this.m == 0) {
-                throw new RuntimeException("we can't go back one day!!");
-            }
             if(this.m ==  0) {
-                --this.h;
-                this.m = 59;
+                adjustHour();
+                resetToMaxMinutes();
             } else {
-                --this.m;
+                adjustMinute();
+            }
+        }
+
+        private void resetToMaxMinutes() {
+            this.m = 59;
+            asDigits[2] = 5;
+            asDigits[3] = 9;
+        }
+
+        private void adjustHour() {
+            adjustDigits(h, 0, 1);
+            --this.h;
+        }
+
+        private void adjustMinute() {
+            adjustDigits(m, 2, 3);
+            --this.m;
+        }
+
+        private void adjustDigits(int current, int idxD, int idxU) {
+            if(current % 10 == 0) {
+                --asDigits[idxD];
+                asDigits[idxU] = 9;
+            } else {
+                --asDigits[idxU];
             }
         }
 
@@ -46,21 +74,31 @@ public class LargestTime {
         }
 
         public String toString() {
-            return (this.h < 10 ? "0" + h : h) + ":" + (this.m < 10 ? "0" + m : m);
+            return asDigits[0] + "" + asDigits[1] + ":" + asDigits[2] + "" + asDigits[3];
         }
 
-        static MyClock midnight() {
-            return new MyClock();
+        private MyClock toMidnight() {
+            this.asDigits[0] = 2;
+            this.asDigits[1] = 3;
+            this.asDigits[2] = 5;
+            this.asDigits[3] = 9;
+            this.h = 23;
+            this.m = 59;
+            return this;
         }
 
         public boolean isMadeExactlyWith(int[] arr) {
-            int[] copy = Arrays.copyOf(arr, arr.length);
-            for(int digit: asDigits()) {
+            int[] copy = copy(arr);
+            for(int digit: asDigits) {
                 if(!in(copy, digit)) {
                     return false;
                 }
             }
             return true;
+        }
+
+        private int[] copy(int[] arr) {
+            return new int[]{arr[0], arr[1], arr[2], arr[3]};
         }
 
         private boolean in(int[] copy, int digit) {
@@ -71,10 +109,6 @@ public class LargestTime {
                 }
             }
             return false;
-        }
-
-        private int[] asDigits() {
-            return new int[]{(h / 10), (h % 10), (m / 10), (m % 10)};
         }
     }
 }
