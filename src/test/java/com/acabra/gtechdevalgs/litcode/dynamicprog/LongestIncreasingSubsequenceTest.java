@@ -4,6 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LongSummaryStatistics;
+import java.util.concurrent.TimeUnit;
+
 public class LongestIncreasingSubsequenceTest {
     private LongestIncreasingSubsequence underTest;
 
@@ -17,7 +20,7 @@ public class LongestIncreasingSubsequenceTest {
         int[] nums = {1, 2, 3, 4, 5};
         int expected = 5;
         Assertions.assertThat(underTest.optimalLIS(nums))
-                .isEqualTo(underTest.dpLIS(nums))
+                .isEqualTo(underTest.   dpLIS(nums))
                 .isEqualTo(expected);
     }
 
@@ -90,6 +93,35 @@ public class LongestIncreasingSubsequenceTest {
         int expected = 3;
         Assertions.assertThat(underTest.optimalLIS(nums))
                 .isEqualTo(underTest.dpLIS(nums))
+                .isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldReturn4() {
+        int[] nums = {5,2,8,6,3,6,9,5};
+        int expected = 4;
+        int sampleSize = 100;
+        int optimal = 0;
+        int dp = 0;
+        long start = 0L;
+        LongSummaryStatistics lssOptimal = new LongSummaryStatistics();
+        LongSummaryStatistics lssDP = new LongSummaryStatistics();
+        for (int i = 0; i < sampleSize; i++) {
+            start = System.nanoTime();
+            optimal = underTest.optimalLIS(nums);
+            lssOptimal.accept(System.nanoTime() - start);
+        }
+        for (int i = 0; i < sampleSize; i++) {
+            start = System.nanoTime();
+            dp = underTest.dpLIS(nums);
+            lssDP.accept(System.nanoTime() - start);
+        }
+        System.out.printf("Optimal avg: %s, DP avg: %s, Faster: <<<%s>>>%n",
+                TimeUnit.NANOSECONDS.convert(lssOptimal.getSum()/lssOptimal.getCount(), TimeUnit.MILLISECONDS),
+                TimeUnit.NANOSECONDS.convert(lssDP.getSum()/lssDP.getCount(), TimeUnit.MILLISECONDS),
+                        lssOptimal.getAverage() < lssDP.getAverage() ? "Optimal" : "DP");
+        Assertions.assertThat(optimal)
+                .isEqualTo(dp)
                 .isEqualTo(expected);
     }
 }

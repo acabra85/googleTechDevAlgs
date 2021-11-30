@@ -1,50 +1,50 @@
 package com.acabra.gtechdevalgs.litcode.arrays;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PascalTriangle {
 
-    private List<List<Integer>> triangle;
-
     public List<List<Integer>> buildPascalTriangleOfHeight(int h) {
-        List<Integer> curr;
-        List<List<Integer>> ans = new ArrayList(h) {{
-            add(new ArrayList() {{
-                add(1);
-            }});
+        List<List<Integer>> ans = new ArrayList<>(h) {{
+            add(new ArrayList<>() {{add(1);}});
         }};
-        List<Integer> last = ans.get(0);
-        for (int i = 1; i < h; ++i) {
-            curr = buildRow(i, last);
-            ans.add(curr);
-            last = curr;
+        if(h == 1) {
+            return ans;
+        } else if( h == 2) {
+            ans.add(new ArrayList<>(){{add(1);add(1);}});
+            return ans;
+        } else if(h==3) {
+            ans.add(new ArrayList<>(){{add(1);add(1);}});
+            ans.add(new ArrayList<>(){{add(1);add(2);add(1);}});
+            return ans;
         }
-        triangle = ans;
+        return build(ans, h);
+    }
+
+    private List<List<Integer>> build(List<List<Integer>> ans, int h) {
+        ans.add(new ArrayList<>(){{add(1);add(1);}});
+        ans.add(new ArrayList<>(){{add(1);add(2);add(1);}});
+        for (int i = 3; i < h; i++) {
+            ans.add(buildRow(ans.get(i-1)));
+        }
         return ans;
     }
 
-    public List<Integer> buildRow(int idx, List<Integer> last) {
-        List<Integer> row = new ArrayList(last.size() + 1) {{
-            add(1);
-        }};
-
-        for (int i = 1; i < last.size(); ++i) {
-            row.add(last.get(i - 1) + last.get(i));
+    public List<Integer> buildRow(List<Integer> last) {
+        final int rowLen = last.size() + 1;
+        List<Integer> row = new ArrayList<>(rowLen) {{add(1);}};
+        boolean cloneMid = rowLen % 2 == 0;
+        int to = cloneMid ? rowLen / 2 - 1 : rowLen / 2;
+        int i = 1;
+        for (; i <= to; ++i) {
+            row.add(last.get(i-1) + last.get(i));
         }
-        row.add(1);
+        // mirror
+        int from = cloneMid ? to + 1: to;
+        for (; i < rowLen; ++i) {
+            row.add(row.get(--from));
+        }
         return row;
-    }
-
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        for (int i =0; i<triangle.size();++i) {
-            if(i>0) {
-                sb.append(",");
-            }
-            sb.append(Arrays.toString(triangle.get(i).toArray()));
-        }
-        return sb.append("]").toString();
     }
 }
