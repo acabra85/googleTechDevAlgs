@@ -275,23 +275,17 @@ public class TestUtils {
         return null;
     }
 
-    public static int[][] parseStringToIntMatrix(String input, int c) {
-        String[] lines = input.split("],\\[");
-        int[][] matrix = new int[lines.length][c];
+    public static int[][] parseStringToIntMatrix(String input, int cols) {
+        String[] lines = input.substring(2, input.length()-2).split("],\\[");
+        int[][] matrix = new int[lines.length][cols];
         for (int i = 0; i < lines.length; i++) {
-            matrix[i] = buildArrayFromString(lines[i], c);
+            matrix[i] = buildArrayFromString(lines[i], cols);
         }
         return matrix;
     }
 
-    private static int[] buildArrayFromString(String line, int c) {
-        if(line.startsWith("[[")) {
-            line = line.substring(2);
-        }
-        if(line.endsWith("]]")) {
-            line = line.substring(0, line.length()-2);
-        }
-        int[] ints = new int[c];
+    private static int[] buildArrayFromString(String line, int cols) {
+        int[] ints = new int[cols];
         String[] split = line.split(",");
         ints[0] = Integer.parseInt(split[0]);
         ints[1] = Integer.parseInt(split[1]);
