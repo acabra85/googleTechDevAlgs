@@ -57,52 +57,65 @@ public class P2_PrintingDs {
         }
 
         private final static String RESULT = "%sCase #%d: %s";
-        private final static int INK_REQ = 1000000;
+        public final static int INK_REQ = 1_000_000;
+        private static final DColors IMPOSSIBLE_COLOR = new DColors(null, 0);
+
+        enum DColorIds {
+            C(0), M(1), Y(2), K(3);
+
+            public final int id;
+
+            DColorIds(int id) {
+                this.id = id;
+            }
+        }
 
         public void read() throws Exception {
             int testCases = help.nInt();
             for(int i = 1; i <= testCases; ++i) {
-                DColors colors = solveCase(help, DFS);
-                String result = colors != null ? colors.toString() : "IMPOSSIBLE";
-                help.out.printf(RESULT, i==1?"":"\n",  i, result);
+                DPrinter p1 = buildPrinterFromHelp(help);
+                DPrinter p2 = buildPrinterFromHelp(help);
+                DPrinter p3 = buildPrinterFromHelp(help);
+                DColors colors = solveCase(new DPrinters(p1, p2, p3), DFS);
+                help.out.printf(RESULT, i==1?"":"\n",  i, colors.toString());
                 help.out.flush();
             }
             help.out.print("\n");
             help.close();
         }
 
-        private DColors dfs(DPrinters prins) {
+        private static DColors dfs(DPrinters printers) {
             final Stack<Node> dq = new Stack<>();
-            dq.push(new Node(prins));
+            dq.push(new Node(printers));
             while(dq.size() > 0) {
                 Node node = dq.pop();
-                if(node.color.valid()) {
+                if(node.ready()) {
                     return node.color;
                 }
                 node.children().forEach(dq::push);
             }
-            return null;
+            return IMPOSSIBLE_COLOR;
         }
 
-        private DColors solveCase(Help help, boolean dfs) throws IOException {
-            DPrinter p1 = new DPrinter(help.nInt(), help.nInt(), help.nInt(), help.nInt());
-            DPrinter p2 = new DPrinter(help.nInt(), help.nInt(), help.nInt(), help.nInt());
-            DPrinter p3 = new DPrinter(help.nInt(), help.nInt(), help.nInt(), help.nInt());
-            DPrinters prins = new DPrinters(p1, p2, p3);
-            return dfs ? dfs(prins) : bfs(prins);
-        }
-
-        private DColors bfs(DPrinters prins) {
+        private static DColors bfs(DPrinters prins) {
             ArrayDeque<Node> dq = new ArrayDeque<>();
             dq.add(new Node(prins));
             while(dq.size() > 0) {
                 Node node = dq.remove();
-                if(node.color.valid()) {
+                if(node.ready()) {
                     return node.color;
                 }
                 dq.addAll(node.children());
             }
-            return null;
+            return IMPOSSIBLE_COLOR;
+        }
+
+        public static DColors solveCase(DPrinters printers, boolean dfs) {
+            return dfs ? dfs(printers) : bfs(printers);
+        }
+
+        private static DPrinter buildPrinterFromHelp(Help help) throws IOException {
+            return new DPrinter(help.nInt(), help.nInt(), help.nInt(), help.nInt());
         }
 
         private static class Node {
@@ -116,179 +129,116 @@ public class P2_PrintingDs {
                 this.depth = 0;
             }
 
-            public String toString() {
-                return "ps:[" + prins.toString() + "]" + "c:[" + color.toString() +  "] d:" + depth;
-            }
-
             private Node(int depth, DPrinters prins, DColors color){
                 this.prins = prins;
                 this.color = color;
                 this.depth = depth;
             }
 
-            public Collection<Node> children() {
+            private Collection<Node> children() {
                 Collection<Node> list = new ArrayList<>();
                 int newDepth = depth + 1;
-                processC(list, newDepth);
-                processM(list, newDepth);
-                processY(list, newDepth);
-                processK(list, newDepth);
+                for (DColorIds colorId : DColorIds.values()) {
+                    process(colorId, list, newDepth);
+                }
                 return list;
             }
 
-            private void processC(Collection<Node> list, int newDepth) {
-                int minC = Math.min(prins.p1.c, Math.min(prins.p2.c, prins.p3.c));
-                if(minC > 0) {
-                    minC = Math.min(color.missing, minC);
-                    DPrinters prins = this.prins.minusC(minC);
-                    Node child = new Node(newDepth, prins, color.addC(minC));
+            private void process(DColorIds colorId, Collection<Node> list, int newDepth) {
+                int min = prins.minimalInkAvailableOnAllPrinters(colorId);
+                if(min > 0) {
+                    int qty = Math.min(color.missing, min);
+                    Node child = new Node(newDepth, this.prins.minus(colorId, qty), color.add(colorId, qty));
                     list.add(child);
                 }
             }
 
-            private void processM(Collection<Node> list, int newDepth) {
-                int minM = Math.min(prins.p1.m, Math.min(prins.p2.m, prins.p3.m));
-                if(minM > 0) {
-                    minM = Math.min(color.missing, minM);
-                    DPrinters prins = this.prins.minusM(minM);
-                    Node child = new Node(newDepth, prins, color.addM(minM));
-                    list.add(child);
-                }
-            }
-
-            private void processY(Collection<Node> list, int newDepth) {
-                int minY = Math.min(prins.p1.y, Math.min(prins.p2.y, prins.p3.y));
-                if(minY > 0) {
-                    minY = Math.min(color.missing, minY);
-                    DPrinters prins = this.prins.minusY(minY);
-                    Node child = new Node(newDepth, prins, color.addY(minY));
-                    list.add(child);
-                }
-            }
-
-            private void processK(Collection<Node> list, int newDepth) {
-                int minK = Math.min(prins.p1.k, Math.min(prins.p2.k, prins.p3.k));
-                if(minK > 0) {
-                    minK = Math.min(color.missing, minK);
-                    DPrinters prins = this.prins.minusK(minK);
-                    Node child = new Node(newDepth, prins, color.addK(minK));
-                    list.add(child);
-                }
+            public boolean ready() {
+                return color.total == INK_REQ;
             }
         }
 
-        private static class DPrinters {
+        protected static class DPrinters {
             final DPrinter p1;
             final DPrinter p2;
             final DPrinter p3;
 
-            private DPrinters(DPrinter p1, DPrinter p2, DPrinter p3) {
+            protected DPrinters(DPrinter p1, DPrinter p2, DPrinter p3) {
                 this.p1 = p1;
                 this.p2 = p2;
                 this.p3 = p3;
             }
 
-            public DPrinters minusC(int minC) {
-                return new DPrinters(p1.cloneMinusC(minC), p2.cloneMinusC(minC), p3.cloneMinusC(minC));
+            public DPrinters minus(DColorIds colorId, int min) {
+                return new DPrinters(p1.cloneMinus(colorId, min), p2.cloneMinus(colorId, min), p3.cloneMinus(colorId, min));
             }
 
-            public DPrinters minusM(int minM) {
-                return new DPrinters(p1.cloneMinusM(minM), p2.cloneMinusM(minM), p3.cloneMinusM(minM));
+            public int minimalInkAvailableOnAllPrinters(DColorIds color) {
+                return Math.min(p1.get(color), Math.min(p2.get(color), p3.get(color)));
             }
 
-            public DPrinters minusY(int minY) {
-                return new DPrinters(p1.cloneMinusY(minY), p2.cloneMinusY(minY), p3.cloneMinusY(minY));
-            }
-
-            public DPrinters minusK(int minK) {
-                return new DPrinters(p1.cloneMinusK(minK), p2.cloneMinusK(minK), p3.cloneMinusK(minK));
+            static DPrinters fromMatrix(int[][] printers) {
+                return new DPrinters(new DPrinter(printers[0]), new DPrinter(printers[1]),
+                        new DPrinter(printers[2]));
             }
         }
 
-        private static class DColors {
-            final int c;
-            final int m;
-            final int y;
-            final int k;
+        static class DColors {
             final int missing;
             final int total;
+            final int[] ink;
 
             DColors() {
-                this.c = 0;
-                this.m = 0;
-                this.y = 0;
-                this.k = 0;
+                this.ink = new int[]{0, 0, 0, 0};
                 this.total = 0;
                 this.missing = INK_REQ;
             }
 
-            DColors(int c, int m, int y, int k, int total) {
-                this.c = c;
-                this.m = m;
-                this.y = y;
-                this.k = k;
+            DColors(int[] ink, int total) {
+                this.ink = ink;
                 this.total = total;
                 this.missing = INK_REQ - total;
             }
 
+            public DColors add(DColorIds colorId, int qty) {
+                int[] copy = Arrays.copyOf(ink, ink.length);
+                copy[colorId.id] =  copy[colorId.id] + qty;
+                return new DColors(copy, total + qty);
+            }
+
+            public boolean equals(Object o) {
+                return o != null && o.getClass() == DColors.class && o.toString().equals(toString());
+            }
+
             @Override
             public String toString() {
-                return c + " " + m + " " + y + " " + k;
-            }
-
-            DColors addC(int plusC) {
-                return new DColors(c + plusC, m, y, k, total + plusC);
-            }
-
-            DColors addM(int plusM) {
-                return new DColors(c, m + plusM, y, k, total+plusM);
-            }
-
-            DColors addY(int plusY) {
-                return new DColors(c , m, y + plusY, k, total+plusY);
-            }
-
-            DColors addK(int plusK) {
-                return new DColors(c , m, y, k + plusK, total+plusK);
-            }
-
-            public boolean valid() {
-                return total == INK_REQ;
+                if(missing == 0) {
+                    return ink[DColorIds.C.id] + " " + ink[DColorIds.M.id]
+                            + " " + ink[DColorIds.Y.id] + " " + ink[DColorIds.K.id];
+                }
+                return "IMPOSSIBLE";
             }
         }
 
         private static class DPrinter {
-            private final int c;
-            private final int m;
-            private final int y;
-            private final int k;
+            private final int[] ink;
 
-            private DPrinter(int c, int m, int y, int k) {
-                this.c =c;
-                this.m =m;
-                this.y =y;
-                this.k =k;
+            private DPrinter(int[] ink) {
+                this.ink = ink;
             }
 
-            @Override
-            public String toString() {
-                return c + " " + m + " " + y + " " + k;
+            public DPrinter(int c, int m, int y, int k) {
+                this.ink = new int[]{c, m, y, k};
             }
 
-            public DPrinter cloneMinusC(int minC) {
-                return new DPrinter(c - minC, m, y, k);
+            public DPrinter cloneMinus(DColorIds id, int minus) {
+                int[] copyOf = Arrays.copyOf(ink, ink.length);
+                copyOf[id.id] = copyOf[id.id] - minus;
+                return new DPrinter(copyOf);
             }
 
-            public DPrinter cloneMinusM(int minusM) {
-                return new DPrinter(c, m - minusM, y, k);
-            }
-
-            public DPrinter cloneMinusY(int minY) {
-                return new DPrinter(c, m, y - minY, k);
-            }
-
-            public DPrinter cloneMinusK(int minK) {
-                return new DPrinter(c, m, y, k - minK);
+            public int get(DColorIds colorId) {
+                return ink[colorId.id];
             }
         }
     }
