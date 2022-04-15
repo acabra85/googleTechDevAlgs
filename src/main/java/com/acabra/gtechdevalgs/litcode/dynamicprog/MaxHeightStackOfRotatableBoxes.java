@@ -28,8 +28,8 @@ public class MaxHeightStackOfRotatableBoxes {
     }
 
     private void sortCuboids(int[][] boxes) {
-        for (int i = 0; i < boxes.length; ++i) {
-            Arrays.sort(boxes[i]);
+        for (int[] box : boxes) {
+            Arrays.sort(box);
         }
         Arrays.sort(boxes, new Comparator<int[]>() {
             @Override

@@ -36,10 +36,10 @@ public class TextProperEnclosing {
         Stack<Character> openersStack = new Stack<>();
         for (int i = 0; i < text.length();i++) {
             Character curr = text.charAt(i);
-            boolean isOpen = OPENERS.contains(curr);
-            if (isOpen || CLOSERS.contains(curr)) {
-                if(OPENER_TO_CLOSER.get(curr) == null){ //not a self closer
-                    if (isOpen) {
+            boolean isOpener = OPENERS.contains(curr);
+            if (isOpener || CLOSERS.contains(curr)) { //is it an opener or closer
+                if(OPENER_TO_CLOSER.get(curr) != curr) { //not a self closer
+                    if (isOpener) {
                         openersStack.push(curr);
                     } else {
                         if (openersStack.isEmpty() || !OPENER_TO_CLOSER.get(openersStack.peek()).equals(curr)) {

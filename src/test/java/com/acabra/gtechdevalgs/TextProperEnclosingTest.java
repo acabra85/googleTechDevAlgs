@@ -1,6 +1,5 @@
 package com.acabra.gtechdevalgs;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 public class TextProperEnclosingTest {
@@ -42,5 +41,17 @@ public class TextProperEnclosingTest {
     public void should_return_false_test_3() {
         String text = "{ \" }* \" <";
         TestUtils.iAssertFalse(new TextProperEnclosing().isProperlyNestedText(text));
+    }
+
+    @Test
+    public void should_return_true_test_5() {
+        String text = "''''";
+        TestUtils.iAssertTrue(new TextProperEnclosing().isProperlyNestedText(text));
+    }
+
+    @Test
+    public void should_return_true_test_6() {
+        String text = "\'\"\"\'\'\'";
+        TestUtils.iAssertTrue(new TextProperEnclosing().isProperlyNestedText(text));
     }
 }

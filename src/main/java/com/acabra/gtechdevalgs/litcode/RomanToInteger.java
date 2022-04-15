@@ -15,6 +15,10 @@ public class RomanToInteger {
         put('M', 1000);
     }};
 
+    public static int fromWeirdObject(WeirdClassOutOfMyControl wcoomc) {
+        return romanToInt(wcoomc.calculateRomanLetters());
+    }
+
     public static int romanToInt(String s) {
         int total = 0;
         char[] arr =  s.toCharArray();
@@ -36,5 +40,18 @@ public class RomanToInteger {
             total+=next;
         }
         return total;
+    }
+
+    public static class WeirdClassOutOfMyControl {
+
+        private final String letters;
+
+        public WeirdClassOutOfMyControl(String letters) {
+            this.letters = letters;
+        }
+
+        public String calculateRomanLetters() {
+            return letters;
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.acabra.gtechdevalgs.litcode;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class RomanToIntegerTest {
 
@@ -40,4 +41,16 @@ public class RomanToIntegerTest {
         Assert.assertEquals(1380, RomanToInteger.romanToInt("MCCCLXXX"));
     }
 
+    @Test
+    public void fromWeirdObject() {
+
+        RomanToInteger.WeirdClassOutOfMyControl mock = Mockito.mock(RomanToInteger.WeirdClassOutOfMyControl.class);
+
+        Mockito.when(mock.calculateRomanLetters()).thenReturn("XXX");
+
+        Assert.assertEquals(30, RomanToInteger.fromWeirdObject(mock));
+
+        Mockito.verify(mock, Mockito.times(1)).calculateRomanLetters();
+
+    }
 }
