@@ -2,6 +2,7 @@ package com.acabra.gtechdevalgs.gset.cjam2022.qround;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class P4_MaxFunWinds {
     public static class Solution {
