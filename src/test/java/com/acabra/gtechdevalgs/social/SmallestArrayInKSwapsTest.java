@@ -29,7 +29,7 @@ class SmallestArrayInKSwapsTest {
     public void test2() {
         //given
         int[] input = {8, 9, 11, 2, 1};
-        int k = 2;
+        int k = 3;
         int[] expected = {2, 8, 9, 11, 1};
         //when
         int[] actual = underTest.findMinArray(input, k);

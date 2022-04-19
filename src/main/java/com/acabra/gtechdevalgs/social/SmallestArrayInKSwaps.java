@@ -36,7 +36,9 @@ public class SmallestArrayInKSwaps {
             for(int i=0,j=1; j<val.length;++i,++j) {
                 Node child = child(i, j);
                 if(!seen.contains(child.id)) {
-                    children.add(child);
+                    if(child.compareTo(this) < 0) {
+                        children.add(child);
+                    }
                     seen.add(child.id);
                 }
             }
@@ -64,13 +66,14 @@ public class SmallestArrayInKSwaps {
         }
         Set<String> seen = new HashSet<>();
         ArrayDeque<Node> dq = new ArrayDeque<>();
-        Node node = new Node(arr, 0);
-        seen.add(node.id);
-        dq.add(node);
+        dq.add(new Node(arr, 0));
+        seen.add(dq.peek().id);
+        Node node = null;
         Node smallest = null;
         while(!dq.isEmpty()){
             node = dq.remove();
             if(node.level == k) {
+                //System.out.println(node.id);
                 if(smallest == null) {
                     smallest = node;
                 } else if(node.compareTo(smallest) < 0) {
