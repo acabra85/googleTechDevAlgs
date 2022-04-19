@@ -3,7 +3,7 @@ package com.acabra.gtechdevalgs.social;
 import java.util.*;
 
 public class SmallestArrayInKSwaps {
-    static class Node {
+    private static class Node {
         final String id;
         final int[] val;
         final int level;
@@ -60,18 +60,18 @@ public class SmallestArrayInKSwaps {
     for the earliest index at which the two lists differ, x's element at that index is smaller than
     y's element at that index.
     */
-    int[] findMinArray(int[] arr, int k) {
+    public int[] findMinArray(int[] arr, int k) {
         if (arr == null || arr.length == 0 || arr.length == 1 || k <= 0) {
             return arr;
         }
         Set<String> seen = new HashSet<>();
-        ArrayDeque<Node> dq = new ArrayDeque<>();
+        Stack<Node> dq = new Stack<>();
         dq.add(new Node(arr, 0));
         seen.add(dq.peek().id);
         Node node = null;
         Node smallest = null;
         while(!dq.isEmpty()){
-            node = dq.remove();
+            node = dq.pop();
             if(node.level == k) {
                 //System.out.println(node.id);
                 if(smallest == null) {
