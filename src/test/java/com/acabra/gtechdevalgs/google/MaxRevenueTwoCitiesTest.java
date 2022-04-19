@@ -26,16 +26,16 @@ class MaxRevenueTwoCitiesTest {
 
         //when
         int actualDFS = underTest.maxRevenueDFS(revA, revB, travelCost);
-        int actualDP = underTest.maxRevenue(revA, revB, travelCost, false);
-        int actualRec = underTest.maxRevenue(revA, revB, travelCost, true);
+        int actualDP = underTest.maxRevenueDP(revA, revB, travelCost);
+        int actualRec = underTest.maxRevenueRecursiveMemo(revA, revB, travelCost);
 
         //then
-        Assertions.assertThat(actualDFS).isEqualTo(expected);
-        Assertions.assertThat(actualRec).isEqualTo(expected);
-        Assertions.assertThat(actualDP).isEqualTo(expected);
+        Assertions.assertThat(actualDFS)
+                .isEqualTo(actualDP)
+                .isEqualTo(actualRec)
+                .isEqualTo(expected);
     }
 
-    @Disabled("pending to fix the DP and recursive+memo solution")
     @Test
     public void shouldReturn10() {
         //given
@@ -45,13 +45,14 @@ class MaxRevenueTwoCitiesTest {
         int expected = 10;
 
         //when
-        int actualDP = underTest.maxRevenue(revA, revB, travelCost, false);
-        int actualRec = underTest.maxRevenue(revA, revB, travelCost, true);
         int actualDFS = underTest.maxRevenueDFS(revA, revB, travelCost);
+        int actualDP = underTest.maxRevenueDP(revA, revB, travelCost);
+        int actualRec = underTest.maxRevenueRecursiveMemo(revA, revB, travelCost);
 
         //then
-        Assertions.assertThat(actualDFS).isEqualTo(expected);
-        Assertions.assertThat(actualDP).isEqualTo(expected);
-        Assertions.assertThat(actualRec).isEqualTo(expected);
+        Assertions.assertThat(actualDFS)
+                .isEqualTo(actualDP)
+                .isEqualTo(actualRec)
+                .isEqualTo(expected);;
     }
 }
