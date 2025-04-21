@@ -47,8 +47,10 @@ public class RectangleSol {
         }
 
         private boolean doesNotOverlap(Rectangle other) {
-            return this.noArea || other.noArea
-                || this.aboveOrBelow(other) || this.toLeftOrRight(other);
+            if(!this.noArea && !other.noArea) {
+                return this.aboveOrBelow(other) || this.toLeftOrRight(other);
+            }
+            return false;
         }
 
         private boolean toLeftOrRight(Rectangle other) {
