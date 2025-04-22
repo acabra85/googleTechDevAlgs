@@ -1,77 +1,77 @@
 package com.acabra.gtechdevalgs.litcode.dynamicprog;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
+import java.util.TreeMap;
 
-public class MaximizeProfitSales {public int maximizeTheProfit(int n, List<List<Integer>> ints) {
-    List<Offer> offers = ints.stream()
-            .map((e)-> new Offer(e))
-            .collect(Collectors.toList());
-    Sales sales = new Sales(n);
-    for(int i=0;i<ints.size();++i) {
-        if (sales.canSell(offers.get(i))) {
-            sales.sell(offers.get(i));
+public class MaximizeProfitSales {
+    static Comparator<List<Integer>> sorter = Comparator.comparingInt(a -> a.get(1));
+    private record Offer(int start, int end, int gold) {
+        static Offer of(List<Integer> vals) {
+            return new Offer(vals.get(0),vals.get(1),vals.get(2));
         }
     }
-    return sales.cash;
-}
-
-    record Range(int from, int to, int size) implements Comparable<Range> {
-        List<Range> split(int x) {
-            if (from >= x && x <= to) {
-                return List.of(
-                        new Range(from, x, x - from),
-                        new Range(x+1, to, to -x -1)
-                );
-            }
-            throw new NullPointerException("Cant split range at :" + x);
+    public int maximizeTheProfit(int n, List<List<Integer>> vals, boolean binarySearch) {
+        if (vals == null || vals.isEmpty()) {
+            return 0;
         }
-        public int compareTo(Range o) {
-            return this.from - o.from;
+        List<Offer> offers = vals.stream().sorted(sorter).map(Offer::of).toList();
+        if (binarySearch) {
+            return usingBinarySearch(offers);
         }
-        static Range of(int iStart, int iEnd) {
-            return new Range(iStart, iEnd, iEnd-iStart+1);
-        }
-
-        public boolean intersects(Range o) {
-            return pointBelongs(o.from) || pointBelongs(o.to);
-        }
-
-        public boolean pointBelongs(int p) {
-            return this.from <= p && p <= this.to;
-        }
+        return usingTreeMap(offers);
     }
 
-    static class Sales {
-        private final TreeSet<Range> sold;
-        private int cash = 0;
-        Sales(int n) {
-            this.sold = new TreeSet<>();
-        }
-        void sell(Offer offer) {
-            this.sold.add(offer.range);
-            cash += offer.cash;
-        }
-        boolean canSell(Offer offer) {
-            for(Range r : sold) {
-                if (r.intersects(offer.range) || offer.range.intersects(r)) {
-                    return false;
+    private int usingTreeMap(List<Offer> offers) {
+        TreeMap<Integer, Integer> dp = new TreeMap<>();
+        dp.put(-1, 0);
+
+        for(Offer offer : offers){
+            Integer maxProfitUpToCurrentOffer = dp.floorEntry(offer.start - 1).getValue();
+            if(maxProfitUpToCurrentOffer != null){
+                int goldIfOfferTaken = maxProfitUpToCurrentOffer + offer.gold;
+                if(goldIfOfferTaken > dp.lastEntry().getValue()){
+                    dp.put(offer.end, goldIfOfferTaken);
                 }
             }
-            return true;
         }
+
+        return dp.lastEntry().getValue();
     }
 
-    static class Offer {
-        private final Range range;
-        private final int cash;
-        Offer(List<Integer> args){
-            this.range = Range.of(args.get(0), args.get(1));
-            this.cash =args.get(2);
+    private int usingBinarySearch(List<Offer> offers) {
+
+        int m = offers.size();
+        int[] dp = new int[m + 1];
+
+        for (int i = 1; i <= m; ++i) {
+            Offer currentOffer = offers.get(i - 1);
+            int prevMaxGold = this.findMaxValue(offers, dp, i, currentOffer.start);
+            // max including and excluding the current offer
+            dp[i] = Math.max(dp[i - 1], currentOffer.gold + prevMaxGold);
         }
-        public String toString() {
-            return String.format("R:{%s}, g:%d", range, cash);
+        return dp[m];
+    }
+
+    // Find the maximum amount of gold right before the current offer
+    private int findMaxValue(List<Offer> offers, int[] dp, int i, int start) {
+        int low = 0;
+        int high = i - 2;
+        int latestNonOverlapOfferIndex = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (offers.get(mid).end < start) {
+                latestNonOverlapOfferIndex = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
         }
+        int prevMaxGold = 0;
+        if (latestNonOverlapOfferIndex != -1) {
+            prevMaxGold = dp[latestNonOverlapOfferIndex + 1];
+        }
+        return prevMaxGold;
     }
 }
