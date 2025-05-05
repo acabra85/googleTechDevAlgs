@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 class FibonacciOfNTest {
 
-    private static final Random r = new Random(); // Choose any method at random should work
+    private static final Random r = new Random(); // Choosing any method at random should work
     private static final FibonacciOfN.Method[] methods = FibonacciOfN.Method.values();
     private static final Supplier<FibonacciOfN.Method> m = () -> methods[r.nextInt(methods.length)];
 
@@ -25,6 +25,19 @@ class FibonacciOfNTest {
             return new String(resourceAsStream.readAllBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void assertWorksOnAllSupportedMethods(int n, String expectedStr) {
+        BigInteger prev = null;
+        BigInteger expected = new BigInteger(expectedStr);
+        for (FibonacciOfN.Method m: FibonacciOfN.Method.supports(n)) {
+            final BigInteger actual = new FibonacciOfN(m).get(n);
+            Assertions.assertThat(actual).isEqualTo(expected);
+            if (prev != null) {
+                Assertions.assertThat(prev).isEqualTo(actual);
+            }
+            prev = actual;
         }
     }
 
@@ -42,24 +55,19 @@ class FibonacciOfNTest {
         assertWorksOnAllSupportedMethods(n, expected);
     }
 
+
+    @Test
+    public void shouldReturn1_417975DigitsLongNumber() {
+        int n = 2_000_000;
+        String expected = FibonacciOfNTest.readFileAsString("two_million.txt");
+        assertWorksOnAllSupportedMethods(n, expected);
+    }
+
     @Test
     public void shouldReturn_1882DigitsLongNumber() {
         int n = 9003;
         String expected = FibonacciOfNTest.readFileAsString("nine_thousand_three.txt");
         assertWorksOnAllSupportedMethods(n, expected);
-    }
-
-    private static void assertWorksOnAllSupportedMethods(int n, String expectedStr) {
-        BigInteger prev = null;
-        BigInteger expected = new BigInteger(expectedStr);
-        for (FibonacciOfN.Method m: FibonacciOfN.Method.supports(n)) {
-            final BigInteger actual = new FibonacciOfN(m).get(n);
-            Assertions.assertThat(actual).isEqualTo(expected);
-            if (prev != null) {
-                Assertions.assertThat(prev).isEqualTo(actual);
-            }
-            prev = actual;
-        }
     }
 
     @Test
@@ -72,12 +80,28 @@ class FibonacciOfNTest {
     }
 
     @Test
+    public void shouldReturn610() {
+        BigInteger expected = BigInteger.valueOf(610);
+        int n = 15;
+        for (FibonacciOfN.Method m: FibonacciOfN.Method.values()) {
+            Assertions.assertThat(new FibonacciOfN(m).get(n)).isEqualTo(expected);
+        }
+    }
+
+    @Test
     public void shouldReturn144() {
         BigInteger expected = BigInteger.valueOf(144);
         int n = 12;
         for (FibonacciOfN.Method m: FibonacciOfN.Method.values()) {
             Assertions.assertThat(new FibonacciOfN(m).get(n)).isEqualTo(expected);
         }
+    }
+
+    @Test
+    public void shouldReturn_555565404224292694404015791808() {
+        BigInteger expected = new BigInteger("555565404224292694404015791808");
+        int n = 144;
+        Assertions.assertThat(new FibonacciOfN(FibonacciOfN.Method.BINARY_EXPONENTIATION).get(n)).isEqualTo(expected);
     }
 
     @Test
@@ -155,5 +179,26 @@ class FibonacciOfNTest {
         BigInteger expected = BigInteger.valueOf(55);
         int n = 10;
         Assertions.assertThat(new FibonacciOfN(m.get()).get(n)).isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldFail_RecursiveMethodDoesNotSupportN() {
+        int n = 144;
+        Assertions.assertThatThrownBy(() -> new FibonacciOfN(FibonacciOfN.Method.RECURSIVE).get(n))
+                .isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    public void shouldFail_IterativeMethodDoesNotSupportN() {
+        int n = 501_001;
+        Assertions.assertThatThrownBy(() -> new FibonacciOfN(FibonacciOfN.Method.ITERATIVE).get(n))
+                .isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    public void shouldFail_BinaryExponentiationMethodDoesNotSupportN() {
+        int n = 2_000_001;
+        Assertions.assertThatThrownBy(() -> new FibonacciOfN(FibonacciOfN.Method.BINARY_EXPONENTIATION).get(n))
+                .isExactlyInstanceOf(UnsupportedOperationException.class);
     }
 }

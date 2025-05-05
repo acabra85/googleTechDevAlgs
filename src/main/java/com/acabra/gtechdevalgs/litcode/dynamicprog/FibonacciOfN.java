@@ -22,6 +22,10 @@ public class FibonacciOfN {
         if (n < BASE.size()) {
             return BASE.get(n);
         }
+        if (this.method.max < n) {
+            throw new UnsupportedOperationException(
+                    String.format("Method: %s supports maximum:%d but given:%d", this.method, this.method.max, n));
+        }
         final BigInteger value = switch (this.method) {
             case BINARY_EXPONENTIATION -> this.matrixExponentiation(n);
             case RECURSIVE -> this.recursiveWithMemo(n);
@@ -34,14 +38,11 @@ public class FibonacciOfN {
 
     private BigInteger matrixExponentiation(int n) {
         final BigInteger[][] base = {
-                {BigInteger.ZERO, BigInteger.ONE},
-                {BigInteger.ONE, BigInteger.ONE}
+                {BigInteger.ONE, BigInteger.ONE},
+                {BigInteger.ONE, BigInteger.ZERO}
         };
-        final BigInteger[] results = multiplyMatrixVector(
-                binaryMatrixExponentiation(base, n - 2), // n-2 a small optimization as not to compute further than needed
-                new BigInteger[]{BigInteger.ZERO, BigInteger.ONE}
-        );
-        return results[0].add(results[1]);
+        final BigInteger[][] powerMatrix = binaryMatrixExponentiation(base, n - 2);
+        return powerMatrix[0][0].add(powerMatrix[1][0]);
     }
 
     private BigInteger iterative(int n) {
@@ -96,16 +97,10 @@ public class FibonacciOfN {
         return new BigInteger[][]{{c11, c12}, {c21, c22}};
     }
 
-    private BigInteger[] multiplyMatrixVector(BigInteger[][] m, BigInteger[] v) {
-        BigInteger c1 = m[0][0].multiply(v[0]).add(m[0][1].multiply(v[1]));
-        BigInteger c2 = m[1][0].multiply(v[0]).add(m[1][1].multiply(v[1]));
-        return new BigInteger[]{c1, c2};
-    }
-
     public enum Method {
-        BINARY_EXPONENTIATION(1_000_000),
+        BINARY_EXPONENTIATION(2_000_000),
         RECURSIVE(100),
-        ITERATIVE(1_000_000);
+        ITERATIVE(500_000);
 
         private final int max;
 
