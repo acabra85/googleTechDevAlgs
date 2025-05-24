@@ -1,40 +1,48 @@
 package com.acabra.gtechdevalgs.google.wheretomove;
 
-import com.acabra.gtechdevalgs.TestUtils;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.hamcrest.core.Is;
-import org.junit.Ignore;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.*;
 
-@Ignore
 public class WhereToMoveTest {
 
     @Test
-    public void should_return_minus_one_interests_not_found() {
+    public void should_return_null_for_empty_street() {
+        Building[] emptyStreet = new Building[0];
+        List<Interest> interests = getInterests(Interest.COFFEE_SHOP);
+        Assertions.assertThat(WhereToMove.findBuildingToMove(emptyStreet, interests)).isNull();
+    }
+
+    @Test
+    public void should_return_null_for_null_street() {
+        List<Interest> interests = getInterests(Interest.COFFEE_SHOP);
+        Assertions.assertThat(WhereToMove.findBuildingToMove(null, interests)).isNull();
+    }
+
+    @Test
+    public void should_return_null_interests_not_found() {
         Building[] street = getStreetWithNoInterests();
         List<Interest> interests = Arrays.asList(Interest.COFFEE_SHOP, Interest.GYM);
-        MatcherAssert.assertThat(WhereToMove.findBuildingToMove(street, interests), Matchers.nullValue());
+        Assertions.assertThat(WhereToMove.findBuildingToMove(street, interests)).isNull();
     }
 
     @Test
     public void should_return_two_as_the_building_has_the_interest() {
         Building[] street = getDefaultStreet();
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.HOSPITAL));
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(2, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(2).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_nine_since_it_is_in_the_middle_of_interest() {
         Building[] street = getDefaultStreet();
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.COFFEE_SHOP, Interest.CINEMA));
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(1, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(9, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(1).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(9).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -42,75 +50,77 @@ public class WhereToMoveTest {
         Building[] street = getDefaultStreet();
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.BAKERY, Interest.STORE));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(12, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(12).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
-    public void should_return_minus_one_no_interests_to_look_for() {
+    public void should_return_null_no_interests_to_look_for() {
         WhereToMove.CandidateBuilding actual = WhereToMove.findBuildingToMove(getDefaultStreet(), Collections.emptyList());
-        MatcherAssert.assertThat(actual, Matchers.nullValue());
+        Assertions.assertThat(actual).isNull();
     }
 
     @Test
     public void should_return_ten_since_maximal_walking_distance_is_two() {
-        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.COFFEE_SHOP, Interest.BAKERY));
+        WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(
+                getDefaultStreet(),
+                getInterests(Interest.CINEMA, Interest.STORE, Interest.COFFEE_SHOP, Interest.BAKERY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(2, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(10, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(2).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(10).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_eleven_the_middle_point_between_two_buildings_containing_all_interests() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.CINEMA, Interest.STORE, Interest.BAKERY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(1, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(11, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(1).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(11).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_thirteen_that_buildings_contains_all_interests() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(13, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(13).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_twelve_that_buildings_was_first_seen_with_distance_to_all_of_one() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.SCHOOL, Interest.HOSPITAL, Interest.BAR, Interest.BAKERY, Interest.STORE));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(1, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(12, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(1).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(12).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_seven_that_building_was_first_seen_with_distance_to_all_of_seven() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.GYM, Interest.PHARMACY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(7).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(7).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
     public void should_return_seven_that_building_was_first_seen_with_distance_to_all_of_seven_2() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getDefaultStreet(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(7).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(7).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
-    public void should_return_minus_one_street_missing_one_interest() {
+    public void should_return_null_street_missing_one_interest() {
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(getStreetMissingOneInterests(), getInterests(Interest.LIBRARY, Interest.PHARMACY));
-        MatcherAssert.assertThat(buildingToMove, Matchers.nullValue());
+        Assertions.assertThat(buildingToMove).isNull();
     }
 
     @Test
@@ -125,9 +135,9 @@ public class WhereToMoveTest {
 
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(0).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -142,9 +152,9 @@ public class WhereToMoveTest {
 
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, getInterests(Interest.LIBRARY, Interest.PHARMACY));
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(2, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(2).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -160,9 +170,9 @@ public class WhereToMoveTest {
         List<Interest> moverInterests = getInterests(Interest.COFFEE_SHOP, Interest.SCHOOL, Interest.POLICE_STATION);
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(1, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(1, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(1).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(1).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -180,9 +190,9 @@ public class WhereToMoveTest {
         List<Interest> moverInterests = getInterests(Interest.COFFEE_SHOP, Interest.SCHOOL, Interest.POLICE_STATION);
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(4, Is.is(buildingToMove.distanceToAll));
-        TestUtils.iAssertTrue(new HashSet<Integer>(){{add(3);add(4);}}.contains(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(4).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(new HashSet<Integer>(){{add(3);add(4);}}.contains(buildingToMove.buildingIndex())).isTrue();
     }
 
     @Test
@@ -200,9 +210,9 @@ public class WhereToMoveTest {
         List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(7).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -227,9 +237,9 @@ public class WhereToMoveTest {
         List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(0, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(14, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(0).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(14).isEqualTo(buildingToMove.buildingIndex());
     }
 
     @Test
@@ -255,9 +265,9 @@ public class WhereToMoveTest {
         List<Interest> moverInterests = getInterests(Interest.LIBRARY, Interest.POLICE_STATION);
         WhereToMove.CandidateBuilding buildingToMove = WhereToMove.findBuildingToMove(street, moverInterests);
 
-        MatcherAssert.assertThat(buildingToMove, Matchers.notNullValue());
-        MatcherAssert.assertThat(8, Is.is(buildingToMove.distanceToAll));
-        MatcherAssert.assertThat(7, Is.is(buildingToMove.buildingIndex));
+        Assertions.assertThat(buildingToMove).isNotNull();
+        Assertions.assertThat(8).isEqualTo(buildingToMove.distanceToAll());
+        Assertions.assertThat(7).isEqualTo(buildingToMove.buildingIndex());
     }
 
     private Building[] buildStreetBuildingsBasedOnInterests(Collection<? extends Collection<Interest>> interests) {

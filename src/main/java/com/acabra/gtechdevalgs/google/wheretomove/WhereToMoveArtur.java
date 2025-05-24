@@ -87,7 +87,7 @@ public class WhereToMoveArtur {
 
     private WhereToMove.CandidateBuilding parseCandidate(int[] buildingToMove) {
         int idx = buildingToMove[0];
-        return idx == -1 ? null : WhereToMove.CandidateBuilding.of(buildingToMove[1], idx);
+        return idx == -1 ? null : new WhereToMove.CandidateBuilding(buildingToMove[1], idx);
     }
 
     private List<String>[] parseStreet(Building[] street) {
